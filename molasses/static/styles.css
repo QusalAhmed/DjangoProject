@@ -1,0 +1,186 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: whitesmoke;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    /*background-image: url('https://jazakallah.store/images/products/liquid%20jhola.jpeg');*/
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+    /*!*background-attachment: fixed;*!*/
+    /*!* Set visibility of the background image *!*/
+    /*background-blend-mode: normal;*/
+    /*background-color: rgba(255, 255, 255, 0.4);*/
+    /*background-position: center center;*/
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Product List Grid */
+#product-list {
+    display: grid;
+    gap: 20px; /* Space between products */
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px; /* Limit width for large screens */
+    box-sizing: border-box;
+}
+
+/* Desktop: 4 products per row */
+@media (min-width: 1024px) {
+    #product-list {
+        grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+    }
+}
+
+/* Tablet: 3 products per row */
+@media (min-width: 768px) and (max-width: 1023px) {
+    #product-list {
+        grid-template-columns: repeat(3, 1fr); /* 3 equal columns */
+        padding: 10px; /* Adjust padding for smaller devices */
+    }
+}
+
+/* Phone: 1 product per row */
+@media (max-width: 767px) {
+    #product-list {
+        grid-template-columns: 1fr; /* 1 column */
+        padding: 10px; /* Padding for small screens */
+    }
+}
+
+/* Product Card Styling */
+.product-card {
+    position: relative;
+    display: flex; /* Enable flexbox */
+    flex-direction: column; /* Stack elements vertically */
+    justify-content: space-between; /* Spread out content */
+    height: 100%; /* Make sure it stretches the height */
+    margin: 0;
+    padding: 20px;
+    background: rgba(235, 255, 255, 0.6); /* Transparent feel */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2), 0 4px 6px rgba(0, 0, 0, 0.1); /* Depth effect */
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.product-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3), 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #ff0000;
+    color: #ffffff;
+    font-size: 12px;
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+/* Ensure Images Scale Properly */
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust Content Inside Product Card */
+.product-title,
+.product-price {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.product-title {
+    font-size: 18px;
+    color: #333;
+    margin: 10px 0 5px;
+}
+
+.product-price {
+    font-size: 16px;
+    color: #009900;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    font-size: 14px;
+    color: black;
+    margin-bottom: 15px;
+}
+
+.product-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.quantity-btn:hover {
+    background: linear-gradient(90deg, #ffaa00, #ff8800);
+}
+
+/* Button Styling */
+.quantity-btn {
+    background: linear-gradient(to bottom, #ffc107, #ffa000);
+    color: black;
+    border: none;
+    /*height: 45px;*/
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.1s ease-in-out;
+}
+
+.quantity-btn:active {
+    transform: scale(0.95);
+}
+
+/* Prevent Overflow Inside Quantity Container */
+.quantity-container {
+    width: 60px;
+    height: 30px;
+    overflow: hidden;
+    /*border: 1px solid #ccc;*/
+    /*border-radius: 5px;*/
+    /*background: #f9f9f9;*/
+    display: flex;
+    justify-content: center;
+    /*align-items: center;*/
+}
+
+.quantity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.digit {
+    font-size: 30px;
+    font-weight: bold;
+    color: #009900;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+}

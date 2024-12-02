@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'profile-css.css' %}">
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'profile-jss.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    Profile
+{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h2>Customer Information</h2>
+
+        <div class="customer-info">
+            <!-- Profile picture section above the details -->
+            <div class="profile-picture">
+                <!-- Profile picture (Replace with actual image URL if necessary) -->
+                <img src="{% static 'profile.png' %}" alt="Customer Profile Picture" id="profile-pic">
+            </div>
+            <div class="customer-details">
+                <p><strong>Name:</strong> <span id="customer-name"></span></p>
+                <p><strong>Phone Number:</strong> <span id="customer-phone"></span></p>
+            </div>
+        </div>
+
+        <div class="order-history">
+            <h3>Your Orders</h3>
+            <table id="order-table">
+                <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Order Date</th>
+                    <th>Order Total</th>
+                    <th>Order Status</th>
+                    <th>Order Details</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Orders will be dynamically populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

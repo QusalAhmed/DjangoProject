@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+{% endblock %}
+
+{% block js %}
+    <script src="{% static 'scripts.js' %}"></script>
+{% endblock %}
+
+{% block title %}
+    Home
+{% endblock title %}
+
+{% block content %}
+    <div id="product-list"></div>
+{% endblock content %}
