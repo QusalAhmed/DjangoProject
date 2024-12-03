@@ -75,7 +75,7 @@ h2 {
 
 /* Styling for the "Order Details" button */
 button {
-    background: linear-gradient(to bottom, yellow, yellowgreen);
+    background: linear-gradient(to bottom, #ffc107, #ffa000);
     color: black;
     border: none;
     padding: 8px 16px;
