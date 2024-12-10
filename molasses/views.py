@@ -7,7 +7,7 @@ from molasses.form import OrderForm
 # Create your views here.
 def home(request):
     products = []
-    for product in Product.objects.all():
+    for product in Product.objects.all().order_by('name'):
         products.append({
             "id": str(product.id),
             "name": product.name,
