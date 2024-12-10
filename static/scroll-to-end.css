@@ -1,0 +1,38 @@
+/* Scroll to Top Button styles */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 20px; /* Position it at the bottom */
+    left: 50%; /* Center horizontally */
+    transform: translateX(-50%); /* Perfect centering horizontally */
+    background-color: #00B0FF;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 60px; /* Size of the button */
+    height: 60px;
+    font-size: 40px; /* Icon size */
+    display: none; /* Hidden by default */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease-in-out;
+    z-index: 100;
+}
+
+#scrollToTopBtn:hover {
+    background-color: #007bb5;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transform: translateX(-50%) scale(1.1);
+}
+
+#scrollToTopBtn:active {
+    background-color: #005f8f;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Using an up-arrow symbol to represent the scroll button */
+#scrollToTopBtn::before {
+    content: "↑";
+    font-size: 2rem;
+}

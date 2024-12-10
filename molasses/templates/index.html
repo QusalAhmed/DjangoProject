@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'general-css.css' %}">
+</head>
+<body>
+<main>
+    <!-- Embedding product data as a JSON script -->
+    <script id="product-data" type="application/json">
+        {{ products|safe }}
+    </script>
+    <div id="selected-weights">
+        <h2>Selected Weights</h2>
+        <ul id="weights-list">
+            <!-- Weight information will be dynamically updated here -->
+        </ul>
+    </div>
+    <div id="product-list">
+        {% for product in products %}
+            <div class="product-card">
+                <div class="badge">Organic</div>
+                <img src="{{ product.image }}" alt="{{ product.name }}" class="product-image">
+                <h3 class="product-title">{{ product.name }}</h3>
+                <p class="product-price">{{ product.price }} ৳ per Kg</p>
+                <p class="product-description">{{ product.description|safe }}</p>
+                <div class="product-actions">
+                    <button class="quantity-btn" onclick="updateWeight({{ product.id }}, -1)">১ কেজি কমান</button>
+                    <div class="quantity-container">
+                        <div class="quantity" id="quantity-{{ product.id }}"></div>
+                    </div>
+                    <button class="quantity-btn" onclick="updateWeight({{ product.id }}, 1)">১ কেজি যোগ করুন</button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</main>
+<script>
+    // Parse product data from the embedded script tag
+    const productData = JSON.parse(document.getElementById('product-data').textContent.replace(/'/g, '"'));
+
+    // Initialize product weights
+    const productWeights = {};
+    productData.forEach(product => {
+        productWeights[product.id] = 0;
+    });
+
+    function generateDigits(container, maxWeight) {
+        container.innerHTML = '';
+        for (let i = 0; i <= maxWeight; i++) {
+            const digitElement = document.createElement('div');
+            digitElement.classList.add('digit');
+            digitElement.textContent = i.toString();
+            container.appendChild(digitElement);
+        }
+    }
+
+    function updateWeight(productId, change) {
+        const maxWeight = 999;
+        const digitHeight = 30;
+        const weightContainer = document.querySelector(`#quantity-${productId}`);
+        productWeights[productId] = Math.max(
+            0,
+            Math.min(productWeights[productId] + change, maxWeight)
+        );
+        weightContainer.style.transform = `translateY(-${productWeights[productId] * digitHeight}px)`;
+
+        // Update the list of selected weights
+        updateSelectedWeights();
+    }
+
+    // Update the selected weights list in the UI
+    function updateSelectedWeights() {
+        const weightsList = document.getElementById('weights-list');
+        weightsList.innerHTML = ''; // Clear existing list
+
+        Object.keys(productWeights).forEach(productId => {
+            const weight = productWeights[productId];
+            if (weight > 0) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Product ID ${productId}: ${weight} Kg`;
+                weightsList.appendChild(listItem);
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        productData.forEach(product => {
+            generateDigits(document.querySelector(`#quantity-${product.id}`), 1000);
+        });
+    });
+</script>
+</body>
+</html>

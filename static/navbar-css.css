@@ -4,10 +4,24 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background: linear-gradient(135deg, #a8edea, #fed6e3);
     backdrop-filter: blur(10px);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     color: black;
+}
+
+/* Left side - Logo and Business Name */
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between logo and business name */
+}
+
+.navbar-left .logo img {
+    width: 40px; /* Set the width of the logo */
+    height: 40px; /* Set the height of the logo */
+    object-fit: contain; /* Ensure the logo maintains its aspect ratio */
+    border-radius: 50%; /* Make the logo circular */
 }
 
 /* Left side - Business Name */
@@ -56,7 +70,7 @@
 }
 
 .sidebar h2 {
-    color: #ffcc00;
+    color: blue;
     font-size: 24px;
 }
 
@@ -75,6 +89,10 @@
 
 .navbar-left .business-name:hover {
     color: #ffcc00;
+}
+
+.empty-cart {
+    color: red;
 }
 
 /* Media Queries for tablet and phone */

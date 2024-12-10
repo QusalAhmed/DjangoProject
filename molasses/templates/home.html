@@ -3,16 +3,180 @@
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'scroll-to-end.css' %}">
 {% endblock %}
 
 {% block js %}
     <script src="{% static 'scripts.js' %}"></script>
+    <script src="{% static 'scroll-to-end.js' %}"></script>
 {% endblock %}
 
 {% block title %}
-    Home
+    জাযাকাল্লাহ | খেজুরের খাটি গুড় . পাাটালি, ঝোলা, রাব, নলেন গুড় কিনতে যোগাযোগ করুন
 {% endblock title %}
 
 {% block content %}
-    <div id="product-list"></div>
+    {% include 'scroll-to-end.html' %}
+    {#    Product List#}
+    <!-- Embedding product data as a JSON script -->
+    <script id="product-data" type="application/json">
+        {{ products|safe }}
+    </script>
+    <div id="selected-weights" hidden>
+        <h2>Selected Weights</h2>
+        <ul id="weights-list">
+            <!-- Weight information will be dynamically updated here -->
+        </ul>
+    </div>
+    <div id="product-list">
+        {% for product in products %}
+            <div class="product-card">
+                <div class="badge">Organic</div>
+                <img src="{% static 'product_image' %}/{{ product.image }}"
+                     alt="{{ product.name }}" class="product-image">
+                <h3 class="product-title">{{ product.name }}</h3>
+                <p class="product-price">৳ {{ product.price }} per Kg</p>
+                <p class="product-description">{{ product.description|safe }}</p>
+                <div class="product-actions">
+                    <button class="quantity-btn" onclick="updateWeight('{{ product.id }}', -1)">১ কেজি কমান</button>
+                    <div class="quantity-container">
+                        <div class="quantity" id="quantity-{{ product.id }}"></div>
+                    </div>
+                    <button class="quantity-btn" onclick="updateWeight('{{ product.id }}', 1)">১ কেজি যোগ করুন
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    {#    Order Invoice  #}
+    <div class="order-details">
+        <h1 class="order-heading">Order Details</h1>
+        <table class="order-table">
+            <thead>
+            <tr>
+                <th>Product Name</th>
+                <th class="centered">Unit Price</th>
+                <th class="centered"></th>
+                <th class="centered">Unit</th>
+                <th class="centered"></th>
+                <th class="centered">Unit Subtotal</th>
+            </tr>
+            </thead>
+            <tbody id="order-body">
+            <!-- Rows dynamically populated via JavaScript -->
+            </tbody>
+            <tfoot>
+            <tr>
+                <td class="total-label" colspan="5">Subtotal</td>
+                <td id="subtotal-price" class="total-price">0.00</td>
+            </tr>
+            <tr>
+                <td class="total-label" colspan="5">Delivery Charge</td>
+                <td id="delivery-charge" class="total-price">100.00</td>
+            </tr>
+            <tr>
+                <td class="total-label" colspan="5">Total</td>
+                <td id="total-price" class="total-price">0.00</td>
+            </tr>
+            </tfoot>
+        </table>
+    </div>
+
+    {#    Order Confirmation form   #}
+    <div class="form-container" id="form-container">
+        <h2>Order Confirmation</h2>
+        <form id="order-form" method="POST" target="_parent" action="/order_confirmation">
+            {% csrf_token %}
+            <div>
+                {{ form.name.label_tag }}
+                {{ form.name }}
+                {% if form.name.help_text %}
+                    <small>{{ form.name.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form.phone.label_tag }}
+                {{ form.phone }}
+                {% if form.phone.help_text %}
+                    <small>{{ form.phone.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form.division.label_tag }}
+                {{ form.division }}
+                {% if form.division.help_text %}
+                    <small>{{ form.division.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form.address.label_tag }}
+                {{ form.address }}
+                {% if form.address.help_text %}
+                    <small>{{ form.address.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <div>
+                {{ form.comment.label_tag }}
+                {{ form.comment }}
+                {% if form.comment.help_text %}
+                    <small>{{ form.comment.help_text }}</small>
+                {% endif %}
+            </div>
+
+            <h3>Payment Method</h3>
+            <div class="toggle-group">
+                <input type="radio" id="cod" name="payment_method" value="Cash on Delivery"
+                       {% if form.payment_method.value == 'Cash on Delivery' %}checked{% endif %}>
+                <label for="cod" data-method="cod">Cash on Delivery</label>
+                <input type="radio" id="bkash" name="payment_method" value="Bkash"
+                       {% if form.payment_method.value == 'Bkash' %}checked{% endif %} disabled>
+                <label for="bkash" data-method="bkash">Bkash</label>
+            </div>
+
+            <div id="payment-info" class="payment-process">
+                <!-- Payment process details will be displayed here -->
+            </div>
+            <button type="submit" id="submit-button">Confirm Order</button>
+        </form>
+
+        <!-- Loading Animation -->
+        <div id="loading-animation" class="loading-animation">
+            <div class="spinner"></div>
+            Submitting your form...
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal" id="invalid-phone-modal">
+        <div class="modal-content">
+            <h3>Invalid Phone Number</h3>
+            <p>Please enter a valid phone number in the format +880XXXXXXXXXX, 880XXXXXXXXXX, or 0XXXXXXXXXX.</p>
+            <button id="close-modal">Close</button>
+        </div>
+    </div>
+
+    <div class="dir-container">
+        <div class="message">
+            <a href="#">
+                <i class="fa-brands fa-facebook-messenger"></i>Message Us
+            </a>
+        </div>
+        <div class="call">
+            <a href="#">
+                <i class="fa-solid fa-phone"></i>Call Us
+            </a>
+        </div>
+        <div class="page-visit">
+            <a href="#">
+                <i class="fa-solid fa-location-arrow"></i>Visit Our Page
+            </a>
+        </div>
+    </div>
+
+    <button class="floating-button hidden" id="floatOrderConfirmButton"></button>
 {% endblock content %}

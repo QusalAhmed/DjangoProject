@@ -1,7 +1,8 @@
 .container {
     max-width: 800px;
     margin: 0 auto;
-    background-color: white;
+    background-color: floralwhite;
+    opacity: 0.8;
     padding: 10px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -59,8 +60,12 @@ h2 {
     background-color: #f9f9f9;
 }
 
+.order-history tr:nth-child(odd) {
+    background-color: white;
+}
+
 .order-history tr:hover {
-    background-color: #eaeaea;
+    background-color: aquamarine;
 }
 
 /* Styling for the order details row */
@@ -68,7 +73,6 @@ h2 {
     margin-top: 10px;
     padding-left: 20px;
     font-size: 0.9em;
-    background-color: #f7f7f7;
     border-left: 3px solid #4CAF50;
     text-align: left;
 }

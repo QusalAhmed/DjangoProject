@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['*',]
 # Application definition
 
 INSTALLED_APPS = [
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -76,10 +77,15 @@ WSGI_APPLICATION = 'DjangoProject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'jazakallah_db',
+        'USER': 'qusal',
+        'PASSWORD': 'secure1Qusal.',
+        'HOST': 'localhost',  # Set to the host of your database, e.g., '127.0.0.1'
+        'PORT': '5432',       # Default PostgreSQL port
     }
 }
+
 
 
 # Password validation

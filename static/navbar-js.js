@@ -16,6 +16,32 @@ function toggleSidebar(event) {
         sidebar.style.left = '0'; // Open the sidebar
         // Add event listener to close sidebar when clicking outside
         document.addEventListener('click', closeSidebarOutside);
+
+        // Populate data in the sidebar
+        if (typeof productWeights === 'undefined') {
+             window.productWeights = JSON.parse(localStorage.getItem('cartList')) || {};
+        }
+
+        const weightsList = document.getElementById('cart-list');
+        weightsList.innerHTML = ''; // Clear existing list
+
+        // Loop through product weights and add them to the list if greater than 0
+        Object.keys(productWeights).forEach(productId => {
+            const {weight, name} = productWeights[productId];
+            if (weight > 0) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${name}: ${weight} Kg`;
+                weightsList.appendChild(listItem);
+            }
+        });
+
+        // Print "No items in cart" if cart is empty
+        if (weightsList.innerHTML === '') {
+            const listItem = document.createElement('span');
+            listItem.classList.add('empty-cart');
+            listItem.textContent = 'No items in cart';
+            weightsList.appendChild(listItem);
+        }
     }
 }
 
