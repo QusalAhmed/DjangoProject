@@ -609,8 +609,8 @@ input.invalid, select.invalid, textarea.invalid {
     position: fixed;
     bottom: 20px; /* Floats at the bottom */
     right: 20px; /* Floats at the right */
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     background: linear-gradient(135deg, #20c997, #17a2b8); /* Teal gradient */
     color: white;
     font-size: 14px;
