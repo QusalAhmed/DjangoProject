@@ -607,8 +607,8 @@ input.invalid, select.invalid, textarea.invalid {
 /* Circular button styles */
 .floating-button {
     position: fixed;
-    bottom: 20px; /* Floats at the bottom */
-    right: 20px; /* Floats at the right */
+    bottom: 15px; /* Floats at the bottom */
+    right: 15px; /* Floats at the right */
     width: 70px;
     height: 70px;
     background: linear-gradient(135deg, #20c997, #17a2b8); /* Teal gradient */
