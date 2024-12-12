@@ -28,6 +28,31 @@
             <!-- Weight information will be dynamically updated here -->
         </ul>
     </div>
+    {#    Product Heading#}
+    <!-- Product Heading -->
+    <div class="product-heading-container">
+        <!-- Product Heading -->
+        <div class="product-heading">
+            খেজুরের খাটি গুড়
+        </div>
+
+        <!-- Button -->
+        <div class="button-container">
+            <button onclick="toggleSlide()">Learn How to Order</button>
+        </div>
+
+        <!-- Sliding Section -->
+        <div id="slide-section">
+            <h2>How to Order</h2>
+            <p>
+                1. Browse the product catalog.<br>
+                2. Add your desired items to the cart.<br>
+                3. Proceed to checkout and fill in your details.<br>
+                4. Confirm your order, and you're done!
+            </p>
+        </div>
+    </div>
+
     <div id="product-list">
         {% for product in products %}
             <div class="product-card">
@@ -156,7 +181,7 @@
     <div class="modal" id="invalid-phone-modal">
         <div class="modal-content">
             <h3>Invalid Phone Number</h3>
-            <p>Please enter a valid phone number in the format +880XXXXXXXXXX, 880XXXXXXXXXX, or 0XXXXXXXXXX.</p>
+            <p>Please enter a valid phone number in the format +8801XXXXXXXXX, 8801XXXXXXXXX, or 01XXXXXXXXX.</p>
             <button id="close-modal">Close</button>
         </div>
     </div>

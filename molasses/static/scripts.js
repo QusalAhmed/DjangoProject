@@ -14,12 +14,10 @@ if (!currentUrl.includes('localhost:8000')) {
     // Disable right-click and copy
     document.addEventListener('contextmenu', (event) => {
         event.preventDefault();
-        alert('Right-click is disabled on this page.');
     });
     document.addEventListener('keydown', (event) => {
         if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
             event.preventDefault();
-            alert('Copy is disabled.');
         }
     });
 }
@@ -158,10 +156,20 @@ const form = document.getElementById('order-form');
 const modal = document.getElementById('invalid-phone-modal');
 const closeModalButton = document.getElementById('close-modal');
 
-// Regex for phone number validation
-const phoneRegex = /^(?:\+880|880|0)\d{10}$/;
+phoneInput.addEventListener("input", () => {
+    // Clear any previous custom validation message when the user starts typing
+    phoneInput.setCustomValidity("");
+});
 
-const formFields = form.querySelectorAll('#id_name, #id_phone, #id_division, #id_address');
+phoneInput.addEventListener("invalid", () => {
+    // Set a custom validation message when the input is invalid
+    phoneInput.setCustomValidity("ফোন নাম্বার লিখুন");
+});
+
+// Regex for phone number validation
+const phoneRegex = /^(?:\+8801|8801|01)\d{9}$/;
+
+const formFields = form.querySelectorAll('#id_name, #id_phone, #id_division, #id_address, #id_comment');
 formFields.forEach(field => {
     field.addEventListener('input', () => {
         console.log(`${field.name} value changed to: ${field.value}`);
@@ -206,6 +214,16 @@ formFields.forEach(field => {
                     field.classList.remove('valid');
                 }
                 break;
+
+            case 'comment':
+                // Comment validation
+                if (field.value.length >= 1) {
+                    field.classList.remove('invalid');
+                    field.classList.add('valid');
+                } else {
+                    field.classList.remove('valid');
+                }
+                break;
         }
     });
 
@@ -220,12 +238,14 @@ formFields.forEach(field => {
 
 // Form submission
 form.addEventListener('submit', function (event) {
-    console.log('Form submitted');
     event.preventDefault();
 
     // Final phone number validation before submission
     if (!phoneRegex.test(phoneInput.value)) {
-        // phoneInput.focus();
+        // Wait for the scroll to finish
+        setTimeout(() => {
+            phoneInput.scrollIntoView({behavior: 'smooth', block: 'center'}); // Scroll to the phone input
+        }, 100);
         modal.style.display = 'flex'; // Show modal
         document.body.style.overflow = 'hidden'; // Disable scrolling
         return;
@@ -347,14 +367,16 @@ floatButton.addEventListener('click', () => {
 // Order details copy button
 function copyText() {
     let orderDetails = ''
+    let subTotal = 0;
     Object.keys(productWeights).forEach(productId => {
-        const {weight, name} = productWeights[productId];
+        const {weight, name, price} = productWeights[productId];
         if (weight > 0) {
             orderDetails += `${name}: ${weight} Kg\n`;
+            subTotal += price * weight;
         }
     });
     // Get the text content
-    const textToCopy = orderDetails;
+    const textToCopy = orderDetails + `Subtotal: ৳${subTotal.toLocaleString('en-BD')}`;
 
     // Copy the text to the clipboard
     navigator.clipboard.writeText(textToCopy).then(() => {
@@ -372,3 +394,9 @@ function copyText() {
         console.error("Failed to copy text: ", err);
     });
 }
+
+// Product heading
+    function toggleSlide() {
+      const slideSection = document.getElementById('slide-section');
+      slideSection.classList.toggle('active');
+    }

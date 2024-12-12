@@ -20,7 +20,7 @@ class OrderForm(forms.Form):
         error_messages={
             'required': 'Phone number is required',
         },
-        help_text="Valid formats: +880XXXXXXXXXX, 880XXXXXXXXXX, 0XXXXXXXXXX"
+        help_text="Valid formats: +8801XXXXXXXXX, 8801XXXXXXXXX, 01XXXXXXXXX"
     )
     division = forms.ChoiceField(
         choices=[

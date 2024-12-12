@@ -185,7 +185,7 @@ main {
 .digit {
     font-size: 30px;
     font-weight: bold;
-    color: #009900;
+    color: #a83972;
     height: 30px;
     line-height: 30px;
     text-align: center;
@@ -720,4 +720,89 @@ input.invalid, select.invalid, textarea.invalid {
 
 .copy-button.copied {
     background: linear-gradient(135deg, #28a745, #45d78a);
+}
+
+/* Autofill background color override */
+input::placeholder, textarea::placeholder, select::placeholder {
+    color: #888; /* Custom placeholder color */
+    font-style: italic; /* Optional style */
+    font-size: 14px; /* Optional size */
+}
+
+/* Add focus effect to input field */
+input:focus, textarea:focus, select:focus {
+    border-color: #007bff;
+    outline: none;
+    transform: scale(1.01, 1.1); /* Slightly increase size */
+    transition: scale 0.3s ease;
+}
+
+/* Add focus effect to input field */
+/* Autofill background fix for Chrome, Edge, and Safari */
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 100px #d4edda inset !important; /* Restore background */
+    -webkit-text-fill-color: black !important; /* Restore text color */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+/* Focused input with autofill */
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px #d4edda inset !important; /* Light blue background on focus */
+    -webkit-text-fill-color: black !important;
+}
+
+/* Product Heading */
+.product-heading-container {
+    text-align: center;
+    color: #c5ff25;
+}
+
+.product-heading {
+    font-size: 2rem;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.button-container {
+    margin-top: 10px;
+}
+
+.button-container button {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    color: black;
+    background: transparent;
+    border: 3px dashed #4ca99c;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.button-container button:hover {
+    background: whitesmoke;
+}
+
+#slide-section {
+    height: 0;
+    overflow: hidden;
+    background: #fff;
+    color: #333;
+    margin-top: 10px;
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: padding 0.3s ease, height 0.5s ease;
+}
+
+#slide-section h2 {
+    text-align: center;
+}
+
+#slide-section p {
+    text-align: left;
+}
+
+#slide-section.active {
+    height: 140px; /* Adjust according to the content height */
+    padding: 10px;
 }
