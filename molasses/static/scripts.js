@@ -1,6 +1,29 @@
 // Parse product data from the embedded script tag
 const productData = JSON.parse(document.getElementById('product-data').textContent.trim().replace(/'/g, '"'));
 
+// Prevent copying
+const quantity_buttons = document.querySelectorAll('.quantity-btn');
+quantity_buttons.forEach(quantity_button => {
+    quantity_button.addEventListener('copy', (event) => {
+        event.preventDefault();
+    });
+});
+// Get current url
+const currentUrl = window.location.href;
+if (!currentUrl.includes('localhost:8000')) {
+    // Disable right-click and copy
+    document.addEventListener('contextmenu', (event) => {
+        event.preventDefault();
+        alert('Right-click is disabled on this page.');
+    });
+    document.addEventListener('keydown', (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key === 'c') {
+            event.preventDefault();
+            alert('Copy is disabled.');
+        }
+    });
+}
+
 
 function generateDigits(container, maxWeight) {
     container.innerHTML = '';
@@ -320,3 +343,32 @@ floatButton.addEventListener('click', () => {
         document.getElementById('submit-button').click(); // Simulate form submission
     }, 500)
 });
+
+// Order details copy button
+function copyText() {
+    let orderDetails = ''
+    Object.keys(productWeights).forEach(productId => {
+        const {weight, name} = productWeights[productId];
+        if (weight > 0) {
+            orderDetails += `${name}: ${weight} Kg\n`;
+        }
+    });
+    // Get the text content
+    const textToCopy = orderDetails;
+
+    // Copy the text to the clipboard
+    navigator.clipboard.writeText(textToCopy).then(() => {
+        // Change button text and style
+        const copyButton = document.getElementById("copy-button");
+        copyButton.textContent = "Copied!";
+        copyButton.classList.add("copied");
+
+        // Reset button text and style after 2 seconds
+        setTimeout(() => {
+            copyButton.textContent = "Copy Order Details";
+            copyButton.classList.remove("copied");
+        }, 2000);
+    }).catch(err => {
+        console.error("Failed to copy text: ", err);
+    });
+}
