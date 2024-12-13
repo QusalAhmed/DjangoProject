@@ -57,7 +57,7 @@ class Order(models.Model):
                 self.serial = 1
 
             # Order details
-            self.order_details = json.loads(self.order_details)
+            # self.order_details = json.loads(self.order_details)
 
         # Calculate total price
         total_price = 0
