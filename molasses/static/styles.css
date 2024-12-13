@@ -785,7 +785,7 @@ input:-webkit-autofill:focus {
 
 #slide-section {
     height: 0;
-    overflow: scroll;
+    overflow: hidden;
     background: #fff;
     color: #333;
     margin-top: 10px;
@@ -803,7 +803,7 @@ input:-webkit-autofill:focus {
 }
 
 #slide-section.active {
-    height: 155px; /* Adjust according to the content height */
+    height: 300px; /* Adjust according to the content height */
     padding: 10px;
 }
 
