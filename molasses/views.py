@@ -40,8 +40,6 @@ def order_confirmation(request):
                 status='pending',
             )
             new_order.save()
-            import time
-            time.sleep(10)
             return HttpResponseRedirect('/thank-you')
         else:
             return render(request, 'home.html', {
