@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from molasses.models import Product
+from molasses.models import Product, Order
 from molasses.form import OrderForm
 
 
@@ -26,6 +26,22 @@ def order_confirmation(request):
         form = OrderForm(request.POST)
         if form.is_valid():
             print(form.cleaned_data)
+            new_order = Order(
+                completion_rate={},
+                order_details=form.cleaned_data['order_details'],
+                delivery_charge=form.cleaned_data['delivery_charge'],
+                address=form.cleaned_data['address'],
+                customer_name=form.cleaned_data['name'],
+                phone=form.cleaned_data['phone'],
+                location=form.cleaned_data['division'],
+                comment=form.cleaned_data['comment'],
+                subtotal=0,
+                discount=0,
+                status='pending',
+            )
+            new_order.save()
+            import time
+            time.sleep(10)
             return HttpResponseRedirect('/thank-you')
         else:
             return render(request, 'home.html', {

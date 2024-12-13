@@ -23,6 +23,22 @@ body {
     /*background-position: center center;*/
 }
 
+/* Touch shader */
+* {
+    /* Disable mobile highlight */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+
+    /* Prevent active state from showing */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -789,6 +805,7 @@ input:-webkit-autofill:focus {
     background: #fff;
     color: #058a58;
     margin-top: 10px;
+    margin-bottom: 10px;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transition: padding 0.3s ease, height 0.5s ease;
@@ -806,16 +823,3 @@ input:-webkit-autofill:focus {
     padding-left: 30px;
     padding-right: 20px;
 }
-
-/* Touch shader */
-button, .toggle-group{
-    /* Disable mobile highlight */
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
-
-    /* Prevent active state from showing */
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-}
-

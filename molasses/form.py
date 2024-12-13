@@ -1,6 +1,17 @@
 from django import forms
 
+
 class OrderForm(forms.Form):
+    order_details = forms.CharField(
+        widget=forms.HiddenInput(),
+        required=False
+    )
+
+    delivery_charge = forms.CharField(
+        widget=forms.HiddenInput(),
+        required=False
+    )
+
     name = forms.CharField(
         max_length=100,
         widget=forms.TextInput(attrs={

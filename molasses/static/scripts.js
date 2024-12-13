@@ -74,6 +74,11 @@ function updateSelectedWeights() {
 
 let productWeights = JSON.parse(localStorage.getItem('cartList')) || {};
 document.addEventListener('DOMContentLoaded', () => {
+    // Close the loading screen
+    const loadingAnimation = document.getElementById('loading-animation');
+    loadingAnimation.style.display = 'none';
+    form.style.opacity = '1';
+
     if (Object.keys(productWeights).length === productData.length) {
         Object.keys(productWeights).forEach(productId => {
             const {weight} = productWeights[productId];
@@ -255,6 +260,14 @@ form.addEventListener('submit', function (event) {
     const loadingAnimation = document.getElementById('loading-animation');
     loadingAnimation.style.display = 'block';
     form.style.opacity = '0.3';
+
+    // JavaScript to add dynamic data to the input (order details)
+    const orderDetailsInput = document.getElementById('id_order_details');
+    orderDetailsInput.value = JSON.stringify(productWeights);
+
+    // JavaScript to add dynamic data to the input (delivery charge)
+    const deliveryChargeInput = document.getElementById('id_delivery_charge');
+    deliveryChargeInput.value = deliveryCharge;
 
     // Finally submit the form to the server
     form.submit()

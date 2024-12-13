@@ -126,6 +126,9 @@
         <h2>Order Confirmation</h2>
         <form id="order-form" method="POST" target="_parent" action="/order_confirmation">
             {% csrf_token %}
+            {{ form.order_details.as_hidden }}
+            {{ form.delivery_charge.as_hidden }}
+
             <div>
                 {{ form.name.label_tag }}
                 {{ form.name }}
