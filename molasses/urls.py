@@ -6,7 +6,7 @@ urlpatterns = [
     path('admin', admin.site.urls),
     path('', home, name='home'),
     path('order_confirmation', name='order_confirmation', view=order_confirmation),
-    path('thank-you', name='thank_you', view=thank_you),
+    path('thank-you/<uuid:order_id>', name='thank_you', view=thank_you),
     path('profile', profile),
     path('products/<slug:product_url>', product_viewer),
     path('hello', helloworld),

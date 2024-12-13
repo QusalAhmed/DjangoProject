@@ -1,1 +1,13 @@
 {% extends 'base.html' %}
+
+{% block title %}
+    Thank You
+{% endblock title %}
+
+{% block content %}
+    <h1>Thank You!</h1>
+    <p>Your order has been placed successfully.</p>
+    {{ order_details.order_details }}
+    {{ order_details.delivery_charge }}
+    {{ order_details.subtotal }}
+{% endblock content %}

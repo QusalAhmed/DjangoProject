@@ -62,16 +62,19 @@ class Order(models.Model):
             for product_id in self.order_details:
                 item = self.order_details[product_id]
                 item['weight'] = int(item['weight'])
-                item['price'] = int(item['price'])
+                try:
+                    item['price'] = Product.objects.get(id=product_id).price
+                except Product.DoesNotExist:
+                    item['price'] = 1000
                 if item['weight'] != 0:
                     order_details[product_id] = item
             self.order_details = order_details
 
         # Calculate total price
-        total_price = 0
+        subtotal = 0
         for product_id in self.order_details:
             item = self.order_details[product_id]
-            total_price += item['price'] * item['weight']
-        self.total_price = total_price
+            subtotal += item['price'] * item['weight']
+        self.subtotal = subtotal
 
         super(Order, self).save(*args, **kwargs)

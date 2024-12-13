@@ -40,7 +40,8 @@ def order_confirmation(request):
                 status='pending',
             )
             new_order.save()
-            return HttpResponseRedirect('/thank-you')
+            order_id = new_order.id
+            return HttpResponseRedirect('/thank-you/' + str(order_id))
         else:
             return render(request, 'home.html', {
                 'form': form,
@@ -50,8 +51,12 @@ def order_confirmation(request):
             'form': OrderForm(),
         })
 
-def thank_you(request):
-    return render(request, 'thank_you.html')
+def thank_you(request, order_id):
+    try:
+        order_details = Order.objects.get(id=order_id)
+        return render(request, 'thank_you.html', {'order_details': order_details})
+    except Order.DoesNotExist:
+        raise Http404('Order not found')
 
 def profile(request):
     return render(request, 'profile.html')

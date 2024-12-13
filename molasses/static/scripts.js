@@ -93,7 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
         productWeights = {};
         productData.forEach(product => {
             productWeights[product.id] = {weight: 0, name: product.name, price: product.price};
-            console.log(productWeights[product.id])
             generateDigits(document.querySelector(`#quantity-${product.id}`), 1000);
         });
         localStorage.setItem('cartList', JSON.stringify(productWeights));
