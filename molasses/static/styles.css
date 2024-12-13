@@ -787,7 +787,7 @@ input:-webkit-autofill:focus {
     height: 0;
     overflow: hidden;
     background: #fff;
-    color: #333;
+    color: #058a58;
     margin-top: 10px;
     border-radius: 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -803,8 +803,8 @@ input:-webkit-autofill:focus {
 }
 
 #slide-section.active {
-    height: 300px; /* Adjust according to the content height */
-    padding: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
 }
 
 /* Touch shader */

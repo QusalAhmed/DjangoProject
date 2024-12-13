@@ -396,7 +396,10 @@ function copyText() {
 }
 
 // Product heading
-    function toggleSlide() {
-      const slideSection = document.getElementById('slide-section');
-      slideSection.classList.toggle('active');
-    }
+function toggleSlide() {
+    const slideSection = document.getElementById('slide-section');
+    // Set height of slideSection
+    const slideHeight = slideSection.scrollHeight;
+    slideSection.style.height = slideSection.classList.contains('active') ? 0 : `${slideHeight + 20}px`;
+    slideSection.classList.toggle('active');
+}
