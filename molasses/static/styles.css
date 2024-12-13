@@ -798,13 +798,13 @@ input:-webkit-autofill:focus {
     text-align: center;
 }
 
-#slide-section p {
+#slide-section ol {
     text-align: left;
 }
 
 #slide-section.active {
-    padding-bottom: 10px;
-    padding-left: 10px;
+    padding-left: 30px;
+    padding-right: 20px;
 }
 
 /* Touch shader */
