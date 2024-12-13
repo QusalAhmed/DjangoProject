@@ -803,6 +803,19 @@ input:-webkit-autofill:focus {
 }
 
 #slide-section.active {
-    height: 140px; /* Adjust according to the content height */
+    height: 155px; /* Adjust according to the content height */
     padding: 10px;
 }
+
+/* Touch shader */
+button, .toggle-group{
+    /* Disable mobile highlight */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+
+    /* Prevent active state from showing */
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
