@@ -58,12 +58,20 @@ class Order(models.Model):
 
             # Order details
             self.order_details = json.loads(self.order_details)
+            order_details = {}
+            for product_id in self.order_details:
+                item = self.order_details[product_id]
+                item['weight'] = int(item['weight'])
+                item['price'] = int(item['price'])
+                if item['weight'] != 0:
+                    order_details[product_id] = item
+            self.order_details = order_details
 
         # Calculate total price
         total_price = 0
         for product_id in self.order_details:
             item = self.order_details[product_id]
-            total_price += int(item['price']) * int(item['weight'])
+            total_price += item['price'] * item['weight']
         self.total_price = total_price
 
         super(Order, self).save(*args, **kwargs)
