@@ -71,9 +71,6 @@ function updateSelectedWeights() {
 
 let productWeights = JSON.parse(localStorage.getItem('cartList')) || {};
 document.addEventListener('DOMContentLoaded', () => {
-    // Fb page view event
-    fbq('track', 'PageView');
-
     // Close the loading screen
     const loadingAnimation = document.getElementById('loading-animation');
     loadingAnimation.style.display = 'none';
@@ -476,4 +473,14 @@ contactButtons.forEach(button => {
     button.addEventListener('click', () => {
         fbq('track', 'Contact');
     });
+});
+
+// Send Fb event when page visited
+let pageVisitFired = false; // Prevent duplicate PageView events
+
+window.addEventListener('scroll', function() {
+  if (!pageVisitFired && window.scrollY > 200) { // Trigger after scrolling 200px
+    fbq('track', 'PageView');
+    pageVisitFired = true;
+  }
 });
