@@ -38,6 +38,17 @@ function updateWeight(productId, change) {
 
     // Update the invoice table
     populateOrderTable();
+
+    // Fb event
+    if (change > 0) {
+        fbq('track', 'AddToCart', {
+            content_ids: [productId],
+            content_name: product.name,
+            content_type: 'product',
+            value: product.price,
+            currency: 'BDT'
+        });
+    }
 }
 
 // Update the selected weights list in the UI
@@ -60,6 +71,9 @@ function updateSelectedWeights() {
 
 let productWeights = JSON.parse(localStorage.getItem('cartList')) || {};
 document.addEventListener('DOMContentLoaded', () => {
+    // Fb page view event
+    fbq('track', 'PageView');
+
     // Close the loading screen
     const loadingAnimation = document.getElementById('loading-animation');
     loadingAnimation.style.display = 'none';
@@ -186,6 +200,9 @@ formFields.forEach(field => {
                 }
                 break;
             case 'phone':
+                // Fb initial checkout event
+                initCheckout();
+
                 let phone_number = field.value.replace(/[- ]/g, '');
                 phoneInput.value = phone_number;
                 // Phone number validation
@@ -372,7 +389,39 @@ floatButton.addEventListener('click', () => {
     setTimeout(() => {
         document.getElementById('submit-button').click(); // Simulate form submission
     }, 500)
+
+    // Fb initial checkout event
+    initCheckout();
 });
+
+let initialCheckout = false;
+function initCheckout() {
+    if (initialCheckout) return; // If the event is already sent, exit the function
+    const contents = Object.keys(productWeights).map(productId => {
+        const {weight, name, price} = productWeights[productId];
+        return {
+            id: productId,
+            product_name: name,
+            quantity: weight,
+            item_price: price
+        };
+    })
+    const subTotal = Object.keys(productWeights).reduce((acc, productId) => {
+        const {weight, price} = productWeights[productId];
+        return acc + price * weight;
+    });
+    if (contents.length === 0) return; // If no product is selected, exit the function
+    console.log("Initiating checkout with contents: ", contents);
+    fbq('track', 'InitiateCheckout', {
+        content_ids: Object.keys(productWeights),
+        contents: contents,
+        currency: 'BDT',
+        num_items: contents.length,
+        value: subTotal,
+        predicted_ltv: subTotal,
+    });
+    initialCheckout = true;
+}
 
 // Order details copy button
 function copyText() {
@@ -403,6 +452,13 @@ function copyText() {
     }).catch(err => {
         console.error("Failed to copy text: ", err);
     });
+
+    // Fb custom event
+    fbq('trackCustom', 'InterestOnProduct', {
+        content: orderDetails,
+        value: subTotal,
+        currency: 'BDT'
+    });
 }
 
 // Product heading
@@ -413,3 +469,11 @@ function toggleSlide() {
     slideSection.style.height = slideSection.classList.contains('active') ? 0 : `${slideHeight + 20}px`;
     slideSection.classList.toggle('active');
 }
+
+// Send Fb event when message or call button clicked
+const contactButtons = document.querySelectorAll('.fb-contact');
+contactButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        fbq('track', 'Contact');
+    });
+});
