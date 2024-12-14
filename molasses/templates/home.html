@@ -1,223 +1,990 @@
-{% extends 'base.html' %}
-
-{% load static %}
-{% block css %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <link rel="stylesheet" href="{% static 'scroll-to-end.css' %}">
-{% endblock %}
-
-{% block js %}
-    <script src="{% static 'scripts.js' %}"></script>
-    <script src="{% static 'scroll-to-end.js' %}"></script>
-{% endblock %}
-
-{% block title %}
-    জাযাকাল্লাহ | খেজুরের খাটি গুড় . পাাটালি, ঝোলা, রাব, নলেন গুড় কিনতে যোগাযোগ করুন
-{% endblock title %}
-
-{% block content %}
-    {% include 'scroll-to-end.html' %}
-    {#    Product List#}
-    <!-- Embedding product data as a JSON script -->
-    <script id="product-data" type="application/json">
-        {{ products|safe }}
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <!-- Matomo -->
+    <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="https://webvillagiestore.matomo.cloud/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '1']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src='//cdn.matomo.cloud/webvillagiestore.matomo.cloud/matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
     </script>
-    <div id="selected-weights" hidden>
-        <h2>Selected Weights</h2>
-        <ul id="weights-list">
-            <!-- Weight information will be dynamically updated here -->
-        </ul>
+    <!-- End Matomo Code -->
+
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="author" content="Executor">
+    <meta name="description" content="খাঁটি খেজুরের গুড় কিনতে যোগাযোগ করুন">
+    <meta property="og:title" content="খেজুরের খাঁটি গুড়" />
+    <meta property="og:type" content="website" />
+    <meta property="og:URL" content="https://web.villagie.store/" />
+    <meta property="og:description" content="আমরা খেজুরের খাঁটি গুড় বিক্রি করি" />
+    <meta property="og:image" content="images/products/patali.jpeg" />
+
+    <!-- Font Imports -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&family=Merriweather:ital,wght@0,300;0,400;1,300;1,400&display=swap"
+          rel="stylesheet">
+
+    <!-- Core Style -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Icons -->
+    <link rel="stylesheet" href="css/font-icons.css">
+    <script src="https://kit.fontawesome.com/e23efdd7f0.js" crossorigin="anonymous"></script>
+
+    <!-- Plugins/Components CSS -->
+    <!--    <link rel="stylesheet" href="css/swiper.css">-->
+
+    <!-- Niche Demos -->
+    <link rel="stylesheet" href="shop/shop.css">
+
+    <!-- Custom CSS -->
+    <!--    <link rel="stylesheet" href="include/flexslider/flexslider.css">-->
+
+    <link rel="stylesheet" href="css/custom.css">
+
+    <style>
+        .flex-direction-nav a {
+            height: 60px !important;
+            text-align: center !important;
+        }
+
+        .quantity {
+            width: 100% !important;
+        }
+
+        .quantity .plus, .quantity .minus, .quantity .qty {
+            line-height: 16px;
+            font-size: 15px;
+        }
+
+        .quantity .plus .add, .quantity .minus .add, .quantity .qty .add {
+            vertical-align: middle;
+            display: table-cell;
+            height: 50px;
+            text-align: center;
+            width: 250px;
+            border-radius: 25px;
+            padding: 0 2px 2px;
+        }
+
+        #checkout {
+            position: fixed;
+            bottom: 85px;
+            right: 10px;
+            border: 3px solid #42f5d7;
+        }
+
+        @keyframes typeWriter {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+
+        .typewriter-text {
+            overflow: hidden;
+            border-right: 1px solid #000; /* For the cursor effect */
+            white-space: nowrap; /* Prevent wrapping */
+            animation: typeWriter 4s steps(40) infinite;
+        }
+
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+
+
+        .call-btn {
+            position: fixed;
+            margin: 0;
+            padding: 0;
+            left: 0;
+            bottom: 0px;
+            background: #fff;
+            background-color: transparent;
+            cursor: pointer;
+            font-size: 0;
+            width: 110px;
+            height: 110px;
+            z-index: 1000;
+        }
+
+        .call-btn .tada {
+            background: #ff9002;
+            border-radius: 100px;
+            width: 40px;
+            height: 40px;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            margin-top: -20px;
+            margin-left: -20px;
+            animation-name: tada;
+            animation-duration: 0.5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+        }
+
+        .call-btn .tada a:before {
+            font-family: FontAwesome;
+            content: "\f095";
+            font-size: 25px;
+
+            text-decoration: none;
+            color: #fff;
+            margin-left: 10px;
+            position: absolute;
+            top: 50%;
+            margin-top: -10px;
+        }
+
+
+        @keyframes tada {
+            from {
+                transform: rotate(-20deg);
+            }
+            to {
+                transform: rotate(20deg);
+            }
+        }
+
+        .call-btn .pulse {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 144, 2, 0.39);
+        ;
+            border-radius: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -30px;
+            margin-left: -30px;
+            animation-name: pulse;
+            animation-duration: 0.5s;
+            animation-iteration-count: infinite;
+            animation-direction: alternate;
+            animation-timing-function: ease-in-out;
+        }
+
+        @keyframes pulse {
+            from {
+                width: 55px;
+                height: 55px;
+                margin-top: -27.5px;
+                margin-left: -27.5px;
+            }
+            to {
+                width: 60px;
+                height: 60px;
+                margin-top: -30px;
+                margin-left: -30px;
+            }
+        }
+
+        .call-btn .zoomIn {
+            width: 80px;
+            height: 80px;
+            border: 2px solid #ff9002;
+            border-radius: 100px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -40px;
+            margin-left: -40px;
+            animation-name: zoomIn;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-out;
+        }
+
+        @keyframes zoomIn {
+            from {
+                width: 40px;
+                height: 40px;
+                margin-top: -20px;
+                margin-left: -20px;
+            }
+            to {
+                width: 80px;
+                height: 80px;
+                margin-top: -40px;
+                margin-left: -40px;
+            }
+        }
+
+        @media screen and (max-width: 549px) {
+            .call-btn {
+                width: 80px;
+                height: 80px;
+            }
+        }
+
+        .call-text {
+            font-family: "Cambria", Arial, sans-serif;
+            position: absolute;
+            top: 30%;
+            left: 80%;
+            margin-top: -20px;
+            margin-left: -20px;
+            color: #ff9002;
+            font-size: 20px;
+            font-weight: 800;
+            text-align: center;
+            width: 100px;
+        }
+
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="images/png" href="images/favicon.png">
+
+
+    <!-- Document Title
+    ============================================= -->
+    <title>খেজুরের খাঁটি গুড়</title>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1515509469312729');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+                   src="https://www.facebook.com/tr?id=1515509469312729&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+</head>
+
+<body class="stretched">
+<!--&lt;!&ndash;Start of Tawk.to Script&ndash;&gt;-->
+<!--<script type="text/javascript">-->
+<!--    var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();-->
+<!--    (function(){-->
+<!--        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];-->
+<!--        s1.async=true;-->
+<!--        s1.src='https://embed.tawk.to/60b232bcde99a4282a1a4292/1f6s1cd4q';-->
+<!--        s1.charset='UTF-8';-->
+<!--        s1.setAttribute('crossorigin','*');-->
+<!--        s0.parentNode.insertBefore(s1,s0);-->
+<!--    })();-->
+<!--</script>-->
+<!--&lt;!&ndash;End of Tawk.to Script&ndash;&gt;-->
+<audio id="backgroundMusic" autoplay>
+    <source src="audio/instruction.mp3" type="audio/mp3">
+    Your browser does not support the tutorial audio.
+</audio>
+
+<div class="call-btn">
+    <div class="zoomIn"></div>
+    <div class="call-text">
+        Call Now
     </div>
-    {#    Product Heading#}
-    <!-- Product Heading -->
-    <div class="product-heading-container">
-        <!-- Product Heading -->
-        <div class="product-heading">
-            খেজুরের খাটি গুড়
-        </div>
+    <div class="pulse"></div>
+    <div class="tada">
+        <a href="tel:+8801843557389"></a>
+    </div>
+</div>
 
-        <!-- Button -->
-        <div class="button-container">
-            <button onclick="toggleSlide()">Learn How to Order</button>
-        </div>
-
-        <!-- Sliding Section -->
-        <div id="slide-section">
-            <h2>How to Order</h2>
-            <ol start="1">
-                <li>
-                    যেই আইটেম কিনতে চান তার নিচের দিকে "১ কেজি যোগ করুন" বাটনে ক্লিক করে পরিমাণ সিলেক্ট করুন
-                </li>
-                <li>
-                    "১ কেজি কমান" বাটনে ক্লিক করে ১কেজি করে কমাতে পারেন
-                </li>
-                <li>
-                    চাইলে একাধিক আইটেম একসাথে অর্ডার করতে পারেন
-                </li>
-                <li>
-                    পরিমাণ সিলেক্ট করার পর ডানে নিচে "Confirm Order" বাটনে ক্লিক করুন বা নিচের দিকে স্ক্রল করে ফোন
-                    নাম্বার দিয়ে অর্ডার সম্পন্ন করুন
-                </li>
-                <li>
-                    অর্ডার করতে সমস্যা হলে "Call Us" বাটনে ক্লিক করে কল করতে পারছেন
-                </li>
-            </ol>
-        </div>
+<!-- Document Wrapper
+============================================= -->
+<div id="wrapper">
+    <div class="fixed-bottom m-0">
+        <button type="button" id="checkout" onclick="scrollToSection('submit-button')" disabled
+                class="button fw-semi-bold shadow text-warning bg-dark rounded-6 py-1 px-2 text-wrap">
+            <i class="fa-solid fa-lock"></i>অর্ডার কনফার্ম করুন
+        </button>
     </div>
 
-    <div id="product-list">
-        {% for product in products %}
-            <div class="product-card">
-                <div class="badge">Organic</div>
-                <img src="{% static 'product_image' %}/{{ product.image }}"
-                     alt="{{ product.name }}" class="product-image">
-                <h3 class="product-title">{{ product.name }}</h3>
-                <p class="product-price">৳ {{ product.price }} per Kg</p>
-                <p class="product-description">{{ product.description|safe }}</p>
-                <div class="product-actions">
-                    <button class="quantity-btn" onclick="updateWeight('{{ product.id }}', -1)">১ কেজি কমান</button>
-                    <div class="quantity-container">
-                        <div class="quantity" id="quantity-{{ product.id }}"></div>
+    <!-- Content
+    ============================================= -->
+    <section id="content">
+        <div class="content-wrap pt-1">
+            <!-- New Arrivals Men
+            ============================================= -->
+            <div class="container">
+
+                <div class="fancy-title title-border mt-4 mb-3 title-center">
+                    <h1>আমাদের গুড়</h1>
+                </div>
+                <div class="blockquote-footer mb-0">
+                    যে গুড় কিনতে চান সেটার পরিমাণ সিলেক্ট করুন। পেজের নিচের দিকে ডেলিভারি চার্জ সহ মোট মূল্য দেখতে পারবেন। নাম, ঠিকানা ও ফোন নাম্বার দিয়ে অর্ডার কনফার্ম করুন।
+                </div>
+
+                <div class="row col-mb-30">
+
+                    <!-- Shop Item 1
+                    ============================================= -->
+                    <div class="col-lg-3 col-md-3 col-12 px-2">
+                        <div class="product bg-contrast-300 rounded-6 p-2">
+                            <div class="product-image" style="max-height: 400px;">
+                                <img src="images/products/patali.jpeg" alt="Patali Gur">
+                                <div class="sale-flash badge bg-danger p-2">Organic</div>
+                            </div>
+                            <div class="product-desc">
+                                <div class="product-title mb-1" style="font-weight: 800;">পাটালি গুড়</div>
+                                <div class="fs-6 fw-bold text-success"><span>350</span> টাকা প্রতি কেজি</div>
+                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(--cnvs-primary-font);">
+                                    খাঁটি গুড়
+                                </div>
+                            </div>
+                            <div class="quantity d-flex">
+                                <a href="#" class="minus flex-fill text-bg-warning"
+                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="1">
+                                    <div class="add">১ কেজি কমান</div>
+                                </a>
+                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"
+                                       class="qty product-1 text-bg-info border-0" size="4"
+                                       style="font-size: 30px">
+                                <input type="text" name="quantity-unit" value="Kg" title="Qty"
+                                       class="qty text-bg-info border-0" disabled size="4"
+                                       style="font-size: 30px">
+                                <a href="#" class="plus flex-fill text-bg-warning"
+                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="1">
+                                    <div class="add">১ কেজি যোগ করুন</div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                    <button class="quantity-btn" onclick="updateWeight('{{ product.id }}', 1)">১ কেজি যোগ করুন
-                    </button>
+
+                    <!-- Shop Item 9
+                    ============================================= -->
+<!--                    <div class="col-lg-3 col-md-3 col-12 px-2">-->
+<!--                        <div class="product bg-contrast-300 rounded-6 p-2">-->
+<!--                            <div class="product-image" style="max-height: 400px;">-->
+<!--                                <img src="images/products/Foil%20Patali.jpg" alt="Foil Patali Gur">-->
+<!--                                <div class="sale-flash badge bg-danger p-2">Better Packaging</div>-->
+<!--                            </div>-->
+<!--                            <div class="product-desc">-->
+<!--                                <div class="product-title mb-1" style="font-weight: 800;">ফয়েল পাটালি গুড়</div>-->
+<!--                                <div class="fs-6 fw-bold text-success"><span>350</span> টাকা প্রতি কেজি</div>-->
+<!--                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(&#45;&#45;cnvs-primary-font);">-->
+<!--                                    এটা পাটালি গুড় শুধু ফয়েল পেপারে ঢালা হয়েছে।-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="quantity d-flex">-->
+<!--                                <a href="#" class="minus flex-fill text-bg-warning"-->
+<!--                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="9">-->
+<!--                                    <div class="add">১ কেজি কমান</div>-->
+<!--                                </a>-->
+<!--                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"-->
+<!--                                       class="qty product-9 text-bg-info border-0" size="4"-->
+<!--                                       style="font-size: 30px">-->
+<!--                                <input type="text" name="quantity-unit" value="Kg" title="Qty"-->
+<!--                                       class="qty text-bg-info border-0" disabled size="4"-->
+<!--                                       style="font-size: 30px">-->
+<!--                                <a href="#" class="plus flex-fill text-bg-warning"-->
+<!--                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="9">-->
+<!--                                    <div class="add">১ কেজি যোগ করুন</div>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                    <!-- Shop Item 2
+                    ============================================= -->
+                    <div class="col-lg-3 col-md-3 col-12 px-2">
+                        <div class="product bg-contrast-300 rounded-6 p-2">
+                            <div class="product-image" style="max-height: 400px;">
+                                <img src="images/products/1st%20cut%202-3.jpeg" alt="First Cut Patali Gur">
+                                <div class="sale-flash badge bg-danger p-2">Better</div>
+                            </div>
+                            <div class="product-desc">
+                                <div class="product-title mb-1" style="font-weight: 800;">প্রথম কাটের পাটালি গুড়</div>
+                                <div class="fs-6 fw-bold text-success"><span>450</span> টাকা প্রতি কেজি</div>
+                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(--cnvs-primary-font);">
+                                    ২ দিন গাছ কাটা বন্ধ রেখে গাছ কাটলে যে রস পাওয়া যায় তার গুড়। এটা স্বাদে ও গন্ধে নরমাল পাটালির থেকে ভালো।
+                                </div>
+                            </div>
+                            <div class="quantity d-flex">
+                                <a href="#" class="minus flex-fill text-bg-warning"
+                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="2">
+                                    <div class="add">১ কেজি কমান</div>
+                                </a>
+                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"
+                                       class="qty product-2 text-bg-info border-0" size="4"
+                                       style="font-size: 30px">
+                                <input type="text" name="quantity-unit" value="Kg" title="Qty"
+                                       class="qty text-bg-info border-0" disabled size="4"
+                                       style="font-size: 30px">
+                                <a href="#" class="plus flex-fill text-bg-warning"
+                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="2">
+                                    <div class="add">১ কেজি যোগ করুন</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Item 3
+                    ============================================= -->
+                    <div class="col-lg-3 col-md-3 col-12 px-2">
+                        <div class="product bg-contrast-300 rounded-6 p-2">
+                            <div class="product-image" style="max-height: 400px;">
+                                <img src="images/products/1st%20cut%205-6.jpeg" alt="First Cut Patali Gur">
+                                <div class="sale-flash badge bg-danger p-2">Best</div>
+                            </div>
+                            <div class="product-desc">
+                                <div class="product-title mb-1" style="font-weight: 800;">প্রথম কাটের পাটালি গুড়</div>
+                                <div class="fs-6 fw-bold text-success"><span>600</span> টাকা প্রতি কেজি</div>
+                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(--cnvs-primary-font);">
+                                    ৪-৫ দিন গাছ কাটা বন্ধ রেখে গাছ কাটলে যে রস পাওয়া যায় তার গুড়। <br>
+                                    📌আমাদের স্পেশাল গুড়, Guaranteed আপনার খাওয়া সবচেয়ে ভাল গুড়।
+                                </div>
+                            </div>
+                            <div class="quantity d-flex">
+                                <a href="#" class="minus flex-fill text-bg-warning"
+                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="3">
+                                    <div class="add">১ কেজি কমান</div>
+                                </a>
+                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"
+                                       class="qty product-3 text-bg-info border-0" size="4"
+                                       style="font-size: 30px">
+                                <input type="text" name="quantity-unit" value="Kg" title="Qty"
+                                       class="qty text-bg-info border-0" disabled size="4"
+                                       style="font-size: 30px">
+                                <a href="#" class="plus flex-fill text-bg-warning"
+                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="3">
+                                    <div class="add">১ কেজি যোগ করুন</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Item 4
+                    ============================================= -->
+                    <div class="col-lg-3 col-md-3 col-12 px-2">
+                        <div class="product bg-contrast-300 rounded-6 p-2">
+                            <div class="product-image" style="max-height: 400px;">
+                                <img src="images/products/grany%20jhola.jpeg" alt="Grainy Patali Gur">
+                                <div class="sale-flash badge bg-danger p-2">Organic</div>
+                            </div>
+                            <div class="product-desc">
+                                <div class="product-title mb-1" style="font-weight: 800;">দানাদার ঝোলা গুড়</div>
+                                <div class="fs-6 fw-bold text-success"><span>350</span> টাকা প্রতি কেজি</div>
+                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(--cnvs-primary-font);">
+                                    খাঁটি গুড়
+                                </div>
+                            </div>
+                            <div class="quantity d-flex">
+                                <a href="#" class="minus flex-fill text-bg-warning"
+                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="4">
+                                    <div class="add">১ কেজি কমান</div>
+                                </a>
+                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"
+                                       class="qty product-4 text-bg-info border-0" size="4"
+                                       style="font-size: 30px">
+                                <input type="text" name="quantity-unit" value="Kg" title="Qty"
+                                       class="qty text-bg-info border-0" disabled size="4"
+                                       style="font-size: 30px">
+                                <a href="#" class="plus flex-fill text-bg-warning"
+                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="4">
+                                    <div class="add">১ কেজি যোগ করুন</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Item 5
+                    ============================================= -->
+                    <div class="col-lg-3 col-md-3 col-12 px-2">
+                        <div class="product bg-contrast-300 rounded-6 p-2">
+                            <div class="product-image" style="max-height: 400px;">
+                                <img src="images/products/liquid%20jhola.jpeg" alt="Liquid Jhola Gur">
+                                <div class="sale-flash badge bg-danger p-2">Organic</div>
+                            </div>
+                            <div class="product-desc">
+                                <div class="product-title mb-1" style="font-weight: 800;">পাতলা ঝোলা গুড়(নিচে কিছু দানা থাকবে)</div>
+                                <div class="fs-6 fw-bold text-success"><span>350</span> টাকা প্রতি কেজি</div>
+                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(--cnvs-primary-font);">
+                                    এটা মধুর মত ঘণ। প্রাকৃতিকভাবে নিতে কিছু দানা জমতে পারে। এটা গুড়েরই দানা।
+                                </div>
+                            </div>
+                            <div class="quantity d-flex">
+                                <a href="#" class="minus flex-fill text-bg-warning"
+                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="5">
+                                    <div class="add">১ কেজি কমান</div>
+                                </a>
+                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"
+                                       class="qty product-5 text-bg-info border-0" size="4"
+                                       style="font-size: 30px">
+                                <input type="text" name="quantity-unit" value="Kg" title="Qty"
+                                       class="qty text-bg-info border-0" disabled size="4"
+                                       style="font-size: 30px">
+                                <a href="#" class="plus flex-fill text-bg-warning"
+                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="5">
+                                    <div class="add">১ কেজি যোগ করুন</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Item 6
+                    ============================================= -->
+                    <div class="col-lg-3 col-md-3 col-12 px-2">
+                        <div class="product bg-contrast-300 rounded-6 p-2">
+                            <div class="product-image" style="max-height: 400px;">
+                                <img src="images/products/Bich%20Mixed.jpeg" alt="Bich Mixed Jhola Gur">
+                                <div class="sale-flash badge bg-danger p-2">Delicious</div>
+                            </div>
+                            <div class="product-desc">
+                                <div class="product-title mb-1" style="font-weight: 800;">বিচ দেওয়া মিহি দানা ঝোলা গুড়</div>
+                                <div class="fs-6 fw-bold text-success"><span>350</span> টাকা প্রতি কেজি</div>
+                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(--cnvs-primary-font);">
+                                    এটা খেতে অনেক সুস্বাদু। এটা দইয়ের মত জমে থাকে <br>
+                                    📌 এটার ভিতর বিচ গুড় দেয়া আছে।
+                                </div>
+                            </div>
+                            <div class="quantity d-flex">
+                                <a href="#" class="minus flex-fill text-bg-warning"
+                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="6">
+                                    <div class="add">১ কেজি কমান</div>
+                                </a>
+                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"
+                                       class="qty product-6 text-bg-info border-0" size="4"
+                                       style="font-size: 30px">
+                                <input type="text" name="quantity-unit" value="Kg" title="Qty"
+                                       class="qty text-bg-info border-0" disabled size="4"
+                                       style="font-size: 30px">
+                                <a href="#" class="plus flex-fill text-bg-warning"
+                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="6">
+                                    <div class="add">১ কেজি যোগ করুন</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shop Item 7
+                    ============================================= -->
+<!--                    <div class="col-lg-3 col-md-3 col-12 px-2">-->
+<!--                        <div class="product bg-contrast-300 rounded-6 p-2">-->
+<!--                            <div class="product-image" style="max-height: 400px;">-->
+<!--                                <img src="images/products/bich.jpeg" alt="Bich or Chocolate Gur">-->
+<!--                                <div class="sale-flash badge bg-danger p-2">Chocolate</div>-->
+<!--                            </div>-->
+<!--                            <div class="product-desc">-->
+<!--                                <div class="product-title mb-1" style="font-weight: 800;">বিচ গুড় বা চকলেট গুড়</div>-->
+<!--                                <div class="fs-6 fw-bold text-success"><span>500</span> টাকা প্রতি কেজি</div>-->
+<!--                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(&#45;&#45;cnvs-primary-font);">-->
+<!--                                    একটু একটু করে গুড় নিয়ে দ্রুত নাড়তে থাকলে গুড়ের কালার চিত্রের মত হয়<br>-->
+<!--                                    📌 এই গুড় খেতে অনেক সুস্বাদু। অনেকটা চকলেটের মত-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="quantity d-flex">-->
+<!--                                <a href="#" class="minus flex-fill text-bg-warning"-->
+<!--                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="7">-->
+<!--                                    <div class="add">১ কেজি কমান</div>-->
+<!--                                </a>-->
+<!--                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"-->
+<!--                                       class="qty product-7 text-bg-info border-0" size="4"-->
+<!--                                       style="font-size: 30px">-->
+<!--                                <input type="text" name="quantity-unit" value="Kg" title="Qty"-->
+<!--                                       class="qty text-bg-info border-0" disabled size="4"-->
+<!--                                       style="font-size: 30px">-->
+<!--                                <a href="#" class="plus flex-fill text-bg-warning"-->
+<!--                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="7">-->
+<!--                                    <div class="add">১ কেজি যোগ করুন</div>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                    <!-- Shop Item 8
+                    ============================================= -->
+<!--                    <div class="col-lg-3 col-md-3 col-12 px-2">-->
+<!--                        <div class="product bg-contrast-300 rounded-6 p-2">-->
+<!--                            <div class="product-image" style="max-height: 400px;">-->
+<!--                                <img src="images/products/Red%20Juice.png" alt="Red Juice">-->
+<!--                                <div class="sale-flash badge bg-danger p-2">Organic</div>-->
+<!--                            </div>-->
+<!--                            <div class="product-desc">-->
+<!--                                <div class="product-title mb-1" style="font-weight: 800;">জ্বাল দেওয়া লাল রস</div>-->
+<!--                                <div class="fs-6 fw-bold text-success"><span>350</span> টাকা প্রতি কেজি</div>-->
+<!--                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(&#45;&#45;cnvs-primary-font);">-->
+<!--                                    পিঠা ভেজানোর জন্য এটা নিতে পারেন-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="quantity d-flex">-->
+<!--                                <a href="#" class="minus flex-fill text-bg-warning"-->
+<!--                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="8">-->
+<!--                                    <div class="add">১ কেজি কমান</div>-->
+<!--                                </a>-->
+<!--                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"-->
+<!--                                       class="qty product-8 text-bg-info border-0" size="4"-->
+<!--                                       style="font-size: 30px">-->
+<!--                                <input type="text" name="quantity-unit" value="Kg" title="Qty"-->
+<!--                                       class="qty text-bg-info border-0" disabled size="4"-->
+<!--                                       style="font-size: 30px">-->
+<!--                                <a href="#" class="plus flex-fill text-bg-warning"-->
+<!--                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="8">-->
+<!--                                    <div class="add">১ কেজি যোগ করুন</div>-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                    <!-- Shop Item 10
+                    ============================================= -->
+                    <div class="col-lg-3 col-md-3 col-12 px-2">
+                        <div class="product bg-contrast-300 rounded-6 p-2">
+                            <div class="product-image" style="max-height: 400px;">
+                                <img src="images/products/Honey%20holding.jpg" alt="Honey">
+                                <div class="sale-flash badge bg-danger p-2">Organic</div>
+                            </div>
+                            <div class="product-desc">
+                                <div class="product-title mb-1" style="font-weight: 800;">প্রাকৃতিক চাকের মধু</div>
+                                <div class="fs-6 fw-bold text-success"><span>1400</span> টাকা প্রতি কেজি</div>
+                                <div style="font-weight: 400; font-size: 14px !important; letter-spacing: 0; font-family: var(--cnvs-primary-font);">
+                                    আমাদের গ্রামের প্রাকৃতিক চাকের মধু। এটা চাষের মধুর চেয়ে ভালো।
+                                </div>
+                            </div>
+                            <div class="quantity d-flex">
+                                <a href="#" class="minus flex-fill text-bg-warning"
+                                   data-notify-type="error" data-notify-msg="১ কেজি কমান" data-id="10">
+                                    <div class="add">১ কেজি কমান</div>
+                                </a>
+                                <input type="text" step="1" min="0" name="quantity" value="0" title="Qty"
+                                       class="qty product-10 text-bg-info border-0" size="4"
+                                       style="font-size: 30px">
+                                <input type="text" name="quantity-unit" value="Kg" title="Qty"
+                                       class="qty text-bg-info border-0" disabled size="4"
+                                       style="font-size: 30px">
+                                <a href="#" class="plus flex-fill text-bg-warning"
+                                   data-notify-type="primary" data-notify-msg="১ কেজি বাড়ানো" data-id="10">
+                                    <div class="add">১ কেজি যোগ করুন</div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        {% endfor %}
-    </div>
-
-    {#    Order Invoice  #}
-    <div class="order-details">
-        <h1 class="order-heading">Order Details</h1>
-        <table class="order-table">
-            <thead>
-            <tr>
-                <th>Product Name</th>
-                <th class="centered">Unit Price</th>
-                <th class="centered"></th>
-                <th class="centered">Unit</th>
-                <th class="centered"></th>
-                <th class="centered">Unit Subtotal</th>
-            </tr>
-            </thead>
-            <tbody id="order-body">
-            <!-- Rows dynamically populated via JavaScript -->
-            </tbody>
-            <tfoot>
-            <tr>
-                <td class="total-label" colspan="5">Subtotal</td>
-                <td id="subtotal-price" class="total-price">0.00</td>
-            </tr>
-            <tr>
-                <td class="total-label" colspan="5">Delivery Charge</td>
-                <td id="delivery-charge" class="total-price">100.00</td>
-            </tr>
-            <tr>
-                <td class="total-label" colspan="5">Total</td>
-                <td id="total-price" class="total-price">0.00</td>
-            </tr>
-            </tfoot>
-        </table>
-        <button class="copy-button" id="copy-button" onclick="copyText()">Copy Order Details</button>
-    </div>
-
-    {#    Order Confirmation form   #}
-    <div class="form-container" id="form-container">
-        <h2>Order Confirmation</h2>
-        <form id="order-form" method="POST" target="_parent" action="/order_confirmation">
-            {% csrf_token %}
-            {{ form.order_details.as_hidden }}
-            {{ form.delivery_charge.as_hidden }}
-
-            <div>
-                {{ form.name.label_tag }}
-                {{ form.name }}
-                {% if form.name.help_text %}
-                    <small>{{ form.name.help_text }}</small>
-                {% endif %}
+            <!-- Sign Up
+            ============================================= -->
+            <div class="container my-4 pt-4 pb-0 bg-warning rounded-3">
+                <div id="spinner" class="spinner-border position-absolute top-50 start-50 text-white" hidden role="status" style="z-index: 3">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="container" id="order-details">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form target="_parent" class="row align-items-stretch align-items-center"
+                                  id="template-contactform"
+                                  action="https://submit-form.com/WdlFtz4m5" method="post">
+                                <input type="hidden" name="_redirect" value="https://villagie.store/thanks.html">
+                                <!--								<input type="hidden" name="_subject" value="New Order">-->
+                                <!--                                <input type="hidden" name="_captcha" value="false">-->
+                                <!--                                <input type="hidden" name="_template" value="table">-->
+                                <!--                                <input type="hidden" name="_next" value="https://web.villagie.store/thanks.html">-->
+                                <div class="col-md-7 invoice-area position-relative rounded text-center align-middle">
+                                    <div class="display-6 fw-bold"><i class="fa-solid fa-cart-shopping"></i> অর্ডার ডিটেইলস</div>
+                                    <textarea readonly name="Order Details" cols="30" rows="13"
+                                              class="form-control invoice mb-3 shadow"></textarea>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <label for="invoice-name" class="form-label fw-bold">
+                                                <i class="fa-solid fa-user"></i> নাম:
+                                                <input type="text" id="invoice-name" name="Name"
+                                                       class="form-control rounded-1 shadow" size="20">
+                                                <small class="form-text text-muted">আপনার নাম লিখুন</small>
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <label for="invoice-phone" class="form-label fw-bold">
+                                                <i class="fa-solid fa-phone"></i> ফোন নাম্বার:<span class="text-danger">*</span>
+                                                <input id="invoice-phone" type="tel" name="Phone"
+                                                       class="form-control rounded-1 shadow" minlength="11" required>
+                                                <small class="form-text text-muted">১১ ডিজিটের ফোন নাম্বার লিখুন</small>
+                                            </label>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <label for="invoice-area" class="form-label fw-bold">
+                                                <i class="fa-solid fa-location-dot"></i> আপনার লোকেশন:
+                                                <select id="invoice-area" name="Area" class="form-select rounded-1 shadow">
+                                                    <option class="city" value="Inside Dhaka" data-del-charge="100">
+                                                        ঢাকার মধ্যে
+                                                    </option>
+                                                    <option class="city" value="Outside Dhaka" data-del-charge="130">
+                                                        ঢাকার বাইরে
+                                                    </option>
+                                                </select>
+                                                <small class="form-text text-muted">ঢাকার বাইরে নাকি ভিতরে সিলেক্ট
+                                                    করুন</small></label>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <label for="invoice-address" class="form-label fw-bold">
+                                                <i class="fa-solid fa-address-book"></i> পূর্ণ ঠিকানা লিখুন:
+                                                <textarea id="invoice-address" type="tex" name="Address"
+                                                          class="form-control rounded-1 shadow" cols="31" rows="2"></textarea>
+                                            </label>
+                                        </div>
+                                        <div class="text-center text-info-emphasis fw-bold">
+                                            <i class="fa-solid fa-shield-halved"></i>
+                                            কোনো টাকা অগ্রিম পেমেন্ট করতে হবেনা। গুড় পাওয়ার পর চেক করে ডেলিভারি ম্যানকে টাকা দিবেন
+                                        </div>
+                                        <div class="col-md-12 justify-content-center" style="text-align: center">
+                                            <button type="submit" id="submit-button" disabled
+                                                    class="button button-rounded ls-0 fw-semi-bold ms-0 mb-2 p-2 text-transform-none shadow align-middle">
+                                                <i class="fa-solid fa-lock"></i> অর্ডার কনফার্ম করুন
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                {{ form.phone.label_tag }}
-                {{ form.phone }}
-                {% if form.phone.help_text %}
-                    <small>{{ form.phone.help_text }}</small>
-                {% endif %}
+        </div>
+    </section>
+    <div class="position-fixed top-0 end-0 mt-4 mr-6" style="z-index: 1000">
+        <div id="liveToast" class="toast align-items-center text-bg-primary border-3" role="alert" aria-live="assertive"
+             aria-atomic="true">
+            <div class="d-flex">
+                <div class="toast-body">
+                    Hello, world! This is a toast message.
+                </div>
+                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                        aria-label="Close"></button>
             </div>
-
-            <div>
-                {{ form.division.label_tag }}
-                {{ form.division }}
-                {% if form.division.help_text %}
-                    <small>{{ form.division.help_text }}</small>
-                {% endif %}
-            </div>
-
-            <div>
-                {{ form.address.label_tag }}
-                {{ form.address }}
-                {% if form.address.help_text %}
-                    <small>{{ form.address.help_text }}</small>
-                {% endif %}
-            </div>
-
-            <div>
-                {{ form.comment.label_tag }}
-                {{ form.comment }}
-                {% if form.comment.help_text %}
-                    <small>{{ form.comment.help_text }}</small>
-                {% endif %}
-            </div>
-
-            <h3>Payment Method</h3>
-            <div class="toggle-group">
-                <input type="radio" id="cod" name="payment_method" value="Cash on Delivery"
-                       {% if form.payment_method.value == 'Cash on Delivery' %}checked{% endif %}>
-                <label for="cod" data-method="cod">Cash on Delivery</label>
-                <input type="radio" id="bkash" name="payment_method" value="Bkash"
-                       {% if form.payment_method.value == 'Bkash' %}checked{% endif %} disabled>
-                <label for="bkash" data-method="bkash">Bkash</label>
-            </div>
-
-            <div id="payment-info" class="payment-process">
-                <!-- Payment process details will be displayed here -->
-            </div>
-            <button type="submit" id="submit-button">Confirm Order</button>
-        </form>
-
-        <!-- Loading Animation -->
-        <div id="loading-animation" class="loading-animation">
-            <div class="spinner"></div>
-            Submitting your form...
         </div>
     </div>
+</div>
+<!-- Go To Top
+============================================= -->
+<div id="gotoTop" class="bi-arrow-up"></div>
 
-    <!-- Modal -->
-    <div class="modal" id="invalid-phone-modal">
-        <div class="modal-content">
-            <h3>Invalid Phone Number</h3>
-            <p>Please enter a valid phone number in the format +8801XXXXXXXXX, 8801XXXXXXXXX, or 01XXXXXXXXX.</p>
-            <button id="close-modal">Close</button>
-        </div>
-    </div>
+<!-- JavaScripts
+============================================= -->
+<!-- <script src="js/jquery.js"></script> -->
+<script src="js/plugins.min.js"></script>
+<script src="js/functions.bundle.js"></script>
+<script src="include/flexslider/jquery.flexslider-min.js"></script>
+<script>
+    let products = [
+        'পাটালি গুড়',
+        'প্রথম কাটের পাটালি গুড় (2-3)',
+        'প্রথম কাটের পাটালি গুড় (5-6)',
+        'দানাদার ঝোলা গুড়',
+        'পাতলা ঝোলা গুড়(নিচে কিছু দানা থাকবে)',
+        'বিচ দেওয়া মিহি দানা ঝোলা গুড়',
+        'বিচ গুড়',
+        'জ্বাল দেওয়া লাল রস',
+        'ফয়েল পাটালি গুড়',
+        'প্রাকৃতিক চাকের মধু',
+    ];
+    let prices = [
+        350,
+        450,
+        600,
+        350,
+        350,
+        350,
+        500,
+        350,
+        350,
+        1400,
+    ];
+    jQuery('.product-1,.product-2,\
+		   .product-3,.product-4,\
+		   .product-5,.product-6,\
+		   .product-7,.product-8,\
+		   .product-9,.product-10,\
+		   .product-11,.product-12, select[id="invoice-area"]').on('change', function () {
+        let invoice = '';
+        let total = 0;
+        let valid = 0;
+        let delivery_charge = jQuery('option.city:selected').attr('data-del-charge');
+        for (i = 1; i <= 12; i++) {
+            let qty = jQuery('.product-' + i).val();
+            if (qty > 0) {
+                valid = 1;
+                let subtotal = (qty * prices[i - 1]);
+                invoice = invoice + "🏷️ " + qty + ' কেজি ' + products[i - 1] + ' (' + prices[i - 1] + ' X ' + qty + ') = ' + subtotal + ' টাকা\n';
+                total = total + subtotal;
+            }
+        }
+        if (valid) {
+            invoice = invoice + '🚚 Delivery Charge = ' + delivery_charge + ' টাকা\n';
+            total = total + parseInt(delivery_charge);
+            invoice = invoice + '🧾 Total = ' + total + ' টাকা';
+        }
+        jQuery('.invoice').html(invoice);
+        if (valid) {
+            jQuery('#submit-button').prop('disabled', false).html('<i class="fa-solid fa-circle-check"></i> অর্ডার কনফার্ম করুন (মোট ' + '<span>' + total + '</span>' + ' টাকা)');
+            jQuery('#checkout').prop('disabled', false).html('<i class="fa-solid fa-circle-check"></i> অর্ডার কনফার্ম করুন (মোট ' + '<span>' + total + '</span>' + ' টাকা)');
+        } else {
+            jQuery('#submit-button').prop('disabled', true).html('<i class="fa-regular fa-circle-check"></i> অর্ডার কনফার্ম করুন');
+            jQuery('#checkout').prop('disabled', true).html('<i class="fa-regular fa-circle-check"></i> অর্ডার কনফার্ম করুন');
+        }
+        // jQuery('#submit-button').html('অর্ডার কনফার্ম করুন (মোট ' + total + ' টাকা)')
+    })
 
-    <div class="dir-container">
-        <div class="message fb-contact">
-            <a href="#">
-                <i class="fa-brands fa-facebook-messenger"></i>Message Us
-            </a>
-        </div>
-        <div class="call fb-contact">
-            <a href="tel:+8801843557389" class="phone-link">
-                <i class="fa-solid fa-phone"></i>Call Us
-            </a>
-        </div>
-        <div class="page-visit">
-            <a href="#">
-                <i class="fa-solid fa-location-arrow"></i>Visit Our Page
-            </a>
-        </div>
-    </div>
+    function load_js(src) {
+        var head = document.getElementsByTagName('head')[0];
+        var script = document.createElement('script');
+        script.src = src;
+        head.appendChild(script);
+    }
 
-    <button class="floating-button hidden" id="floatOrderConfirmButton"></button>
-{% endblock content %}
+    function setCookie(key, value, expiry) {
+        var expires = new Date();
+        expires.setTime(expires.getTime() + (expiry * 24 * 60 * 60 * 1000));
+        document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
+    }
+
+    function getCookie(key) {
+        var keyValue = document.cookie.match('(^|;) ?' + key + '=([^;]*)(;|$)');
+        return keyValue ? keyValue[2] : null;
+    }
+
+    function eraseCookie(key) {
+        var keyValue = getCookie(key);
+        setCookie(key, keyValue, '-1');
+    }
+
+    jQuery(document).ready(function () {
+        var cookieValue = getCookie('first-modal') ? getCookie('first-modal') : null;
+        if (cookieValue == null) {
+            CNVS.Modal.init('.modal-on-load-2');
+        }
+        setCookie('first-modal', '1', '9999');
+        // eraseCookie('first-modal');
+
+        jQuery('.flexslider').flexslider({
+            slideshow: true,
+            slideshowSpeed: 1000,
+            controlNav: false,
+            end: function () {
+                setTimeout(() => {
+                    jQuery('.mfp-close').click();
+                }, 500);
+            },
+        });
+
+        jQuery('.plus, .minus').on('click', function (e) {
+            e.preventDefault();
+            let t = jQuery(this);
+            let id = jQuery(this).attr('data-id');
+            let val = jQuery('.product-' + id).val();
+            // let string = "মোট " + val + " কেজি " + products[id - 1];
+            let invoice = 'Order Details:<br>';
+            for (i = 1; i <= 12; i++) {
+                let qty = jQuery('.product-' + i).val();
+                if (qty > 0) {
+                    let subtotal = (qty * prices[i - 1]);
+                    invoice = invoice + "🏷️ " + qty + ' কেজি ' + products[i - 1] + ' (' + prices[i - 1] + ' X ' + qty + ') = ' + subtotal + ' টাকা<br>';
+                }
+            }
+            if (invoice === 'Order Details:<br>') {
+                invoice = 'কোনো প্রডাক্ট সিলেক্ট করেন নি';
+            }
+            jQuery('.toast-body').html(invoice);
+            const toastLiveExample = document.getElementById('liveToast');
+            const tj = jQuery('#liveToast');
+            const toast = new bootstrap.Toast(toastLiveExample);
+            if (t.hasClass('plus')) {
+                tj.removeClass('text-bg-danger');
+                tj.addClass('text-bg-primary');
+            } else {
+                tj.removeClass('text-bg-primary');
+                tj.addClass('text-bg-danger');
+            }
+            toast.show();
+        })
+        // Show text loading on submit. Button id submit-button
+        jQuery('#template-contactform').submit(function () {
+            jQuery('#submit-button').html('<i class="fa fa-refresh fa-spin"></i> অর্ডার কনফার্ম করা হচ্ছে');
+            jQuery('#checkout').html('<i class="fa fa-refresh fa-spin"></i> অর্ডার কনফার্ম করা হচ্ছে');
+            jQuery('#spinner').removeAttr('hidden');
+            jQuery('#order-details').addClass('op-05');
+        })
+    })
+    // Wait for the page to fully load
+    window.onload = function() {
+        // Get the audio element
+        const backgroundMusic = document.getElementById("backgroundMusic");
+
+        // Play the audio
+        backgroundMusic.play();
+
+        // Add an event listener to play the audio again when it ends
+        backgroundMusic.addEventListener("ended", function() {
+            // Pause and reset the currentTime to 0 before playing again
+            this.pause();
+            this.currentTime = 0;
+            this.play();
+            // Clear the event listener
+            this.removeEventListener("ended", arguments.callee);
+        });
+    };
+
+    // Show toast if button is disabled. Button id checkout
+    jQuery('#checkout').click(function () {
+        if (jQuery('#submit-button').prop('disabled')) {
+            const toastLiveExample = document.getElementById('liveToast');
+            const toast = new bootstrap.Toast(toastLiveExample);
+            toast.show();
+        }
+    })
+
+    function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            section.scrollIntoView({ behavior: 'smooth' });
+        }
+        jQuery('#submit-button').click();
+    }
+
+    // Scroll detection
+    // window.addEventListener('scroll', function (event) {
+    //     console.log(document.activeElement.tagName, document.activeElement.type || 'N/A');
+    //     if (isSectionVisible('checkout')) {
+    //         jQuery('#checkout').hide();
+    //     } else {
+    //         jQuery('#checkout').show();
+    //     }
+    // });
+
+    function isSectionVisible(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+            const rect = section.getBoundingClientRect();
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <=
+                (window.innerHeight || document.documentElement.clientHeight) &&
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+            );
+        }
+    }
+
+    function copyToClipboard() {
+        var copyText = document.querySelector('.invoice');
+        var range = document.createRange();
+        range.selectNode(copyText);
+        window.getSelection().removeAllRanges();
+        window.getSelection().addRange(range);
+        window.getSelection().removeAllRanges();
+    }
+
+</script>
+
+</body>
+</html>
