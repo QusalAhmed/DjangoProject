@@ -239,16 +239,6 @@ body {
     position: relative;
 }
 
-.thank-you-container h1 {
-    font-size: 3rem;
-    margin-bottom: 10px;
-    color: transparent;
-    background: linear-gradient(90deg, #ec416a, #7873f5, #48c6ef, #6ef6ff);
-    background-size: 300%;
-    -webkit-background-clip: text;
-    animation: gradientWave 3s infinite ease-in-out;
-}
-
 /* Gradient Wave Animation */
 @keyframes gradientWave {
     0% {
@@ -337,4 +327,26 @@ body {
 .thank-you-container button a {
     text-decoration: none;
     color: black;
+}
+
+/* Upper order confirmed message */
+.phone-content {
+    text-align: center;
+}
+
+.success-icon {
+    width: 15%;
+    margin: 0 auto 10px;
+}
+
+.success-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+.message {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
 }
