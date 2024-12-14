@@ -41,6 +41,7 @@ function updateWeight(productId, change) {
 
     // Fb event
     if (change > 0) {
+        console.log('AddToCart event fired');
         fbq('track', 'AddToCart', {
             content_ids: [productId],
             content_name: product.name,
@@ -392,17 +393,20 @@ floatButton.addEventListener('click', () => {
 });
 
 let initialCheckout = false;
+
 function initCheckout() {
     if (initialCheckout) return; // If the event is already sent, exit the function
-    const contents = Object.keys(productWeights).map(productId => {
+    const contents = []
+    Object.keys(productWeights).forEach(productId => {
         const {weight, name, price} = productWeights[productId];
-        return {
+        if (weight <= 0) return {}; // Skip items with no weight
+        contents.push({
             id: productId,
             product_name: name,
             quantity: weight,
             item_price: price
-        };
-    })
+        });
+    });
     const subTotal = Object.keys(productWeights).reduce((acc, productId) => {
         const {weight, price} = productWeights[productId];
         return acc + price * weight;
@@ -478,9 +482,9 @@ contactButtons.forEach(button => {
 // Send Fb event when page visited
 let pageVisitFired = false; // Prevent duplicate PageView events
 
-window.addEventListener('scroll', function() {
-  if (!pageVisitFired && window.scrollY > 200) { // Trigger after scrolling 200px
-    fbq('track', 'PageView');
-    pageVisitFired = true;
-  }
+window.addEventListener('scroll', function () {
+    if (!pageVisitFired && window.scrollY > 200) { // Trigger after scrolling 200px
+        fbq('track', 'PageView');
+        pageVisitFired = true;
+    }
 });
