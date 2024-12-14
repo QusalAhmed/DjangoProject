@@ -18,23 +18,39 @@
         {{ order_details.order_details|safe }}
     </script>
 
+    <!-- Thank You Container -->
+    <div class="thank-you-container">
+        <h1>Thank You!</h1>
+        <p>Your order has been received successfully.</p>
+        <p id="order-instruction">
+            শীঘ্রই আমি কল দিয়ে অর্ডার কনফার্ম করব। ফোন নাম্বার ঠিক আছে কিনা চেক করুন, ভুল হলে পুনরায় অর্ডার করুন।
+            যদি অর্ডার পরিবর্তন করতে চান তবে পুনরায় অর্ডার করতে পারেন। যেকোনো প্রয়োজনে কল করুন
+            <a href="tel:+8801843557389" class="phone-link">01843-557389</a>
+            নাম্বারে
+        </p>
+        <p>
+            <strong>Delivery time: 2-3 days</strong>
+        </p>
+        <button>Go to Homepage</button>
+    </div>
+
     <div class="invoice-container">
         <!-- Header Section -->
         <div class="invoice-header">
             <img src="../../static/logo.png" alt="Business Logo">
             <h1>খেজুরের খাটি গুড়</h1>
-            <p><strong># {{ order_details.id }}</strong></p>
-            <p>Jazakallah Store</p>
-            <p>Bagha, Rajshahi</p>
-            <p>Phone: 01843-557389</p>
-            <p>Email: admin@jazakallah.store</p>
+            <p id="order-id"><strong># {{ order_details.id }}</strong></p>
+            <p id="shop-name">Jazakallah Store</p>
+            <p class="address">Bagha, Rajshahi</p>
+            <p class="address">Phone: 01843-557389</p>
+            <p class="address">Email: admin@jazakallah.store</p>
         </div>
 
         <!-- Customer Information Section -->
         <div class="customer-info">
             <h2>Customer Details</h2>
             <p><strong>Name:</strong> {{ order_details.customer_name }}</p>
-            <p><strong>Phone:</strong> {{ order_details.phone }}</p>
+            <p><strong>Phone:</strong><span id="final-phone">{{ order_details.phone }}</span></p>
             <p><strong>Address:</strong> {{ order_details.address }}</p>
         </div>
 

@@ -1,10 +1,3 @@
-// Prevent copying
-const quantity_buttons = document.querySelectorAll('.quantity-btn');
-quantity_buttons.forEach(quantity_button => {
-    quantity_button.addEventListener('copy', (event) => {
-        event.preventDefault();
-    });
-});
 // Get current url
 const currentUrl = window.location.href;
 if (!currentUrl.includes('localhost:8000')) {

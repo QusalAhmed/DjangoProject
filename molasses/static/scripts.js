@@ -1,6 +1,13 @@
 // Parse product data from the embedded script tag
 const productData = JSON.parse(document.getElementById('product-data').textContent.trim().replace(/'/g, '"'));
 
+// Prevent copying
+const quantity_buttons = document.querySelectorAll('.quantity-btn');
+quantity_buttons.forEach(quantity_button => {
+    quantity_button.addEventListener('copy', (event) => {
+        event.preventDefault();
+    });
+});
 
 function generateDigits(container, maxWeight) {
     container.innerHTML = '';

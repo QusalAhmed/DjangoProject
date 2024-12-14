@@ -26,3 +26,4 @@ function copyText() {
         console.error("Failed to copy text: ", err);
     });
 }
+
