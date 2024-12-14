@@ -84,6 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.setItem('cartList', JSON.stringify(productWeights));
     }
 
+    // Set direction parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const direction = urlParams.get('q');
+    if (direction === 'up') {
+        const page_visit_dir = document.querySelector('.page-visit a');
+        page_visit_dir.href = 'https://www.facebook.com/khejurerkhatigur/'
+
+        const message_dir = document.querySelector('.message a');
+        message_dir.href = 'https://www.m.me/100607855847086'
+    }
+
     // Populate the invoice table on page load
     populateOrderTable();
 });
@@ -257,13 +268,14 @@ form.addEventListener('submit', function (event) {
     // Finally submit the form to the server
     form.submit()
 
-    // Hide the loading animation and show the form just before leaving the page
-    window.addEventListener('beforeunload', () => {
+    // Clear cartList from localStorage
+    localStorage.removeItem('cartList');
+
+    // Hide the loading animation when back to the page
+    window.addEventListener('pageshow', () => {
         // Hide loading animation
         loadingAnimation.style.display = 'none';
         form.style.opacity = '1';
-        // Clear cartList from localStorage
-        localStorage.removeItem('cartList');
     });
 });
 
