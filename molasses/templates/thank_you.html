@@ -7,16 +7,19 @@
 {% load static %}
 {% block css %}
     <link rel="stylesheet" href="{% static 'thank-you.css' %}">
+    <link rel="stylesheet" href="{% static 'scroll-to-end.css' %}">
 {% endblock css %}
 
 {% block js %}
     <script src="{% static 'thank-you.js' %}"></script>
+    <script src="{% static 'scroll-to-end.js' %}"></script>
 {% endblock js %}
 
 {% block content %}
     <script id="order-details" type="application/json">
         {{ order_details.order_details|safe }}
     </script>
+    {% include 'scroll-to-end.html' %}
 
     <!-- Thank You Container -->
     <div class="thank-you-container">
