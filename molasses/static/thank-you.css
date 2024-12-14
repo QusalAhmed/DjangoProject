@@ -4,6 +4,7 @@ body {
     padding: 0;
     background: linear-gradient(135deg, #f1b9c9, #fce591);
     color: #333;
+    overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
 .invoice-container {
@@ -45,7 +46,7 @@ body {
 .invoice-header #order-id {
     font-size: 0.9rem;
     color: #052615;
-    margin: 5px;
+    margin: 0 0 5px 0;
 }
 
 /* Customer Section */
@@ -87,8 +88,8 @@ body {
 }
 
 /* Order invoice */
-.order-details, .form-container {
-    padding: 20px;
+.order-details {
+    padding: 20px 5px;
     width: 100%;
     margin: auto;
     max-width: 1000px;
@@ -251,13 +252,13 @@ body {
 /* Gradient Wave Animation */
 @keyframes gradientWave {
     0% {
-        background-position: 0% 50%;
+        background-position: 0 50%;
     }
     50% {
         background-position: 100% 50%;
     }
     100% {
-        background-position: 0% 50%;
+        background-position: 0 50%;
     }
 }
 
