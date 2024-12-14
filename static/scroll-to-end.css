@@ -4,7 +4,7 @@
     bottom: 20px; /* Position it at the bottom */
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Perfect centering horizontally */
-    background-color: #00B0FF;
+    background: rgba(56, 167, 161, 0.28); /* Semi-transparent background */
     color: black;
     border: none;
     border-radius: 50%;
@@ -34,5 +34,6 @@
 /* Using an up-arrow symbol to represent the scroll button */
 #scrollToTopBtn::before {
     content: "↑";
-    font-size: 2rem;
+    font-size: 2.5rem;
+    padding-bottom: 15px;
 }

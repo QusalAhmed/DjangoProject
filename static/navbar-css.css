@@ -91,10 +91,6 @@
     color: #ffcc00;
 }
 
-.empty-cart {
-    color: red;
-}
-
 /* Media Queries for tablet and phone */
 @media (max-width: 768px) {
     .business-name {
