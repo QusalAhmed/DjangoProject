@@ -1,0 +1,199 @@
+.invoice-container {
+    width: 70%;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px 40px;
+    background: rgba(175, 213, 167, 0.4);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+/* Header Section */
+.invoice-header {
+    text-align: center;
+    border-bottom: 2px solid #e9ecef;
+    padding-bottom: 20px;
+}
+
+.invoice-header img {
+    max-height: 70px;
+    border-radius: 50%;
+}
+
+.invoice-header h1 {
+    margin-bottom: 2px;
+    margin-top: 0;
+    font-size: 2rem;
+    color: #444;
+}
+
+.invoice-header p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0 0;
+}
+
+/* Customer Section */
+.customer-info {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.customer-info h2 {
+    font-size: 1.2rem;
+    color: #495057;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 5px;
+}
+
+.customer-info p {
+    margin: 5px 0;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* Footer Section */
+.invoice-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9rem;
+    color: #777;
+}
+
+.invoice-footer p {
+    margin: 5px 0;
+}
+
+/* Order invoice */
+.order-details, .form-container {
+    padding: 20px;
+    width: 100%;
+    max-width: 1000px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.2); /* Transparent white */
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2); /* Shadow effect */
+    backdrop-filter: blur(10px); /* Frosted glass blur effect */
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    color: #333;
+}
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.order-table th,
+.order-table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2); /* Light semi-transparent border */
+}
+
+.order-table thead th {
+    font-size: 14px;
+    text-transform: uppercase;
+    color: black;
+    font-weight: bold;
+}
+
+.order-table tbody td {
+    font-size: 16px;
+    color: green;
+}
+
+.order-table .total-label {
+    font-weight: bold;
+    text-align: right;
+}
+
+.order-table .total-price {
+    font-weight: bold;
+    color: black;
+}
+
+.order-table tfoot td {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    font-size: 16px;
+}
+
+.delivery-charge {
+    color: black;
+    font-size: 14px;
+}
+
+.order-heading {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.centered {
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .order-table th,
+    .order-table td {
+        padding: 2px 5px;
+    }
+
+    .order-table thead th {
+        font-size: 12px;
+    }
+
+    .order-table tbody td {
+        font-size: 10px;
+    }
+
+    .order-table tfoot td {
+        font-size: 12px;
+    }
+}
+
+/* Order details copy button */
+.copy-container {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    position: relative;
+}
+
+.copy-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.copy-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.copy-button:active {
+    transform: scale(1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.copy-button.copied {
+    background: linear-gradient(135deg, #28a745, #45d78a);
+}

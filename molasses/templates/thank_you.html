@@ -4,10 +4,89 @@
     Thank You
 {% endblock title %}
 
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" href="{% static 'order-details.css' %}">
+    <link rel="stylesheet" href="{% static 'thank-you.css' %}">
+{% endblock css %}
+
+{% block js %}
+    <script src="{% static 'order-details.js' %}"></script>
+    <script src="{% static 'thank-you.js' %}"></script>
+{% endblock js %}
+
 {% block content %}
-    <h1>Thank You!</h1>
-    <p>Your order has been placed successfully.</p>
-    {{ order_details.order_details }}
-    {{ order_details.delivery_charge }}
-    {{ order_details.subtotal }}
+    <script id="order-details" type="application/json">
+        {{ order_details.order_details|safe }}
+    </script>
+
+    <div class="invoice-container">
+        <!-- Header Section -->
+        <div class="invoice-header">
+            <img src="../../static/logo.png" alt="Business Logo">
+            <h1>খেজুরের খাটি গুড়</h1>
+            <p><strong># {{ order_details.id }}</strong></p>
+            <p>Jazakallah Store</p>
+            <p>Bagha, Rajshahi</p>
+            <p>Phone: 01843-557389</p>
+            <p>Email: admin@jazakallah.store</p>
+        </div>
+
+        <!-- Customer Information Section -->
+        <div class="customer-info">
+            <h2>Customer Details</h2>
+            <p><strong>Name:</strong> {{ order_details.customer_name }}</p>
+            <p><strong>Phone:</strong> {{ order_details.phone }}</p>
+            <p><strong>Address:</strong> {{ order_details.address }}</p>
+        </div>
+
+        <!-- Order Details  -->
+        <div class="order-details">
+            <h1 class="order-heading">Order Details</h1>
+            <table class="order-table">
+                <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th class="centered">Unit Price</th>
+                    <th class="centered"></th>
+                    <th class="centered">Unit</th>
+                    <th class="centered"></th>
+                    <th class="centered">Unit Subtotal</th>
+                </tr>
+                </thead>
+                <tbody id="order-body">
+                {% for uuid, product in order_details.order_details.items %}
+                    <tr>
+                        <td>{{ product.name }}</td>
+                        <td class="centered">{{ product.price }}</td>
+                        <td class="symbol-cell">×</td>
+                        <td class="centered">{{ product.weight }}</td>
+                        <td class="symbol-cell">=</td>
+                        <td class="centered">{% widthratio product.price 1 product.weight %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td class="total-label" colspan="5">Subtotal</td>
+                    <td id="subtotal-price" class="total-price">{{ order_details.subtotal }}</td>
+                </tr>
+                <tr>
+                    <td class="total-label" colspan="5">Delivery Charge</td>
+                    <td id="delivery-charge" class="total-price">{{ order_details.delivery_charge }}</td>
+                </tr>
+                <tr>
+                    <td class="total-label" colspan="5">Total</td>
+                    <td id="total-price" class="total-price">{{ order_details.total }}</td>
+                </tr>
+                </tfoot>
+            </table>
+            <button class="copy-button" id="copy-button" onclick="copyText()">Copy Order Details</button>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="invoice-footer">
+            <p>Thank you for choosing our service!</p>
+        </div>
+    </div>
 {% endblock content %}

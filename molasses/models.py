@@ -44,6 +44,7 @@ class Order(models.Model):
     comment = models.CharField(max_length=100, null=True, blank=True)
     subtotal = models.IntegerField(null=True)
     discount = models.IntegerField(null=True)
+    total = models.IntegerField(null=True, blank=True)
     status = models.CharField(max_length=50, default='pending')
     log = models.JSONField(blank=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -76,5 +77,6 @@ class Order(models.Model):
             item = self.order_details[product_id]
             subtotal += item['price'] * item['weight']
         self.subtotal = subtotal
+        self.total = self.subtotal + int(self.delivery_charge) - int(self.discount)
 
         super(Order, self).save(*args, **kwargs)
