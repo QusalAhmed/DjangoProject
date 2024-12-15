@@ -132,4 +132,4 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Analytical settings
-FACEBOOK_PIXEL_ID = '1515509469312729'
+FACEBOOK_PIXEL_ID = '1234708877758735'

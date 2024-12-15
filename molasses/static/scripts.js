@@ -40,7 +40,7 @@ function updateWeight(productId, change) {
     populateOrderTable();
 
     // Fb event
-    if (change > 0) {
+    if (change > 0 && productWeights[productId].weight === 1) {
         console.log('AddToCart event fired');
         fbq('track', 'AddToCart', {
             content_ids: [productId],
