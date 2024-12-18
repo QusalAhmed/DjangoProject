@@ -26,9 +26,8 @@ SECRET_KEY = 'django-insecure-^zu&6414qgsh3f!x8*u62(f5)$rs%if!0)c)l20h7^!dr%tk4v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [
-    '*',
-]
+ALLOWED_HOSTS = ['jazakallah.store', 'localhost', '127.0.0.1']
+
 
 # Application definition
 
