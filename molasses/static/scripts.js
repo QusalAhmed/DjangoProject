@@ -482,11 +482,28 @@ function copyText() {
 
 // Product heading
 function toggleSlide() {
+    let slideHeight = 0;
     const slideSection = document.getElementById('slide-section');
     // Set height of slideSection
-    const slideHeight = slideSection.scrollHeight;
-    slideSection.style.height = slideSection.classList.contains('active') ? 0 : `${slideHeight + 20}px`;
+    slideHeight = slideSection.scrollHeight;
+    slideSection.style.height = slideSection.classList.contains('active') ? 0 : `${slideHeight}px`;
+    slideSection.style.paddingBlock = slideSection.classList.contains('active') ? 0 : '5px';
     slideSection.classList.toggle('active');
+
+    if (slideSection.classList.contains('active')) {
+        let slideInterval = setInterval(() => {
+            const slideSection = document.getElementById('slide-section');
+            if (slideHeight === slideSection.scrollHeight) {
+                clearInterval(slideInterval);
+            }
+            slideHeight = slideSection.scrollHeight;
+            slideSection.style.height = slideHeight + 'px';
+            slideSection.style.paddingBlock = '5px';
+        }, 200);
+    } else {
+        slideSection.style.height = '0';
+        slideSection.style.paddingBlock = '0';
+    }
 }
 
 // Send Fb event when message or call button clicked
@@ -505,6 +522,7 @@ contactButtons.forEach(button => {
 (function () {
     // Push a dummy state to the history stack
     function preventBack() {
+        console.log('Preventing back navigation');
         history.pushState(null, null, location.href);
     }
 
@@ -512,8 +530,6 @@ contactButtons.forEach(button => {
     window.addEventListener('popstate', function () {
         // Push the dummy state again to prevent back navigation
         preventBack();
-        modal.style.display = 'flex'; // Show modal
-        document.body.style.overflow = 'hidden'; // Disable scrolling
     });
 
     // Call the preventBack function on page load

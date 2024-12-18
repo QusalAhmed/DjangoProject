@@ -72,6 +72,28 @@
 
     <!-- You can also add meta tags or other external resources here -->
     {% facebook_pixel_head %}
+
+    <style>
+        @font-face {
+            font-family: 'Bangla Borno';
+            src: url('{% static 'font/Banglaborno Unicode.ttf' %}') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'Mainak Buniyadi';
+            src: url('{% static 'font/Mainak Buniyadi Unicode.ttf' %}') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'Alinur Deyalika';
+            src: url('{% static 'font/Li Alinur Deyalika Unicode.ttf' %}') format('truetype');
+        }
+        
+        @font-face {
+            font-family: 'Mayukh';
+            src: url('{% static 'font/Li Mayukh Unicode.ttf' %}') format('truetype');
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -150,11 +172,6 @@
     </div>
 </footer>
 
-
-{% block js %}
-
-{% endblock %}
-
 {#JQuery#}
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -163,7 +180,9 @@
 <script src="{% static 'footer-js.js' %}"></script>
 <script src="{% static 'navbar-js.js' %}"></script>
 <script src="{% static 'general.js' %}"></script>
+{% block js %}
 
+{% endblock %}
 {% facebook_pixel_body %}
 </body>
 </html>

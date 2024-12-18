@@ -35,5 +35,5 @@
 #scrollToTopBtn::before {
     content: "↑";
     font-size: 2.5rem;
-    padding-bottom: 15px;
+    padding-bottom: 10px;
 }
