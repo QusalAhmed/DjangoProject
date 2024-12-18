@@ -827,10 +827,10 @@ input:-webkit-autofill:focus {
 
 /*Text section*/
 .text-section {
-    margin: 30px auto;
+    margin-bottom: 20px;
     padding: 20px;
     width: 90%;
-    background-color: #fff;
+    background-color: whitesmoke;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
     border-radius: 12px;
     display: flex;
@@ -876,7 +876,7 @@ input:-webkit-autofill:focus {
 }
 
 .text-card {
-    font-family: "Alinur Deyalika", serif;
+    font-family: "Bangla Borno", serif;
     display: flex;
     align-items: center;
     background-color: #f1f9ff;
@@ -967,6 +967,7 @@ input:-webkit-autofill:focus {
 
 .text-card:hover p {
     text-shadow: 0 0 10px #007BFF;
+    color: black;
 }
 
 .order-btn {

@@ -535,3 +535,10 @@ contactButtons.forEach(button => {
     // Call the preventBack function on page load
     window.onload = preventBack;
 })();
+
+// Go to order button
+$('.order-btn').click(function () {
+    $('html, body').animate({
+        scrollTop: $('.product-heading-container').offset().top
+    }, 1000);
+});
