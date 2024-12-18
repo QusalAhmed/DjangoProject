@@ -1051,3 +1051,8 @@ input:-webkit-autofill:focus {
         font-size: 1.2rem;
     }
 }
+
+.order-btn a {
+    text-decoration: none;
+    color: black;
+}
