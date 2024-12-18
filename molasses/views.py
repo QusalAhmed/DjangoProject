@@ -1,7 +1,37 @@
-from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect, Http404
-from molasses.models import Product, Order
+from django.shortcuts import render
+
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.views import APIView
+
 from molasses.form import OrderForm
+from molasses.models import Product, Order
+from molasses.serializers import EventSerializer
+
+
+class Event(APIView):
+    def post(self, request):
+        serializer = EventSerializer(data=request.data)
+
+        # Validate the incoming data
+        if serializer.is_valid():
+            # Process the validated data
+            validated_data = serializer.validated_data
+            # Example: Log the data
+            print(f"Received Data: {validated_data}")
+
+            # Send a successful response
+            return Response(
+                {"message": "Data processed successfully", "data": validated_data},
+                status=status.HTTP_200_OK
+            )
+
+        # Return validation errors
+        return Response(
+            {"errors": serializer.errors},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 # Create your views here.
@@ -51,12 +81,14 @@ def order_confirmation(request):
             'form': OrderForm(),
         })
 
+
 def thank_you(request, order_id):
     try:
         order_details = Order.objects.get(id=order_id)
         return render(request, 'thank_you.html', {'order_details': order_details})
     except Order.DoesNotExist:
         raise Http404('Order not found')
+
 
 def profile(request):
     return render(request, 'profile.html')

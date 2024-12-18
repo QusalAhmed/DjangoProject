@@ -27,3 +27,37 @@ function copyText() {
     });
 }
 
+// Send purchase event to Facebook Pixel
+function sendPurchaseEvent() {
+    const oderDetails = JSON.parse(document.getElementById('order-details').textContent.trim().replace(/'/g, '"'));
+    let subTotal = 0;
+    let content_ids = [];
+    Object.keys(oderDetails).forEach(productId => {
+        const {weight, price} = oderDetails[productId];
+        if (weight > 0) {
+            subTotal += price * weight;
+        }
+        content_ids.push(productId);
+    });
+    const fbc = getCookieValue('_fbc');
+    const fbp = getCookieValue('_fbp');
+    fbq('track', 'Purchase', {
+        content_ids: content_ids,
+        content_type: 'product',
+        contents: oderDetails,
+        num_items: content_ids.length,
+        value: subTotal,
+        currency: 'USD',
+        fbc: fbc,
+        fbp: fbp
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    sendPurchaseEvent();
+});
+
+function getCookieValue(cookieName) {
+    const match = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
+    return match ? match[2] : null;
+}

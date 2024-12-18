@@ -1,3 +1,14 @@
+// Axios
+function fbEvent(eventParams) {
+    axios.post("http://127.0.0.1:8000/event/", eventParams)
+        .then((response) => {
+            console.log("Data successfully sent:", response.data);
+        })
+        .catch((error) => {
+            console.error("Error sending data:", error);
+        });
+}
+
 // Parse product data from the embedded script tag
 const productData = JSON.parse(document.getElementById('product-data').textContent.trim().replace(/'/g, '"'));
 
@@ -42,12 +53,15 @@ function updateWeight(productId, change) {
     // Fb event
     if (change > 0 && productWeights[productId].weight === 1) {
         console.log('AddToCart event fired');
-        fbq('track', 'AddToCart', {
-            content_ids: [productId],
-            content_name: product.name,
-            content_type: 'product',
-            value: product.price,
-            currency: 'BDT'
+        fbEvent({
+            "data": {
+                "event_name": "AddToCart",
+                "content_ids": [productId],
+                "content_name": product.name,
+                "content_type": "product",
+                "value": product.price,
+                "currency": "BDT"
+            }
         });
     }
 }
@@ -409,17 +423,21 @@ function initCheckout() {
     });
     const subTotal = Object.keys(productWeights).reduce((acc, productId) => {
         const {weight, price} = productWeights[productId];
+        console.log(acc, price, weight);
         return acc + price * weight;
-    });
+    }, 0);
     if (contents.length === 0) return; // If no product is selected, exit the function
     console.log("Initiating checkout with contents: ", contents);
-    fbq('track', 'InitiateCheckout', {
-        content_ids: Object.keys(productWeights),
-        contents: contents,
-        currency: 'BDT',
-        num_items: contents.length,
-        value: subTotal,
-        predicted_ltv: subTotal,
+    fbEvent({
+        "event_name": 'InitiateCheckout',
+        data: {
+            "content_ids": Object.keys(productWeights),
+            "contents": contents,
+            "currency": 'BDT',
+            "num_items": contents.length,
+            "value": subTotal,
+            "predicted_ltv": subTotal,
+        }
     });
     initialCheckout = true;
 }
@@ -475,16 +493,29 @@ function toggleSlide() {
 const contactButtons = document.querySelectorAll('.fb-contact');
 contactButtons.forEach(button => {
     button.addEventListener('click', () => {
-        fbq('track', 'Contact');
+        fbEvent({
+            "event_name": "Contact",
+            "data": {
+                "button": button.textContent
+            }
+        });
     });
 });
 
-// Send Fb event when page visited
-let pageVisitFired = false; // Prevent duplicate PageView events
-
-window.addEventListener('scroll', function () {
-    if (!pageVisitFired && window.scrollY > 200) { // Trigger after scrolling 200px
-        fbq('track', 'PageView');
-        pageVisitFired = true;
+(function () {
+    // Push a dummy state to the history stack
+    function preventBack() {
+        history.pushState(null, null, location.href);
     }
-});
+
+    // Add a popstate event listener
+    window.addEventListener('popstate', function () {
+        // Push the dummy state again to prevent back navigation
+        preventBack();
+        modal.style.display = 'flex'; // Show modal
+        document.body.style.overflow = 'hidden'; // Disable scrolling
+    });
+
+    // Call the preventBack function on page load
+    window.onload = preventBack;
+})();

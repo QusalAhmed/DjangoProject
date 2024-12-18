@@ -3,50 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Replacement</title>
-    <style>
-        img {
-            width: 30%; /* Ensure the image scales appropriately */
-            height: auto;
+    <title>Disable Back Button</title>
+    <script>
+        // Function to disable the back button
+        function disableBackButton() {
+            // Push a dummy state to the history stack
+            history.pushState(null, null, location.href);
+            window.addEventListener('popstate', function () {
+                // Push another state to override back navigation
+                history.pushState(null, null, location.href);
+            });
         }
-    </style>
+
+        // Call the function on page load
+        window.onload = disableBackButton;
+    </script>
 </head>
 <body>
-    <!-- Low-quality image placeholders -->
-    <img class="image" src="../../static/product_image/patali.jpeg" alt="Image 1">
-    <img class="image" src="../../static/product_image/patali.jpeg" alt="Image 2">
-    <img class="image" src="../../static/product_image/patali.jpeg" alt="Image 3">
-    <img class="image" src="../../static/product_image/patali.jpeg" alt="Image 4">
-    <img class="image" src="../../static/product_image/patali.jpeg" alt="Image 5">
-
-    <script>
-        // Get all the image elements
-        const imageElements = document.querySelectorAll('.image');
-
-        // List of high-quality image URLs corresponding to the low-quality ones
-        const highQualityImages = [
-            'https://t4.ftcdn.net/jpg/06/78/51/55/360_F_678515518_mBTG4aFYf8VCVWTL75PVaiMQhigbhhlY.jpg',
-            'https://images.pexels.com/photos/206959/pexels-photo-206959.jpeg',
-            'https://t4.ftcdn.net/jpg/06/93/37/25/360_F_693372520_h7gK2JH4QL97moOu1vQ37UJECnP67yEv.jpg',
-            'https://images.pexels.com/photos/206959/pexels-photo-206959.jpeg',
-            'https://t4.ftcdn.net/jpg/07/23/14/93/360_F_723149335_tA0Fo8zefrHzYlSgXRMYHmBQk7CuWrRd.jpg'
-        ];
-
-        // Function to preload and replace images
-        imageElements.forEach((imageElement, index) => {
-            const highQualityImage = new Image();
-            highQualityImage.src = highQualityImages[index]; // Set the high-quality image URL
-
-            // When the high-quality image has loaded, replace the low-quality image
-            highQualityImage.onload = () => {
-                imageElement.src = highQualityImages[index]; // Replace with high-quality image
-            };
-
-            // Optional: Handle error if image fails to load
-            highQualityImage.onerror = () => {
-                console.error(`Failed to load high-quality image: ${highQualityImages[index]}`);
-            };
-        });
-    </script>
+    <h1>Back Button Disabled</h1>
+    <p>The browser back button has been disabled on this page.</p>
 </body>
 </html>
