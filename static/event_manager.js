@@ -1,4 +1,6 @@
 axios.defaults.baseURL = 'https://jazakallah.store';
+// Set CSRF token in Axios defaults
+axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
 
 export function fbEvent(eventParams) {
     const event_name = eventParams.event_name;
@@ -16,4 +18,11 @@ export function fbEvent(eventParams) {
         .catch((error) => {
             console.error("Error sending data:", error);
         });
+}
+
+// Function to get CSRF token from cookies
+function getCSRFToken() {
+    const cookies = document.cookie.split('; ');
+    const csrfCookie = cookies.find(cookie => cookie.startsWith('csrftoken='));
+    return csrfCookie ? csrfCookie.split('=')[1] : null;
 }

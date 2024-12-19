@@ -141,9 +141,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 FACEBOOK_PIXEL_ID = config("FACEBOOK_PIXEL_ID")
 
 # CORS settings
-CORS_ALLOW_ALL_ORIGINS = True
-# CORS_ALLOWED_ORIGIN_REGEXES = [
-#     r"^http://localhost(:\d+)?$",
-#     r"^https://jazakallah\.store$",
-#     "https://jazakallah.store/event/",
-# ]
+# CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^http://localhost(:\d+)?$",
+    r"^https://jazakallah\.store$",
+]
