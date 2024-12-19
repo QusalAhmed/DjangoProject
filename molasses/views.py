@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from molasses.api import send_event
+from molasses.capi import send_event
 from molasses.form import OrderForm
 from molasses.models import Product, Order, Event
 from molasses.serializers import EventSerializer
