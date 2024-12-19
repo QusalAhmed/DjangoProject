@@ -1,4 +1,4 @@
-axios.defaults.baseURL = 'http://jazakallah.store';
+axios.defaults.baseURL = 'https://jazakallah.store';
 
 export function fbEvent(eventParams) {
     const event_name = eventParams.event_name;

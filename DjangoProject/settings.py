@@ -145,4 +145,5 @@ FACEBOOK_PIXEL_ID = config("FACEBOOK_PIXEL_ID")
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^http://localhost(:\d+)?$",
     r"^https://jazakallah\.store$",
+    "https://jazakallah.store/event/",
 ]
