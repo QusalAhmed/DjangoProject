@@ -1,29 +1,52 @@
+import hashlib
+
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
-
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from molasses.api import send_event
 from molasses.form import OrderForm
-from molasses.models import Product, Order
+from molasses.models import Product, Order, Event
 from molasses.serializers import EventSerializer
 
 
-class Event(APIView):
+def get_client_ip(request):
+    """Retrieve the client's IP address from the request."""
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+class EventView(APIView):
     def post(self, request):
-        serializer = EventSerializer(data=request.data)
+        client_ip = get_client_ip(request)
+        serializer = EventSerializer(data=request.data, context={'ip': client_ip})
 
         # Validate the incoming data
         if serializer.is_valid():
+            event_id = serializer.save()
             # Process the validated data
             validated_data = serializer.validated_data
+            # Set event_id
+            validated_data['data']['event_id'] = str(event_id)
             # Example: Log the data
             print(f"Received Data: {validated_data}")
 
+            # Send the event data to Facebook Conversion API
+            send_event(serializer.validated_data)
+
             # Send a successful response
-            return Response(
-                {"message": "Data processed successfully", "data": validated_data},
+            return Response({
+                "message": "Data processed successfully",
+                "data": validated_data,
+                "event_id": str(event_id),
+                "client_ip_address": client_ip
+            },
                 status=status.HTTP_200_OK
             )
 
@@ -32,6 +55,12 @@ class Event(APIView):
             {"errors": serializer.errors},
             status=status.HTTP_400_BAD_REQUEST
         )
+
+    def get(self, request):
+        # Get all events
+        events = Event.objects.all()
+        serializer = EventSerializer(events, many=True)
+        return Response(serializer.data)
 
 
 # Create your views here.
@@ -85,7 +114,15 @@ def order_confirmation(request):
 def thank_you(request, order_id):
     try:
         order_details = Order.objects.get(id=order_id)
-        return render(request, 'thank_you.html', {'order_details': order_details})
+        return render(request, 'thank_you.html',
+                      {
+                          'order_details': order_details,
+                          'customer_details': {
+                                'fn': hashlib.sha256(order_details.customer_name.encode("utf-8")).hexdigest(),
+                                'ph': hashlib.sha256(order_details.phone.encode("utf-8")).hexdigest(),
+                                # 'address': order_details.address,
+                            },
+                      })
     except Order.DoesNotExist:
         raise Http404('Order not found')
 

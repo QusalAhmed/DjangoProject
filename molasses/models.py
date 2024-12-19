@@ -80,3 +80,17 @@ class Order(models.Model):
         self.total = self.subtotal + int(self.delivery_charge) - int(self.discount)
 
         super(Order, self).save(*args, **kwargs)
+
+
+class Event(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    data = models.JSONField()
+    ip = models.GenericIPAddressField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.id)
+
+    def save(self, *args, **kwargs):
+        super(Event, self).save(*args, **kwargs)
+        return self.id

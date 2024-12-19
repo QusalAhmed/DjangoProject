@@ -1,13 +1,6 @@
-// Axios
-function fbEvent(eventParams) {
-    axios.post("http://127.0.0.1:8000/event/", eventParams)
-        .then((response) => {
-            console.log("Data successfully sent:", response.data);
-        })
-        .catch((error) => {
-            console.error("Error sending data:", error);
-        });
-}
+import {getCookieValue} from "../../static/cookie_handler.js";
+import {fbEvent} from "../../static/event_manager.js";
+
 
 // Parse product data from the embedded script tag
 const productData = JSON.parse(document.getElementById('product-data').textContent.trim().replace(/'/g, '"'));
@@ -52,19 +45,36 @@ function updateWeight(productId, change) {
 
     // Fb event
     if (change > 0 && productWeights[productId].weight === 1) {
-        console.log('AddToCart event fired');
-        fbEvent({
-            "data": {
-                "event_name": "AddToCart",
+        const payload = {
+            "event_name": "AddToCart",
+            "event_time": Math.floor(Date.now() / 1000),
+            "action_source": "website",
+            "event_id": null,
+            "event_source_url": "https://jazakallah.store/",
+            "user_data": {
+                "client_ip_address": null,
+                "client_user_agent": navigator.userAgent,
+                "fbc": getCookieValue('_fbc'),
+                "fbp": getCookieValue('_fbp')
+            },
+            "custom_data": {
+                "currency": "BDT",
+                "value": product.price,
+                "content_category": "Organic Food",
                 "content_ids": [productId],
                 "content_name": product.name,
+                // "contents": productWeights[productId],
                 "content_type": "product",
-                "value": product.price,
-                "currency": "BDT"
+                "num_items": 1,
+                "predicted_ltv": product.price * 2
             }
-        });
+        }
+        fbEvent(payload);
     }
 }
+
+// Add to the global scope
+window.updateWeight = updateWeight;
 
 // Update the selected weights list in the UI
 function updateSelectedWeights() {
@@ -85,6 +95,7 @@ function updateSelectedWeights() {
 }
 
 let productWeights = JSON.parse(localStorage.getItem('cartList')) || {};
+window.productWeights = productWeights;
 document.addEventListener('DOMContentLoaded', () => {
     // Close the loading screen
     const loadingAnimation = document.getElementById('loading-animation');
@@ -412,13 +423,12 @@ function initCheckout() {
     if (initialCheckout) return; // If the event is already sent, exit the function
     const contents = []
     Object.keys(productWeights).forEach(productId => {
-        const {weight, name, price} = productWeights[productId];
+        const {weight, price} = productWeights[productId];
         if (weight <= 0) return {}; // Skip items with no weight
         contents.push({
-            id: productId,
-            product_name: name,
-            quantity: weight,
-            item_price: price
+            'id': productId,
+            'quantity': weight,
+            'item_price': price
         });
     });
     const subTotal = Object.keys(productWeights).reduce((acc, productId) => {
@@ -429,16 +439,28 @@ function initCheckout() {
     if (contents.length === 0) return; // If no product is selected, exit the function
     console.log("Initiating checkout with contents: ", contents);
     fbEvent({
-        "event_name": 'InitiateCheckout',
-        data: {
+        "event_name": "InitiateCheckout",
+        "event_time": Math.floor(Date.now() / 1000),
+        "action_source": "website",
+        "event_id": null,
+        "event_source_url": "https://jazakallah.store/",
+        "user_data": {
+            "client_ip_address": null,
+            "client_user_agent": navigator.userAgent,
+            "fbc": getCookieValue('_fbc'),
+            "fbp": getCookieValue('_fbp')
+        },
+        "custom_data": {
+            "currency": "BDT",
+            "value": subTotal,
+            "content_category": "Organic Food",
             "content_ids": Object.keys(productWeights),
             "contents": contents,
-            "currency": 'BDT',
-            "num_items": contents.length,
-            "value": subTotal,
-            "predicted_ltv": subTotal,
+            "content_type": "product",
+            "num_items": 1,
+            "predicted_ltv": subTotal
         }
-    });
+    })
     initialCheckout = true;
 }
 
@@ -480,6 +502,8 @@ function copyText() {
     });
 }
 
+window.copyText = copyText;
+
 // Product heading
 function toggleSlide() {
     let slideHeight = 0;
@@ -506,16 +530,13 @@ function toggleSlide() {
     }
 }
 
+window.toggleSlide = toggleSlide;
+
 // Send Fb event when message or call button clicked
 const contactButtons = document.querySelectorAll('.fb-contact');
 contactButtons.forEach(button => {
     button.addEventListener('click', () => {
-        fbEvent({
-            "event_name": "Contact",
-            "data": {
-                "button": button.textContent
-            }
-        });
+        fbq('track', 'Contact');
     });
 });
 

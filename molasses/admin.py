@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Order
+from .models import Product, Order, Event
 
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
@@ -12,5 +12,11 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ['customer_name', 'phone']
     list_filter = ['status', 'created_at']
 
+class EventAdmin(admin.ModelAdmin):
+    list_display = ['id', 'data', 'ip', 'created_at']
+    search_fields = ['ip', 'created_at']
+    list_filter = ['ip', 'created_at']
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
+admin.site.register(Event, EventAdmin)

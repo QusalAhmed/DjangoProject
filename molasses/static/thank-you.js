@@ -1,3 +1,6 @@
+import {getCookieValue} from "../../static/cookie_handler.js";
+import {fbEvent} from "../../static/event_manager.js";
+
 // Order details copy button
 function copyText() {
     const oderDetails = JSON.parse(document.getElementById('order-details').textContent.trim().replace(/'/g, '"'));
@@ -32,32 +35,58 @@ function sendPurchaseEvent() {
     const oderDetails = JSON.parse(document.getElementById('order-details').textContent.trim().replace(/'/g, '"'));
     let subTotal = 0;
     let content_ids = [];
+    let contents = [];
     Object.keys(oderDetails).forEach(productId => {
         const {weight, price} = oderDetails[productId];
         if (weight > 0) {
             subTotal += price * weight;
         }
         content_ids.push(productId);
+        contents.push({
+            'id': productId,
+            'quantity': weight,
+            'item_price': price
+        });
     });
-    const fbc = getCookieValue('_fbc');
-    const fbp = getCookieValue('_fbp');
-    fbq('track', 'Purchase', {
-        content_ids: content_ids,
-        content_type: 'product',
-        contents: oderDetails,
-        num_items: content_ids.length,
-        value: subTotal,
-        currency: 'USD',
-        fbc: fbc,
-        fbp: fbp
-    });
+
+
+    const payload = {
+        "event_name": "Purchase",
+        "event_time": Math.floor(Date.now() / 1000),
+        "action_source": "website",
+        "event_id": null,
+        "event_source_url": window.location.href,
+        "user_data": {
+            "client_ip_address": null,
+            "client_user_agent": navigator.userAgent,
+            "fbc": getCookieValue('_fbc'),
+            "fbp": getCookieValue('_fbp')
+        },
+        "custom_data": {
+            "currency": "USD",
+            "value": (subTotal/121).toFixed(2),
+            "content_category": "Organic Food",
+            "content_ids": content_ids,
+            // "content_name": product.name,
+            "contents": contents,
+            "content_type": "product",
+            "num_items": content_ids.length,
+            "predicted_ltv": subTotal
+        }
+    };
+
+    const customerDetails = JSON.parse(document.getElementById('customer-details').textContent.trim().replace(/'/g, '"'));
+    const {name, phone, address} = customerDetails;
+    for (let key in customerDetails) {
+        if (customerDetails[key] !== "") {
+            payload.user_data[key] = customerDetails[key];
+        }
+    }
+
+    fbEvent(payload);
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     sendPurchaseEvent();
 });
 
-function getCookieValue(cookieName) {
-    const match = document.cookie.match(new RegExp('(^| )' + cookieName + '=([^;]+)'));
-    return match ? match[2] : null;
-}
