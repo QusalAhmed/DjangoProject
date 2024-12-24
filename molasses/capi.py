@@ -66,7 +66,6 @@ def send_event(data):
             data['data']
         ],
         "access_token": ACCESS_TOKEN,
-        "test_event_code": "TEST8797"  # Test event code for debugging
     }
     # Send the request to Facebook's Conversion API
     response = requests.post(GRAPH_API_URL, json=payload)
