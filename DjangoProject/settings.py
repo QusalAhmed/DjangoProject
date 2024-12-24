@@ -140,7 +140,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Analytical settings
 FACEBOOK_PIXEL_ID = config("FACEBOOK_PIXEL_ID")
-CLICKY_SITE_ID = config("CLICKY_SITE_ID")
+MATOMO_DOMAIN_PATH = 'jazakallahstore.matomo.cloud'
+MATOMO_SITE_ID = '1'
 
 # CORS settings
 # CORS_ALLOW_ALL_ORIGINS = True
