@@ -1,4 +1,4 @@
-axios.defaults.baseURL = 'https://jazakallah.store';
+axios.defaults.baseURL = 'http://127.0.0.1:8000';
 // Set CSRF token in Axios defaults
 axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
 
@@ -12,8 +12,7 @@ export function fbEvent(eventParams) {
             eventParams.user_data.client_ip_address = response.data.client_ip_address;
 
             // Send the event to Facebook Pixel
-            const pixelResponse =  fbq('track', event_name, eventParams.custom_data, {"event_id": eventParams.event_id});
-            console.log(pixelResponse)
+            fbq('track', event_name, eventParams.custom_data, {"event_id": eventParams.event_id});
         })
         .catch((error) => {
             console.error("Error sending data:", error);

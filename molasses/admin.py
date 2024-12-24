@@ -16,6 +16,7 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ['id', 'data', 'ip', 'created_at']
     search_fields = ['ip', 'created_at']
     list_filter = ['ip', 'created_at']
+    sortable_by = ['created_at']
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)

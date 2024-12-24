@@ -12,19 +12,35 @@ from molasses.models import Product, Order, Event
 from molasses.serializers import EventSerializer
 
 
-def get_client_ip(request):
-    """Retrieve the client's IP address from the request."""
-    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]
-    else:
-        ip = request.META.get('REMOTE_ADDR')
-    return ip
+# def get_client_ip(request):
+#     """Retrieve the client's IP address from the request."""
+#     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+#     if x_forwarded_for:
+#         ip = x_forwarded_for.split(',')[0]
+#     else:
+#         ip = request.META.get('REMOTE_ADDR')
+#     return ip
+
+
+def get_client_ip_info(request):
+    ip_info = {"client_ip_address": request.ipinfo.ip}
+    try:
+        ip_info['ct'] = getattr(request.ipinfo, 'city')
+    except AttributeError:
+        pass
+    try:
+        ip_info['st'] = getattr(request.ipinfo, 'region')
+    except AttributeError:
+        pass
+
+    return ip_info
 
 
 class EventView(APIView):
-    def post(self, request):
-        client_ip = get_client_ip(request)
+    @staticmethod
+    def post(request):
+        client_info = get_client_ip_info(request)
+        client_ip = client_info['client_ip_address']
         serializer = EventSerializer(data=request.data, context={'ip': client_ip})
 
         # Validate the incoming data
@@ -32,8 +48,12 @@ class EventView(APIView):
             event_id = serializer.save()
             # Process the validated data
             validated_data = serializer.validated_data
+
             # Set event_id
             validated_data['data']['event_id'] = str(event_id)
+            # Set client IP address
+            for key, value in client_info.items():
+                validated_data['data']['user_data'][key] = value
             # Example: Log the data
             print(f"Received Data: {validated_data}")
 
@@ -45,7 +65,7 @@ class EventView(APIView):
                 "message": "Data processed successfully",
                 "data": validated_data,
                 "event_id": str(event_id),
-                "client_ip_address": client_ip
+                "client_ip_address": client_ip,
             },
                 status=status.HTTP_200_OK
             )
@@ -56,7 +76,8 @@ class EventView(APIView):
             status=status.HTTP_400_BAD_REQUEST
         )
 
-    def get(self, request):
+    @staticmethod
+    def get(request):
         # Get all events
         events = Event.objects.all()
         serializer = EventSerializer(events, many=True)
@@ -118,10 +139,10 @@ def thank_you(request, order_id):
                       {
                           'order_details': order_details,
                           'customer_details': {
-                                'fn': hashlib.sha256(order_details.customer_name.encode("utf-8")).hexdigest(),
-                                'ph': hashlib.sha256(order_details.phone.encode("utf-8")).hexdigest(),
-                                # 'address': order_details.address,
-                            },
+                              'fn': hashlib.sha256(order_details.customer_name.encode("utf-8")).hexdigest(),
+                              'ph': hashlib.sha256(order_details.phone.encode("utf-8")).hexdigest(),
+                              # 'address': order_details.address,
+                          },
                       })
     except Order.DoesNotExist:
         raise Http404('Order not found')

@@ -76,6 +76,11 @@ function updateWeight(productId, change) {
 // Add to the global scope
 window.updateWeight = updateWeight;
 
+function updateCartCounter(cartCount) {
+    const cartCounter = document.getElementById('cart-count');
+    cartCounter.textContent = cartCount.toString();
+}
+
 // Update the selected weights list in the UI
 function updateSelectedWeights() {
     const weightsList = document.getElementById('weights-list');
@@ -143,6 +148,7 @@ const deliveryCharge = 100; // Fixed delivery charge
 function populateOrderTable() {
     const orderBody = document.getElementById("order-body");
     let subtotal = 0;
+    let cartCount = 0;
     orderBody.innerHTML = "";
 
     Object.keys(productWeights).forEach(productId => {
@@ -161,6 +167,9 @@ function populateOrderTable() {
 
         // Calculate subtotal
         subtotal += price * weight;
+
+        // Calculate cart items
+        cartCount += weight;
     });
 
     let totalPrice = subtotal === 0 ? 0 : subtotal + deliveryCharge;
@@ -186,6 +195,9 @@ function populateOrderTable() {
 
     // Update payment process
     updatePaymentProcess(totalPrice);
+
+    // Update cart counter
+    updateCartCounter(cartCount);
 }
 
 // Order confirmation form
@@ -457,7 +469,7 @@ function initCheckout() {
             "content_ids": Object.keys(productWeights),
             "contents": contents,
             "content_type": "product",
-            "num_items": 1,
+            "num_items": Object.keys(productWeights).length,
             "predicted_ltv": subTotal
         }
     })
@@ -540,26 +552,20 @@ contactButtons.forEach(button => {
     });
 });
 
-(function () {
-    // Push a dummy state to the history stack
-    function preventBack() {
-        console.log('Preventing back navigation');
-        history.pushState(null, null, location.href);
-    }
-
-    // Add a popstate event listener
-    window.addEventListener('popstate', function () {
-        // Push the dummy state again to prevent back navigation
-        preventBack();
-    });
-
-    // Call the preventBack function on page load
-    window.onload = preventBack;
-})();
-
 // Go to order button
 $('.order-btn').click(function () {
     $('html, body').animate({
         scrollTop: $('.product-heading-container').offset().top
     }, 1000);
 });
+
+// Prevent leaving the page
+// window.onload = function () {
+//     history.replaceState({state: 1}, `State 1`, `?state=1`);
+//     setInterval(function () {
+//         const urlParams = new URLSearchParams(window.location.search);
+//         let state = urlParams.get('state');
+//         if (state >= 10) return;
+//         history.pushState({state: ++state}, `State ${state}`, `?state=${state}`);
+//     }, 100);
+// }

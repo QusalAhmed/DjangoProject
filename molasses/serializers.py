@@ -6,10 +6,10 @@ from .models import Event
 class EventSerializer(serializers.ModelSerializer):
     data = serializers.JSONField()
 
+    def create(self, validated_data):
+        client_ip = self.context.get('ip')
+        return Event.objects.create(data=validated_data['data'], ip=client_ip)
+
     class Meta:
         model = Event
         fields = '__all__'
-
-    def validate(self, attrs):
-        attrs['data']['user_data']['client_ip_address'] = self.context['ip']
-        return super().validate(attrs)

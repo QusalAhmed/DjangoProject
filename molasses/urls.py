@@ -11,5 +11,4 @@ urlpatterns = [
     path('profile', profile),
     path('products/<slug:product_url>', product_viewer),
     path('hello', helloworld),
-    # path('products/<str:product_id>', product_viewer),
 ]

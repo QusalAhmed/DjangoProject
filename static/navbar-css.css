@@ -56,6 +56,27 @@
     object-fit: contain;
 }
 
+/* Cart Count Styles */
+.cart-icon {
+    position: relative;
+}
+
+#cart-count {
+    text-decoration: none;
+    position: absolute;
+    top: -6px;
+    right: -9px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+}
+
 /* Sidebar Styles */
 .sidebar {
     position: fixed;
@@ -65,21 +86,38 @@
     background-color: rgba(255, 255, 255, 0.8);
     color: black;
     transition: left 0.3s ease-in-out;
-    padding: 20px;
+    padding: 10px;
+    font-weight: bold;
     z-index: 99;
 }
 
 .sidebar h2 {
     color: blue;
     font-size: 24px;
+    border-bottom: 2px solid #ccc;
 }
 
 .sidebar .close-btn {
-    font-size: 30px;
+    font-size: 40px;
     cursor: pointer;
     color: black;
     text-align: right;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+#cart-list {
+    list-style-type: none;
+    -webkit-text-stroke: 1px #9e36c3;
+    color: black;
+    /*background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);*/
+    -webkit-background-clip: text; /* For WebKit browsers */
+    background-clip: text; /* Standard property */
+}
+
+#cart-list li::before {
+    content: '🛒'; /* Add custom symbol */
+    margin-right: 5px; /* Optional: Add spacing */
+    display: inline-block;
 }
 
 /* Hover effect to show the sidebar */

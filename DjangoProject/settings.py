@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-^zu&6414qgsh3f!x8*u62(f5)$rs%if!0)c)l20h7^!dr%tk4v
 DEBUG = False
 
 ALLOWED_HOSTS = ['jazakallah.store', 'localhost', '127.0.0.1']
-
+# ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -54,6 +54,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'ipinfo_django.middleware.IPinfoMiddleware',
 ]
 
 ROOT_URLCONF = 'DjangoProject.urls'
@@ -146,3 +147,10 @@ CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^http://localhost(:\d+)?$",
     r"^https://jazakallah\.store$",
 ]
+
+# Ipinfo
+IPINFO_SETTINGS = {
+    'ACCESS_TOKEN': config('IPINFO_TOKEN'),
+    'CACHE': 'django.core.cache.backends.locmem.LocMemCache',
+    'CACHE_TTL': 60 * 60,  # Cache TTL in seconds
+}
