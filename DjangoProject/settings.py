@@ -140,6 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Analytical settings
 FACEBOOK_PIXEL_ID = config("FACEBOOK_PIXEL_ID")
+CLICKY_SITE_ID = config("CLICKY_SITE_ID")
 
 # CORS settings
 # CORS_ALLOW_ALL_ORIGINS = True
