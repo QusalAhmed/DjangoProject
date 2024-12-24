@@ -1,5 +1,5 @@
 import hashlib
-from ipinfo_django import *
+
 from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import render
 from rest_framework import status
