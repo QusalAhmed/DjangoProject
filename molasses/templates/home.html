@@ -104,13 +104,16 @@
 
     <div id="product-list">
         {% for product in products %}
-            <div class="product-card">
+            <div itemscope itemtype="https://schema.org/Product" class="product-card">
                 <div class="badge">Organic</div>
                 <img src="{% static 'product_image' %}/{{ product.image }}"
                      alt="{{ product.name }}" class="product-image">
-                <h3 class="product-title">{{ product.name }}</h3>
-                <p class="product-price">৳ {{ product.price }} per Kg</p>
-                <p class="product-description">{{ product.description|safe }}</p>
+                <h3 itemprop="name" class="product-title">{{ product.name }}</h3>
+                <p itemprop="price" content="{{ product.price }}" class="product-price">
+                    ৳ {{ product.price }} per Kg
+                    <meta itemprop="priceCurrency" content="BDT">
+                </p>
+                <p itemprop="description" class="product-description">{{ product.description|safe }}</p>
                 <div class="product-actions">
                     <button class="quantity-btn" onclick="updateWeight('{{ product.id }}', -1)">১ কেজি কমান</button>
                     <div class="quantity-container">
