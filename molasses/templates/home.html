@@ -120,6 +120,7 @@
                 <div itemprop="value" itemscope itemtype="http://schema.org/PropertyValue">
                     <span itemprop="propertyID" content="{{ product.id }}"></span>
                     <meta itemprop="value" content="{{ product.price }}"></meta>
+                    <meta itemprop="price" content="{{ product.price }}"></meta>
                 </div>
                 <p itemprop="description" class="product-description">{{ product.description|safe }}</p>
                 <meta itemprop="description" content="{{ product.description|safe }}">
