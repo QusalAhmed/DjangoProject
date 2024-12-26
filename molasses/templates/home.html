@@ -105,6 +105,7 @@
     <div id="product-list">
         {% for product in products %}
             <div itemscope itemtype="https://schema.org/Product" class="product-card">
+                <p>Price: <span itemprop="price" content="49.99">$49.99</span></p>
                 <meta itemprop="productID" content="{{ product.id }}">
                 <meta itemprop="url" content="https://jazakallah.store/">
                 <div class="badge">Organic</div>
@@ -122,7 +123,6 @@
                     <meta itemprop="value" content="{{ product.price }}"></meta>
                 </div>
                 <p itemprop="description" class="product-description">{{ product.description|safe }}</p>
-                <p itemprop="price">{{ product.price|safe }} BDT</p>
                 <meta itemprop="description" content="{{ product.description|safe }}">
                 <div class="product-actions">
                     <button class="quantity-btn" onclick="updateWeight('{{ product.id }}', -1)">১ কেজি কমান</button>
