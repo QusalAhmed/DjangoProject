@@ -113,14 +113,13 @@
                 <meta itemprop="image" content="{% static 'product_image' %}/{{ product.image }}">
                 <h3 itemprop="name" class="product-title">{{ product.name }}</h3>
                 <meta itemprop="name" content="{{ product.name }}">
-                <p itemprop="price" content="{{ product.price }}" class="product-price">
+                <p itemprop="price" content="{{ product.price }} BDT" class="product-price">
                     ৳ {{ product.price }} per Kg
                     <meta itemprop="priceCurrency" content="BDT">
                 </p>
                 <div itemprop="value" itemscope itemtype="http://schema.org/PropertyValue">
                     <span itemprop="propertyID" content="{{ product.id }}"></span>
                     <meta itemprop="value" content="{{ product.price }}"></meta>
-                    <meta itemprop="price" content="{{ product.price }}"></meta>
                 </div>
                 <p itemprop="description" class="product-description">{{ product.description|safe }}</p>
                 <meta itemprop="description" content="{{ product.description|safe }}">
