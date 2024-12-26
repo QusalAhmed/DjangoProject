@@ -104,8 +104,16 @@
 
     <div id="product-list">
         {% for product in products %}
-            <div itemscope itemtype="https://schema.org/Product" class="product-card">
+            <div itemscope itemtype="https://schema.org/Product">
+                <h1 itemprop="name">Wireless Earbuds</h1>
+                <p itemprop="description">High-quality sound with noise cancellation.</p>
+                <p>Brand: <span itemprop="brand">SoundTech</span></p>
                 <p>Price: <span itemprop="price" content="49.99">$49.99</span></p>
+                <meta itemprop="priceCurrency" content="USD">
+            </div>
+
+
+            <div itemscope itemtype="https://schema.org/Product" class="product-card">
                 <meta itemprop="productID" content="{{ product.id }}">
                 <meta itemprop="url" content="https://jazakallah.store/">
                 <div class="badge">Organic</div>
