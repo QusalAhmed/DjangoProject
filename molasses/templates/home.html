@@ -113,7 +113,7 @@
                 <meta itemprop="image" content="{% static 'product_image' %}/{{ product.image }}">
                 <h3 itemprop="name" class="product-title">{{ product.name }}</h3>
                 <meta itemprop="name" content="{{ product.name }}">
-                <p itemprop="price" content="{{ product.price }} BDT" class="product-price">
+                <p itemprop="price" content="{{ product.price }}" class="product-price">
                     ৳ {{ product.price }} per Kg
                     <meta itemprop="priceCurrency" content="BDT">
                 </p>
@@ -122,6 +122,7 @@
                     <meta itemprop="value" content="{{ product.price }}"></meta>
                 </div>
                 <p itemprop="description" class="product-description">{{ product.description|safe }}</p>
+                <p itemprop="price">{{ product.price|safe }} BDT</p>
                 <meta itemprop="description" content="{{ product.description|safe }}">
                 <div class="product-actions">
                     <button class="quantity-btn" onclick="updateWeight('{{ product.id }}', -1)">১ কেজি কমান</button>
