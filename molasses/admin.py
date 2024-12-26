@@ -3,7 +3,7 @@ from .models import Product, Order, Event
 
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ['name', 'price', 'description']
+    list_display = ['name', 'price', 'description', 'product_url']
     search_fields = ['name', 'category', 'tag']
     list_filter = ['category', 'tag']
 
@@ -16,7 +16,6 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ['id', 'data', 'ip', 'created_at']
     search_fields = ['ip', 'created_at']
     list_filter = ['ip', 'created_at']
-    sortable_by = ['created_at']
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
