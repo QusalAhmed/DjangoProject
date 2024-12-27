@@ -1,0 +1,110 @@
+.calculator {
+    width: 350px;
+    margin: 2rem auto;
+    background: linear-gradient(145deg, #ffffff, #e6e6e6);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2), -10px -10px 20px rgba(255, 255, 255, 0.7);
+}
+
+.calculator h1 {
+    text-align: center;
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.display {
+    width: 100%;
+    min-height: 50px;
+    background: linear-gradient(145deg, #e2c7c7, #5a339333, #cce8e0);
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-align: right;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 24px;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    font-weight: bold;
+    color: #333;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+}
+
+.display .expression {
+    font-size: 16px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.display .result {
+    font-size: 28px;
+    color: #000;
+    font-weight: bold;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+}
+
+.key {
+    height: 50px;
+    font-size: 18px;
+    border: none;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #f0f0f5, #d9d9d9);
+    color: #000;
+    cursor: pointer;
+    font-weight: revert;
+    transition: all 0.3s ease;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2), -3px -3px 5px rgba(255, 255, 255, 0.8);
+}
+
+.key:hover {
+    background: linear-gradient(145deg, #d9d9d9, #f0f0f5);
+}
+
+.key.operation {
+    background: linear-gradient(145deg, #d9eaf9, #b8d6f5);
+    color: #007bff;
+}
+
+.key.operation:hover {
+    background: linear-gradient(145deg, #b8d6f5, #d9eaf9);
+}
+
+.key.equals {
+    grid-column: span 1;
+    background: linear-gradient(145deg, #007bff, #0056b3);
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.3), -3px -3px 8px rgba(255, 255, 255, 0.5);
+}
+
+.key.equals:hover {
+    background: linear-gradient(145deg, #0056b3, #007bff);
+}
+
+.key.delete {
+    background: linear-gradient(145deg, #ffc107, #d99c07);
+    color: #fff;
+}
+
+.key.delete:hover {
+    background: linear-gradient(145deg, #d99c07, #ffc107);
+}
+
+.key.clear {
+    background: linear-gradient(145deg, #dc3545, #a02832);
+    color: #fff;
+}
+
+.key.clear:hover {
+    background: linear-gradient(145deg, #a02832, #dc3545);
+}
+
+.keypad .key:active {
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.1), inset -2px -2px 5px rgba(255, 255, 255, 0.7);
+}
