@@ -34,7 +34,7 @@
 
     <!-- Text section -->
     <div class="text-section">
-        <h2>আমাদের গুড় কেন কিনবেন??</h2>
+        <h2>আমাদের গুড় কেন কিনবেন <i class="fa-solid fa-question"></i></h2>
         <div class="text-card">
             <div class="text-card-icon">&#10004;</div>
             <p>প্রথমত গুড় আমাদের নিজেদের বাসার। কোনো চাষীর থেকে সংগ্রহ করলে ভেজাল দেওয়ার সম্ভাবনা থাকে। অনেক
@@ -48,7 +48,9 @@
             </p>
         </div>
         <button class="order-btn">
-            <a href="tel:+8801843557389" class="phone-link">কল দিতে এখানে ক্লিক করুন</a>
+            <a href="tel:+8801843557389" class="phone-link">
+                <i class="fa-solid fa-phone"></i> কল দিতে এখানে ক্লিক করুন
+            </a>
         </button>
         <div class="text-card">
             <div class="text-card-icon">&#10004;</div>
@@ -77,7 +79,7 @@
 
         <!-- Button -->
         <div class="button-container">
-            <button onclick="toggleSlide()">Learn How to Order</button>
+            <button onclick="toggleSlide()"><i class="fa-brands fa-leanpub"></i> Learn How to Order</button>
         </div>
 
         <!-- Sliding Section -->
@@ -135,7 +137,7 @@
 
     {#    Order Invoice  #}
     <div class="order-details">
-        <h1 class="order-heading">Order Details</h1>
+        <h1 class="order-heading"><i class="fa-solid fa-circle-info"></i> Order Details</h1>
         <table class="order-table">
             <thead>
             <tr>
@@ -170,7 +172,7 @@
 
     {#    Order Confirmation form   #}
     <div class="form-container" id="form-container">
-        <h2>Order Confirmation</h2>
+        <h2><i class="fa-solid fa-user-pen"></i> Order Confirmation</h2>
         <form id="order-form" method="POST" target="_parent" action="/order_confirmation">
             {% csrf_token %}
             {{ form.order_details.as_hidden }}
@@ -229,7 +231,9 @@
             <div id="payment-info" class="payment-process">
                 <!-- Payment process details will be displayed here -->
             </div>
-            <button type="submit" id="submit-button">Confirm Order</button>
+            <button type="submit" id="submit-button">
+                <i class="fa-regular fa-circle-check"></i> Confirm Order
+            </button>
         </form>
 
         <!-- Loading Animation -->
