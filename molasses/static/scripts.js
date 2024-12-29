@@ -361,7 +361,9 @@ function updatePaymentProcess(totalAmount) {
     if (selectedMethod === "Cash on Delivery") {
         formContainer.classList.remove('flowers'); // Remove flower style
         paymentInfo.innerHTML = `
-                <strong>Cash on Delivery:</strong><br>
+                <strong>
+                Cash on Delivery: <i class="fa-solid fa-truck"> </i> <i class="fa-solid fa-sack-dollar"></i>
+                </strong><br>
                 You will pay <strong>${totalAmount.toLocaleString('en-BD')}</strong> in cash when the product is delivered to your address.
             `;
     } else if (selectedMethod === "Bkash") {

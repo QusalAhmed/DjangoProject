@@ -502,7 +502,7 @@ label[for="id_comment"]::before {
     background-color: #f9f9f9;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     font-size: 15px;
-    color: #333;
+    color: #105955;
 }
 
 /* Rounded card-style discount table */
