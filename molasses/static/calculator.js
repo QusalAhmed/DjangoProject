@@ -38,7 +38,7 @@ function appendDecimal() {
 
 function appendBracket(bracket) {
     const lastChar = currentExpression.slice(-1);
-    if (bracket === '(' && (Number(lastChar) > 0 || lastChar === ')' || lastChar === '.')) {
+    if (bracket === '(' && lastChar !== '') {
         currentExpression += '*';
     }
     currentExpression += bracket;
@@ -78,8 +78,12 @@ function calculate() {
         currentResult = 'Error';
         // Set the text color to red for 1s
         resultDisplay.style.color = 'red';
+        expressionDisplay.style.color = 'red';
         setTimeout(() => {
             resultDisplay.style.color = '';
+            expressionDisplay.style.color = '';
+            currentResult = '';
+            updateDisplay();
         }, 1000);
     }
     updateDisplay();
@@ -104,5 +108,13 @@ function updateDisplay() {
         .replace(/\*/g, '×')
         .replace(/\//g, '÷');
     expressionDisplay.textContent = formattedExpression || '';
-    resultDisplay.textContent = currentResult ? `= ${Number(currentResult).toLocaleString('en-BD')}` : '';
+    if (currentResult === 'Error') {
+        resultDisplay.textContent = '= Error';
+    } else {
+        resultDisplay.textContent = currentResult ? `= ${Number(currentResult).toLocaleString('en-BD')}` : '';
+    }
 }
+
+window.onload = () => {
+    document.getElementById('calculator').removeAttribute('hidden');
+};

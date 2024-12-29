@@ -1,6 +1,6 @@
 import hashlib
 
-from django.http import HttpResponse, HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
@@ -149,16 +149,20 @@ def thank_you(request, order_id):
 
 
 def profile(request):
+    from django.core.mail import send_mail
+    send_mail(
+        subject='Hello',
+        message='Hello World',
+        from_email='o6K3o@example.com',
+        recipient_list=['qusalcse@gmail.com'],
+        fail_silently=False,
+    )
     return render(request, 'profile.html')
 
 
-def helloworld(request):
-    return HttpResponse('Request method is ' + request.method)
-
-
-def product_viewer(request, product_url):
-    print(product_url)
-    product = Product.objects.filter(product_url=product_url)
+def product_viewer(request, product_slug):
+    print(product_slug)
+    product = Product.objects.filter(product_url=product_slug)
     if product:
         return render(request, 'home.html', {'products': product})
     else:

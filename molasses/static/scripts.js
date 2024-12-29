@@ -39,6 +39,7 @@ function updateWeight(productId, change) {
 
     // Update the list of selected weights
     updateSelectedWeights();
+    showToast();
 
     // Update the invoice table
     populateOrderTable();
@@ -558,6 +559,25 @@ $('.order-btn').click(function () {
         scrollTop: $('.product-heading-container').offset().top
     }, 1000);
 });
+
+// selected-weights toast
+const toast = document.getElementById('selected-weights');
+let toastTimeout;
+
+const showToast = () => {
+    // Make toast visible
+    toast.classList.add('visible');
+
+    // Clear any existing timeout to reset the countdown
+    clearTimeout(toastTimeout);
+
+    // Set timeout to hide toast after 1 second
+    toastTimeout = setTimeout(() => hideToast(), 1000);
+};
+
+const hideToast = () => {
+    toast.classList.remove('visible');
+};
 
 // Prevent leaving the page
 // window.onload = function () {

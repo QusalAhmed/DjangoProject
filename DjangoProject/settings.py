@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^zu&6414qgsh3f!x8*u62(f5)$rs%if!0)c)l20h7^!dr%tk4v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'jazakallah.store',
@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'analytical',
     'rest_framework',
     'corsheaders',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
