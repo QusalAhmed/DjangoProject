@@ -1,4 +1,4 @@
-axios.defaults.baseURL = 'http://127.0.0.1:8000';
+axios.defaults.baseURL = 'https://jazakallah.store/';
 // Set CSRF token in Axios defaults
 axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
 
