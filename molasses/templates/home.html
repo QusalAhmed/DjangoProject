@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'scroll-to-end.css' %}">
     <link rel="stylesheet" href="{% static 'calculator.css' %}">
+    <link rel="stylesheet" href="{% static 'snowfall.css' %}">
 {% endblock %}
 
 {% block js %}
@@ -12,6 +13,7 @@
     <script type="module" src="{% static 'scripts.js' %}"></script>
     <script src="{% static 'scroll-to-end.js' %}"></script>
     <script src="{% static 'calculator.js' %}"></script>
+    <script src="{% static 'snowfall.js' %}"></script>
 {% endblock %}
 
 {% block title %}
@@ -33,7 +35,8 @@
     </div>
 
     <!-- Text section -->
-    <div class="text-section">
+    <div class="text-section" id="snow-container">
+        <div id="snow"></div>
         <h2>আমাদের গুড় কেন কিনবেন <i class="fa-solid fa-question"></i></h2>
         <div class="text-card">
             <div class="text-card-icon">&#10004;</div>
@@ -84,7 +87,7 @@
 
         <!-- Sliding Section -->
         <div id="slide-section">
-            <h2>How to Order</h2>
+            <h2 class="curly-underline">How to Order</h2>
             <ol start="1">
                 <li>
                     যেই আইটেম কিনতে চান তার নিচের দিকে "১ কেজি যোগ করুন" বাটনে ক্লিক করে পরিমাণ সিলেক্ট করুন

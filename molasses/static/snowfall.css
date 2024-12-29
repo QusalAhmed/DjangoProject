@@ -1,0 +1,12 @@
+.snowflake {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: linear-gradient(white, white);
+    /* Workaround for Chromium's selective color inversion */
+    border-radius: 50%;
+    filter: drop-shadow(0 0 10px white);
+    z-index: 100;
+    pointer-events: none;
+    user-select: none;
+}

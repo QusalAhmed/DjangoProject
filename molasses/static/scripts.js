@@ -364,7 +364,8 @@ function updatePaymentProcess(totalAmount) {
                 <strong>
                 Cash on Delivery: <i class="fa-solid fa-truck"> </i> <i class="fa-solid fa-sack-dollar"></i>
                 </strong><br>
-                You will pay <strong>${totalAmount.toLocaleString('en-BD')}</strong> in cash when the product is delivered to your address.
+                You will pay <i class="fa-solid fa-bangladeshi-taka-sign"></i> <strong>${totalAmount.toLocaleString('en-BD')}</strong> 
+                in cash when the product is delivered to your address.
             `;
     } else if (selectedMethod === "Bkash") {
         formContainer.classList.add('flowers'); // Add flower style
