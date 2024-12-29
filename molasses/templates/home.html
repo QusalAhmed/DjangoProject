@@ -40,7 +40,7 @@
             <p>প্রথমত গুড় আমাদের নিজেদের বাসার। কোনো চাষীর থেকে সংগ্রহ করলে ভেজাল দেওয়ার সম্ভাবনা থাকে। অনেক
                 চাষী বেশী টাকা পেয়েও লোভে পড়ে ভেজাল দেয়। যেহেতু আমাদের নিজেদের গুড় তাই এমন হওয়ার সম্ভাবনা নেই।</p>
         </div>
-        <button class="order-btn">গুড় কিনতে ক্লিক করুন</button>
+        <button class="order-btn"><i class="fa-solid fa-basket-shopping"></i> গুড় কিনতে ক্লিক করুন</button>
         <div class="text-card">
             <div class="text-card-icon">&#10004;</div>
             <p>আমাদের থেকে কিনে ব্যবসায়ীরা অনেক বেশিদামে গুড় বিক্রি করে। সরাসরি আমাদের থেকে কিনলে নায্যমূল্যে গুড়
@@ -65,7 +65,7 @@
             <p>যদি গুড় পছন্দ না হয় তবে রিটার্ন করতে পারবেন</p>
         </div>
         <div>
-            <button class="order-btn">গুড় কিনতে ক্লিক করুন</button>
+            <button class="order-btn"><i class="fa-solid fa-basket-shopping"></i> গুড় কিনতে ক্লিক করুন</button>
         </div>
     </div>
 
@@ -172,7 +172,7 @@
 
     {#    Order Confirmation form   #}
     <div class="form-container" id="form-container">
-        <h2><i class="fa-solid fa-user-pen"></i> Order Confirmation</h2>
+        <h2><i class="fa-solid fa-credit-card"></i> Checkout</h2>
         <form id="order-form" method="POST" target="_parent" action="/order_confirmation">
             {% csrf_token %}
             {{ form.order_details.as_hidden }}
