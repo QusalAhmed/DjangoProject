@@ -1,5 +1,6 @@
 import hashlib
 
+from django.contrib.staticfiles.storage import staticfiles_storage
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render
 from rest_framework import status
@@ -95,9 +96,18 @@ def home(request):
             "image": product.image_url,
             "description": product.description,
         })
+
+    # Get review image
+    # List all static file paths served via the staticfiles storage
+    review_files = []
+    for file_path in staticfiles_storage.listdir('review_image')[1]:
+        # STATICFILES_DIRS
+        review_files.append(file_path)
+
     return render(request, 'home.html', {
         'products': products,
         'form': OrderForm(),
+        'review_images': review_files
     })
 
 

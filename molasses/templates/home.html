@@ -5,7 +5,6 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'scroll-to-end.css' %}">
     <link rel="stylesheet" href="{% static 'calculator.css' %}">
-    <link rel="stylesheet" href="{% static 'snowfall.css' %}">
 {% endblock %}
 
 {% block js %}
@@ -13,7 +12,6 @@
     <script type="module" src="{% static 'scripts.js' %}"></script>
     <script src="{% static 'scroll-to-end.js' %}"></script>
     <script src="{% static 'calculator.js' %}"></script>
-    <script src="{% static 'snowfall.js' %}"></script>
 {% endblock %}
 
 {% block title %}
@@ -36,7 +34,6 @@
 
     <!-- Text section -->
     <div class="text-section" id="snow-container">
-        <div id="snow"></div>
         <h2>আমাদের গুড় কেন কিনবেন <i class="fa-solid fa-question"></i></h2>
         <div class="text-card">
             <div class="text-card-icon">&#10004;</div>
@@ -73,29 +70,31 @@
     </div>
 
     <!-- Review Slider -->
-    <div id="carouselExampleAutoplaying" class="carousel slide mx-5" data-bs-ride="carousel">
-        <h2 class="text-center fw-bold">Customer Reviews</h2>
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="1"
-                    aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide-to="2"
-                    aria-label="Slide 3"></button>
-        </div>
+    <div id="carouselExampleAutoplaying" class="carousel carousel-dark slide m-5 bg-black" data-bs-ride="carousel">
+        <h2 class="text-center fw-bold">
+            Customer Review
+            <span id="star-icon">
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+                <i class="fa-solid fa-star"></i>
+            </span>
+        </h2>
         <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="1000">
-                <img src="https://images.unsplash.com/photo-1522990917584-2833706f6a48?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                     class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item" data-bs-interval="1000">
-                <img src="https://media.istockphoto.com/id/1146461819/photo/beautiful-model-in-black-swimsuit-posing-on-white-sandy-beach.webp?s=2048x2048&w=is&k=20&c=fmcReP9z7KLPgXpyT_aKEV_2r4mkFGcLcLl1GGgnQ_0="
-                     class="d-block w-100" alt="...">
-            </div>
-            <div class="carousel-item" data-bs-interval="1000">
-                <img src="https://images.unsplash.com/photo-1522991150037-09a660b94ba4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                     class="d-block w-100" alt="...">
-            </div>
+            {% for review_image in review_images %}
+                {% if forloop.counter == 1 %}
+                    <div class="carousel-item active">
+                        <img src="{% static 'review_image' %}/{{ review_image }}" class="d-block w-100"
+                             alt="Molasses review">
+                    </div>
+                {% else %}
+                    <div class="carousel-item">
+                        <img src="{% static 'review_image' %}/{{ review_image }}" class="d-block w-100"
+                             alt="Molasses review">
+                    </div>
+                {% endif %}
+            {% endfor %}
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
                 data-bs-slide="prev">
@@ -112,7 +111,7 @@
     <!-- Product Heading -->
     <div class="product-heading-container">
         <!-- Product Heading -->
-        <div class="product-heading" data-tooltip="খেজুরের গুড়ের সেকশন">
+        <div class="product-heading">
             খেজুরের খাটি গুড়
         </div>
 
@@ -122,7 +121,7 @@
         </div>
 
         <!-- Sliding Section -->
-        <div id="slide-section">
+        <div id="slide-section" class="neap">
             <h2 class="curly-underline">How to Order</h2>
             <ol start="1">
                 <li>
@@ -272,7 +271,10 @@
                 <label for="cod" data-method="cod">Cash on Delivery</label>
                 <input type="radio" id="bkash" name="payment_method" value="Bkash"
                        {% if form.payment_method.value == 'Bkash' %}checked{% endif %} disabled>
-                <label for="bkash" data-method="bkash">Bkash</label>
+                <label for="bkash" data-method="bkash" tabindex="0" data-bs-toggle="tooltip"
+                       data-bs-title="Bkash is currently unavailable">
+                    Bkash
+                </label>
             </div>
 
             <div id="payment-info" class="payment-process">
@@ -300,17 +302,17 @@
     </div>
 
     <div class="dir-container">
-        <div class="message fb-contact">
+        <div class="message fb-contact" data-bs-toggle="tooltip" data-bs-title="মেসেজ দিতে ক্লিক করুন">
             <a href="#">
                 <i class="fa-brands fa-facebook-messenger"></i>Message Us
             </a>
         </div>
-        <div class="call fb-contact">
+        <div class="call fb-contact" data-bs-toggle="tooltip" data-bs-title="ফোন দিতে ক্লিক করুন">
             <a href="tel:+8801843557389" class="phone-link">
                 <i class="fa-solid fa-phone"></i>Call Us
             </a>
         </div>
-        <div class="page-visit">
+        <div class="page-visit" data-bs-toggle="tooltip" data-bs-title="Facebook পেজ ভিজিট করতে ক্লিক করুন">
             <a href="#">
                 <i class="fa-solid fa-location-arrow"></i>Visit Our Page
             </a>
