@@ -103,6 +103,7 @@ function updateSelectedWeights() {
 let productWeights = JSON.parse(localStorage.getItem('cartList')) || {};
 window.productWeights = productWeights;
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM fully loaded and parsed');
     // Close the loading screen
     const loadingAnimation = document.getElementById('loading-animation');
     loadingAnimation.style.display = 'none';
