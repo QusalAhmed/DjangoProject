@@ -149,14 +149,14 @@ def thank_you(request, order_id):
 
 
 def profile(request):
-    from django.core.mail import send_mail
-    send_mail(
-        subject='Hello',
-        message='Hello World',
-        from_email='o6K3o@example.com',
-        recipient_list=['qusalcse@gmail.com'],
-        fail_silently=False,
-    )
+    # from django.core.mail import send_mail
+    # send_mail(
+    #     subject='Hello',
+    #     message='Hello World',
+    #     from_email='o6K3o@example.com',
+    #     recipient_list=['qusalcse@gmail.com'],
+    #     fail_silently=False,
+    # )
     return render(request, 'profile.html')
 
 

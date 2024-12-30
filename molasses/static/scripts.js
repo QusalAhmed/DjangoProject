@@ -575,7 +575,7 @@ const showToast = () => {
     clearTimeout(toastTimeout);
 
     // Set timeout to hide toast after 1 second
-    toastTimeout = setTimeout(() => hideToast(), 1000);
+    toastTimeout = setTimeout(() => hideToast(), 2000);
 };
 
 const hideToast = () => {

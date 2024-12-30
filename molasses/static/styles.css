@@ -133,6 +133,7 @@ main {
     font-size: 18px;
     color: #333;
     margin: 10px 0 5px;
+    font-weight: 1000;
 }
 
 .product-price {
@@ -240,7 +241,6 @@ main {
 .dir-container a {
     text-decoration: none;
     color: black;
-    font-weight: bold;
     display: block; /* Make link take full button space */
 }
 
@@ -1109,7 +1109,7 @@ input:-webkit-autofill:focus {
     ),
     rgba(12, 214, 176, 0.9); /* Transparent black base */
     color: black;
-    padding: 15px 30px;
+    padding: 5px 10px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: none;
@@ -1117,6 +1117,17 @@ input:-webkit-autofill:focus {
     pointer-events: none; /* Make the toast non-blocking */
     transition: opacity 0.3s ease-in-out;
     z-index: 100;
+}
+
+#selected-weights h2 {
+    font-size: 1.5rem;
+    color: white;
+    /*background-color: rgba(222, 14, 199, 0.8);*/
+    border-radius: 40px;
+    backdrop-filter: blur(10px); /* Frosted glass blur effect */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Border matches transparency */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    margin-bottom: 1px;
 }
 
 #weights-list {
