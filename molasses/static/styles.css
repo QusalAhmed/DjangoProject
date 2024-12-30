@@ -1177,13 +1177,13 @@ input:-webkit-autofill:focus {
     color: #f1c40f;
 }
 
-.neap::after {
-    content: '';
-    position: absolute;
-    top: 100%; /* Arrow at the bottom of the tooltip */
-    left: 50%;
-    transform: translateX(-50%);
-    border-width: 6px;
-    border-style: solid;
-    border-color: #333 transparent transparent transparent;
+.review-section {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin: 20px auto;
+    width: 800px;
+    max-width: 90%;
+    animation: fadeIn 1s ease-in-out;
 }
