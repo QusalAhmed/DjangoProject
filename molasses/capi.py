@@ -1,4 +1,3 @@
-import hashlib
 import requests
 from decouple import config
 
@@ -6,10 +5,6 @@ from decouple import config
 PIXEL_ID = config("FACEBOOK_PIXEL_ID")
 ACCESS_TOKEN = config("CONVERSION_API_ACCESS_TOKEN")
 GRAPH_API_URL = f"https://graph.facebook.com/v12.0/{PIXEL_ID}/events"
-
-# Hashed User Data
-email = hashlib.sha256("customer@example.com".encode("utf-8")).hexdigest()  # SHA-256 hashed email
-phone = hashlib.sha256("1234567890".encode("utf-8")).hexdigest()  # SHA-256 hashed phone number
 
 # AddToCart Event Data
 # payload = {
