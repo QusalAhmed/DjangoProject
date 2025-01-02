@@ -115,7 +115,12 @@ function updateDisplay() {
     }
 }
 
-window.onload = function () {
+// window.onload = function () {
+//     console.log('Calculator loaded');
+//     document.getElementById('calculator').removeAttribute('hidden');
+// }
+
+$(document).ready(function () {
     console.log('Calculator loaded');
     document.getElementById('calculator').removeAttribute('hidden');
-}
+});

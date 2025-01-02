@@ -918,7 +918,7 @@ input:-webkit-autofill:focus {
 }
 
 .text-card {
-    /*font-family: "Bangla Borno", serif;*/
+    font-family: "Bangla Borno", serif;
     display: flex;
     align-items: center;
     background-color: #f1f9ff;

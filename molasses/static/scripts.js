@@ -102,7 +102,7 @@ function updateSelectedWeights() {
 
 let productWeights = JSON.parse(localStorage.getItem('cartList')) || {};
 window.productWeights = productWeights;
-window.onload = function () {
+$(document).ready(function () {
     console.log('DOM fully loaded and parsed');
     // Close the loading screen
     const loadingAnimation = document.getElementById('loading-animation');
@@ -141,7 +141,7 @@ window.onload = function () {
 
     // Populate the invoice table on page load
     populateOrderTable();
-};
+});
 
 // Order invoice
 const deliveryCharge = 100; // Fixed delivery charge
