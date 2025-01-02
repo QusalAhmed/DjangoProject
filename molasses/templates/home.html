@@ -4,7 +4,7 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'scroll-to-end.css' %}">
-    <link rel="stylesheet" href="{% static 'calculator.css' %}"  media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="{% static 'calculator.css' %}">
 {% endblock %}
 
 {% block js %}
@@ -152,7 +152,7 @@
             <div class="product-card">
                 <div class="badge">Organic</div>
                 <img src="{% static 'product_image' %}/{{ product.image }}"
-                     alt="{{ product.name }}" class="product-image">
+                     alt="{{ product.name }}" class="product-image" loading="lazy">
                 <h3 class="product-title">{{ product.name }}</h3>
                 <p class="product-price">
                     ৳ {{ product.price }} per Kg

@@ -115,6 +115,7 @@ function updateDisplay() {
     }
 }
 
-window.onload = () => {
+window.onload = function () {
+    console.log('Calculator loaded');
     document.getElementById('calculator').removeAttribute('hidden');
-};
+}
