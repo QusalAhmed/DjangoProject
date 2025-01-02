@@ -4,7 +4,7 @@
 {% block css %}
     <link rel="stylesheet" href="{% static 'styles.css' %}">
     <link rel="stylesheet" href="{% static 'scroll-to-end.css' %}">
-    <link rel="stylesheet" href="{% static 'calculator.css' %}">
+    <link rel="stylesheet" href="{% static 'calculator.css' %}"  media="print" onload="this.media='all'">
 {% endblock %}
 
 {% block js %}
@@ -87,12 +87,12 @@
                     {% if forloop.counter == 1 %}
                         <div class="carousel-item active">
                             <img src="{% static 'review_image' %}/{{ review_image }}" class="d-block w-100"
-                                 alt="Molasses review">
+                                 alt="Molasses review" loading="lazy">
                         </div>
                     {% else %}
                         <div class="carousel-item">
                             <img src="{% static 'review_image' %}/{{ review_image }}" class="d-block w-100"
-                                 alt="Molasses review">
+                                 alt="Molasses review" loading="lazy">
                         </div>
                     {% endif %}
                 {% endfor %}
