@@ -147,12 +147,12 @@
         </div>
     </div>
 
-    <div id="product-list" hidden="hidden">
+    <div id="product-list">
         {% for product in products %}
             <div class="product-card">
                 <div class="badge">Organic</div>
-                <img src="{% static 'product_image' %}/{{ product.image }}"
-                     alt="{{ product.name }}" class="product-image">
+{#                <img src="{% static 'product_image' %}/{{ product.image }}"#}
+{#                     alt="{{ product.name }}" class="product-image">#}
                 <h3 class="product-title">{{ product.name }}</h3>
                 <p class="product-price">
                     ৳ {{ product.price }} per Kg
