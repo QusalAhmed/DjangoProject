@@ -95,6 +95,7 @@ def home(request):
             "price": product.price,
             "image": product.image_url,
             "description": product.description,
+            "product_url": product.product_url,
         })
 
     # Get review image
@@ -104,7 +105,7 @@ def home(request):
         # STATICFILES_DIRS
         review_files.append(file_path)
 
-    return render(request, 'home.html', {
+    return render(request, 'index.html', {
         'products': products,
         'form': OrderForm(),
         'review_images': review_files
@@ -171,9 +172,23 @@ def profile(request):
 
 
 def product_viewer(request, product_slug):
-    print(product_slug)
-    product = Product.objects.filter(product_url=product_slug)
-    if product:
-        return render(request, 'home.html', {'products': product})
+    product_object = Product.objects.filter(product_url=product_slug)
+    if product_object.exists():
+        products = []
+        for product in product_object:
+            products.append({
+                "id": str(product.id),
+                "name": product.name,
+                "price": product.price,
+                "image": product.image_url,
+                "description": product.description,
+                "product_url": product.product_url,
+            })
+
+        return render(request, 'product_view.html', {
+            'products': products,
+            'product': products[0],
+            'form': OrderForm(),
+        })
     else:
         raise Http404('Product not found')

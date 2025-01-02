@@ -1,0 +1,22 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock title %}
+
+{% block metadata %}
+    <meta property="og:title" content="{{ product.name }}">
+    <meta property="og:description" content="{{ product.description }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:image" content="{% static 'product_image' %}/{{ product.image }}">
+    <meta property="og:price:amount" content="{{ product.price }}">
+    <meta property="og:price:currency" content="BDT">
+    <meta property="product:brand" content="Jazakallah">
+    <meta property="product:availability" content="in_stock">
+    <meta property="product:condition" content="new">
+    <meta property="product:gender" content="Unisex">
+    <meta property="product:item_group_id" content="molasses">
+    <meta property="product:retailer_item_id" content="{{ product.id }}">
+    <meta property="material" content="Pure date juice">
+{% endblock metadata %}

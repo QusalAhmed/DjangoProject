@@ -9,5 +9,5 @@ urlpatterns = [
     path('thank-you/<uuid:order_id>', name='thank_you', view=thank_you),
     path('event/', view=EventView.as_view()),
     path('profile', profile),
-    path('products/<slug:product_slug>', product_viewer),
+    path('products/<slug:product_slug>', product_viewer, name='product_url'),
 ]

@@ -14,9 +14,6 @@
     <script src="{% static 'calculator.js' %}" defer></script>
 {% endblock %}
 
-{% block title %}
-    জাযাকাল্লাহ | খেজুরের খাটি গুড় . পাাটালি, ঝোলা, রাব, নলেন গুড় কিনতে যোগাযোগ করুন
-{% endblock title %}
 
 {% block content %}
     {% include 'scroll-to-end.html' %}
@@ -151,8 +148,10 @@
         {% for product in products %}
             <div class="product-card">
                 <div class="badge">Organic</div>
-                <img src="{% static 'product_image' %}/{{ product.image }}"
-                     alt="{{ product.name }}" class="product-image" loading="lazy">
+                <a href="/products/{{ product.product_url }}">
+                    <img src="{% static 'product_image' %}/{{ product.image }}"
+                         alt="{{ product.name }}" class="product-image" loading="lazy">
+                </a>
                 <h3 class="product-title">{{ product.name }}</h3>
                 <p class="product-price">
                     ৳ {{ product.price }} per Kg
