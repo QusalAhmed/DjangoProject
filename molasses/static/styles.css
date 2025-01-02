@@ -877,7 +877,7 @@ input:-webkit-autofill:focus {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    animation: fadeInZoom 1s ease-in-out;
+    /*animation: fadeInZoom 1s ease-in-out;*/
 }
 
 @keyframes fadeInZoom {
@@ -903,7 +903,7 @@ input:-webkit-autofill:focus {
     margin-right: auto;
     text-transform: uppercase;
     letter-spacing: 1px;
-    animation: fadeInSlide 1s ease-out;
+    /*animation: fadeInSlide 1s ease-out;*/
 }
 
 @keyframes fadeInSlide {
@@ -929,7 +929,7 @@ input:-webkit-autofill:focus {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     position: relative;
-    animation: cardEntry 1s ease-in-out;
+    /*animation: cardEntry 1s ease-in-out;*/
 }
 
 @keyframes cardEntry {
