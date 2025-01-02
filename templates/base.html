@@ -64,8 +64,8 @@
     </style>
 
     <!-- Link to Static Files (CSS) -->
-    <link rel="stylesheet" href="{% static 'general-css.css' %}">
-    <link rel="stylesheet" href="{% static 'footer-css.css' %}">
+{#    <link rel="stylesheet" href="{% static 'general-css.css' %}">#}
+    <link rel="stylesheet" href="{% static 'footer-css.css' %}"  media="print" onload="this.media='all'">
     <link rel="stylesheet" href="{% static 'navbar-css.css' %}">
 
     <!-- Font Awesome -->
@@ -154,7 +154,7 @@
         </div>
     </div>
 </header>
-
+Welcome to my page
 <main>
     {% block content %}
         <!-- Main content of the page will go here -->
@@ -207,8 +207,8 @@
 {% endblock %}
 
 <!-- Link to Static Files (JS) -->
-<script src="{% static 'footer-js.js' %}" async></script>
-<script src="{% static 'navbar-js.js' %}" async></script>
+<script src="{% static 'footer-js.js' %}" defer></script>
+<script src="{% static 'navbar-js.js' %}"></script>
 <script src="{% static 'general.js' %}" defer></script>
 {% facebook_pixel_body %}
 {% matomo %}
