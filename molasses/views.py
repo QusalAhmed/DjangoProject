@@ -172,6 +172,7 @@ def profile(request):
 
 
 def product_viewer(request, product_slug):
+    import html2text
     product_object = Product.objects.filter(product_url=product_slug)
     if product_object.exists():
         products = []
@@ -182,6 +183,7 @@ def product_viewer(request, product_slug):
                 "price": product.price,
                 "image": product.image_url,
                 "description": product.description,
+                "description_text": html2text.html2text(product.description),
                 "product_url": product.product_url,
             })
 
