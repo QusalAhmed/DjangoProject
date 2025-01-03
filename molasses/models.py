@@ -9,7 +9,7 @@ from django.utils.text import slugify
 
 class Product(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
-    name = models.TextField()
+    name = models.CharField(max_length=65)
     price = models.IntegerField(validators=[MinValueValidator(1)])
     image_url = models.TextField()
     description = models.TextField()
