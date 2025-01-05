@@ -85,6 +85,7 @@ class Order(models.Model):
 class IncompleteOrderModel(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
     phone = models.CharField(max_length=15)
+    user_id = models.CharField(max_length=100, editable=False, null=True)
     ip_address = models.GenericIPAddressField()
     created_at = models.DateTimeField(auto_now_add=True)
 

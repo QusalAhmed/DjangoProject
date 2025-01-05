@@ -87,7 +87,6 @@ class EventView(APIView):
 
 # Create your views here.
 def home(request):
-    user_id = request.session.get('user_id')
     products = []
     for product in Product.objects.exclude(stock=0).order_by('rank'):
         products.append({
@@ -151,9 +150,9 @@ class IncompleteOrder(APIView):
         client_ip = client_info['client_ip_address']
         data = request.data
         phone_number = data.get('phone_number')
-        print(phone_number)
+        user_id = request.session.get('user_id')
         if phone_number:
-            IncompleteOrderModel.objects.create(phone=phone_number, ip_address=client_ip)
+            IncompleteOrderModel.objects.create(phone=phone_number, ip_address=client_ip, user_id=user_id)
             return Response({
                 "message": "Incomplete order processed successfully",
                 "data": data,

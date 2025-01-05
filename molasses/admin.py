@@ -18,7 +18,7 @@ class EventAdmin(admin.ModelAdmin):
     list_filter = ['ip', 'created_at']
 
 class IncompleteOrderModelAdmin(admin.ModelAdmin):
-    list_display = ['phone', 'ip_address', 'created_at']
+    list_display = ['phone', 'ip_address', 'user_id', 'created_at']
     search_fields = ['phone', 'ip_address']
     list_filter = ['created_at']
 
