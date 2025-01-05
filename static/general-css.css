@@ -9,12 +9,12 @@
 
 /* Toast Notification Style */
 #toast-box .custom-toast {
-    background-color: rgba(221, 230, 229, 0.3);
     color: black;
-    padding: 10px 10px;
+    font-size: 1rem;
+    padding: 5px 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    opacity: 1;
+    opacity: 0;
     transform: translateY(50px);
     transition: opacity 0.3s ease, transform 0.3s ease;
     display: inline-block;

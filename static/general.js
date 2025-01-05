@@ -42,7 +42,7 @@ function showToast(message) {
 }
 
 $(document).ready(function () {
-    showToast('You are logged in as Guest');
+    showToast('Logged in as Guest');
 });
 
 // Bootstrap tooltips activation
