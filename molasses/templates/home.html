@@ -154,9 +154,11 @@
     <div id="product-list">
         {% for product in products %}
             <div class="product-card">
-                <a href="/products/{{ product.product_url }}">
-                    <div class="badge">Organic</div>
-                </a>
+                <div class="badge">
+                    <a href="/products/{{ product.product_url }}">
+                        Organic
+                    </a>
+                </div>
                 <img src="{% static 'product_image' %}/{{ product.image }}"
                      alt="{{ product.name }}" class="product-image" loading="lazy">
                 <h3 class="product-title">{{ product.name }}</h3>
