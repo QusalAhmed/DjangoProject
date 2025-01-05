@@ -38,7 +38,7 @@ function showToast(message) {
         setTimeout(() => {
             toast.remove();
         }, 300);
-    }, 3000);
+    }, 2000);
 }
 
 $(document).ready(function () {
