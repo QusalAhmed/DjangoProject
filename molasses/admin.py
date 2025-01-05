@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product, Order, Event
+from .models import Product, Order, Event, IncompleteOrderModel
 
 # Register your models here.
 class ProductAdmin(admin.ModelAdmin):
@@ -17,6 +17,12 @@ class EventAdmin(admin.ModelAdmin):
     search_fields = ['ip', 'created_at']
     list_filter = ['ip', 'created_at']
 
+class IncompleteOrderModelAdmin(admin.ModelAdmin):
+    list_display = ['phone', 'ip_address', 'created_at']
+    search_fields = ['phone', 'ip_address']
+    list_filter = ['created_at']
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Event, EventAdmin)
+admin.site.register(IncompleteOrderModel, IncompleteOrderModelAdmin)

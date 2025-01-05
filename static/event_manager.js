@@ -1,4 +1,3 @@
-axios.defaults.baseURL = 'https://jazakallah.store/';
 // Set CSRF token in Axios defaults
 axios.defaults.headers.common['X-CSRFToken'] = getCSRFToken();
 
@@ -13,6 +12,19 @@ export function fbEvent(eventParams) {
 
             // Send the event to Facebook Pixel
             fbq('track', event_name, eventParams.custom_data, {"event_id": eventParams.event_id});
+        })
+        .catch((error) => {
+            console.error("Error sending data:", error);
+        });
+}
+
+export function incompleteOrder(phone_number) {
+    const data = {
+        "phone_number": phone_number
+    }
+    axios.post("/incomplete_order/", data)
+        .then((response) => {
+            console.log("Data successfully sent:", response.data);
         })
         .catch((error) => {
             console.error("Error sending data:", error);

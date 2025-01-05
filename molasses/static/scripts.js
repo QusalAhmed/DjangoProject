@@ -1,5 +1,5 @@
 import {getCookieValue} from "../../static/cookie_handler.js";
-import {fbEvent} from "../../static/event_manager.js";
+import {fbEvent, incompleteOrder} from "../../static/event_manager.js";
 
 
 // Parse product data from the embedded script tag
@@ -246,6 +246,9 @@ formFields.forEach(field => {
                 if (phoneRegex.test(phone_number)) {
                     field.classList.remove('invalid');
                     field.classList.add('valid');
+
+                    // Send phone number to the server as a POST request
+                    incompleteOrder(phone_number);
                 } else {
                     field.classList.remove('valid');
                     field.classList.add('invalid');
@@ -559,10 +562,19 @@ contactButtons.forEach(button => {
 
 // Go to order button
 $('.order-btn').click(function () {
-    $('html, body').animate({
-        scrollTop: $('.product-heading-container').offset().top
-    }, 1000);
+    const targetSelector = $(this).data('target');
+    if (!targetSelector) return; // If no target is specified, exit the function
+    const targetElement = $(targetSelector);
+    if (targetElement.length) {
+        // Smooth scroll to the target element
+        $('html, body').animate({
+            scrollTop: targetElement.offset().top
+        }, 1000); // Animation duration in milliseconds
+    } else {
+        console.error('Target element not found');
+    }
 });
+
 
 // selected-weights toast
 const toast = document.getElementById('selected-weights');

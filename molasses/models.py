@@ -82,6 +82,20 @@ class Order(models.Model):
         super(Order, self).save(*args, **kwargs)
 
 
+class IncompleteOrderModel(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    phone = models.CharField(max_length=15)
+    ip_address = models.GenericIPAddressField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.id)
+
+    def save(self, *args, **kwargs):
+        super(IncompleteOrderModel, self).save(*args, **kwargs)
+        return self.id
+
+
 class Event(models.Model):
     id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
     data = models.JSONField()

@@ -9,7 +9,7 @@ from rest_framework.views import APIView
 
 from molasses.capi import send_event
 from molasses.form import OrderForm
-from molasses.models import Product, Order, Event
+from molasses.models import Product, Order, Event, IncompleteOrderModel
 from molasses.serializers import EventSerializer
 
 
@@ -87,6 +87,7 @@ class EventView(APIView):
 
 # Create your views here.
 def home(request):
+    user_id = request.session.get('user_id')
     products = []
     for product in Product.objects.exclude(stock=0).order_by('rank'):
         products.append({
@@ -141,6 +142,27 @@ def order_confirmation(request):
         return render(request, 'home.html', {
             'form': OrderForm(),
         })
+
+
+class IncompleteOrder(APIView):
+    @staticmethod
+    def post(request):
+        client_info = get_client_ip_info(request)
+        client_ip = client_info['client_ip_address']
+        data = request.data
+        phone_number = data.get('phone_number')
+        print(phone_number)
+        if phone_number:
+            IncompleteOrderModel.objects.create(phone=phone_number, ip_address=client_ip)
+            return Response({
+                "message": "Incomplete order processed successfully",
+                "data": data,
+                "client_ip_address": client_ip,
+            })
+        return Response(
+            {"errors": "Phone number is required"},
+            status=status.HTTP_400_BAD_REQUEST
+        )
 
 
 def thank_you(request, order_id):
