@@ -594,7 +594,7 @@ input.invalid, select.invalid, textarea.invalid {
 
 /* Loading Animation */
 .loading-animation {
-    /*display: none;*/
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;
