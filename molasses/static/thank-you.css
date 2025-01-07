@@ -311,8 +311,10 @@ body {
 #order-instruction {
     font-size: 1rem;
     font-weight: bold;
-    color: #082c82;
-    padding: 10px 0;
+    color: #a122cf;
+    padding: 10px 10px;
+    text-align: justify;
+    text-align-last: center;
 }
 
 .phone-link {
