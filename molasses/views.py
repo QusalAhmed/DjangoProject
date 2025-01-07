@@ -215,3 +215,6 @@ def product_viewer(request, product_slug):
         })
     else:
         raise Http404('Product not found')
+
+def test(request):
+    return render(request, 'test.html')
