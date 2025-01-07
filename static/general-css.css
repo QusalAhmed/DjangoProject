@@ -4,6 +4,7 @@
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
+    pointer-events: none;
     z-index: 99;
 }
 
@@ -11,6 +12,7 @@
 #toast-box .custom-toast {
     color: #7c0880;
     font-size: 1rem;
+    text-align: center;
     padding: 5px 10px;
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);

@@ -277,6 +277,7 @@ main {
 /* Order invoice */
 .order-details, .form-container {
     padding: 20px 20px 0 20px;
+    margin: 20px auto;
     width: 100%;
     max-width: 1000px;
     border-radius: 16px;
@@ -285,6 +286,10 @@ main {
     backdrop-filter: blur(10px); /* Frosted glass blur effect */
     border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
     color: #333;
+}
+
+.form-container {
+    padding-bottom: 20px;
 }
 
 .order-table {
@@ -590,13 +595,13 @@ input.invalid, select.invalid, textarea.invalid {
 /* Loading Animation */
 .loading-animation {
     display: none;
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     font-size: 18px;
     font-weight: bold;
-    color: #007bff;
+    color: #da1596;
     text-align: center;
 }
 
@@ -1133,7 +1138,6 @@ input:-webkit-autofill:focus {
     backdrop-filter: blur(10px); /* Frosted glass blur effect */
     border: 1px solid rgba(255, 255, 255, 0.2); /* Border matches transparency */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-    margin-bottom: 1px;
 }
 
 #weights-list {
@@ -1192,4 +1196,61 @@ input:-webkit-autofill:focus {
     width: 400px;
     max-width: 90%;
     animation: fadeIn 1s ease-in-out;
+}
+
+/*Short phone number*/
+#short-order-instruction {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    box-shadow: -5px 7px 5px rgba(193, 147, 231, 0.7);
+    border-radius: 10px;
+    max-width: 90%;
+}
+
+#short-order-instruction h3 {
+    color: #d41075;
+    margin-bottom: 5px;
+}
+
+#shortPhoneForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+#shortPhone {
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid #a828f0;
+    border-radius: 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    caret-color: black;
+    color: #00B0FF;
+    background-color: white;
+}
+
+#shortPhone::placeholder {
+    color: #d41075;
+    font-size: 20px;
+}
+
+#shortPhone:not(:placeholder-shown) {
+    letter-spacing: 5px;
+}
+
+#shortPhone:focus {
+    outline: none;
+    border-color: #d41075;
+    box-shadow: 0 0 5px #d41075;
+}
+
+#short-order-instruction .error-message {
+    font-size: 14px;
+    margin-top: -5px;
+    margin-bottom: 10px;
 }

@@ -18,17 +18,19 @@ export function fbEvent(eventParams) {
         });
 }
 
-export function incompleteOrder(phone_number) {
+export async function incompleteOrder(phone_number) {
     const data = {
         "phone_number": phone_number
+    };
+
+    try {
+        const response = await axios.post("/incomplete_order/", data);
+        console.log("Data successfully sent:", response.data);
+        return response.status === 200; // Return true if the status is 200
+    } catch (error) {
+        console.error("Error sending data:", error);
+        return false; // Return false in case of an error
     }
-    axios.post("/incomplete_order/", data)
-        .then((response) => {
-            console.log("Data successfully sent:", response.data);
-        })
-        .catch((error) => {
-            console.error("Error sending data:", error);
-        });
 }
 
 // Function to get CSRF token from cookies

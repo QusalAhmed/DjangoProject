@@ -23,7 +23,7 @@
         {{ products|safe }}
     </script>
     <div id="selected-weights">
-        <h2 class="m-0 p-1 text-center">Selected Products</h2>
+        <h2 class="m-0 px-1 text-center">Selected Products</h2>
         <ul class="mt-1 mb-0 px-0" id="weights-list">
             <!-- Weight information will be dynamically updated here -->
         </ul>
@@ -71,6 +71,22 @@
                 <i class="fa-solid fa-basket-shopping"></i> গুড় কিনতে ক্লিক করুন
             </button>
         </div>
+    </div>
+
+    <!-- Short order instruction -->
+    <div id="short-order-instruction">
+        <h3>
+            অর্ডার করতে সমস্যা হলে নিচের ফর্মে ফোন নাম্বার লিখুন।
+            আমরা কল করে বিস্তারিত জেনে অর্ডার কনফার্ম করব।
+        </h3>
+        <form id="shortPhoneForm" method="POST" target="_parent" action="/order_confirmation">
+            {% csrf_token %}
+            <label for="shortPhone"></label>
+            <input type="tel" id="shortPhone" name="phone"
+                   placeholder="এখানে ফোন নাম্বার লিখুন"
+                   required>
+            <span class="error-message" id="errorMessage"></span>
+        </form>
     </div>
 
     <!-- Review Slider -->
@@ -291,12 +307,13 @@
                 <i class="fa-regular fa-circle-check"></i> Confirm Order
             </button>
         </form>
+    </div>
 
-        <!-- Loading Animation -->
-        <div id="loading-animation" class="loading-animation">
-            <div class="spinner"></div>
-            Submitting your form...
-        </div>
+
+    <!-- Loading Animation -->
+    <div id="loading-animation" class="loading-animation">
+        <div class="spinner"></div>
+        Submitting your form...
     </div>
 
     <!-- Modal -->

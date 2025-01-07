@@ -1,5 +1,6 @@
 import {getCookieValue} from "../../static/cookie_handler.js";
 import {fbEvent, incompleteOrder} from "../../static/event_manager.js";
+import {showToast as generalToast} from "../../static/toast.js";
 
 
 // Parse product data from the embedded script tag
@@ -223,7 +224,7 @@ const phoneRegex = /^(?:\+8801|8801|01)\d{9}$/;
 
 const formFields = form.querySelectorAll('#id_name, #id_phone, #id_division, #id_address, #id_comment');
 formFields.forEach(field => {
-    field.addEventListener('input', () => {
+    field.addEventListener('input', async () => {
         console.log(`${field.name} value changed to: ${field.value}`);
 
         switch (field.name) {
@@ -248,7 +249,11 @@ formFields.forEach(field => {
                     field.classList.add('valid');
 
                     // Send phone number to the server as a POST request
-                    incompleteOrder(phone_number);
+                    if (await incompleteOrder(phone_number)) {
+                        generalToast('Phone number saved as incomplete order')
+                    } else {
+                        generalToast('Failed to save phone number')
+                    }
                 } else {
                     field.classList.remove('valid');
                     field.classList.add('invalid');
@@ -453,7 +458,6 @@ function initCheckout() {
     });
     const subTotal = Object.keys(productWeights).reduce((acc, productId) => {
         const {weight, price} = productWeights[productId];
-        console.log(acc, price, weight);
         return acc + price * weight;
     }, 0);
     if (contents.length === 0) return; // If no product is selected, exit the function
@@ -569,7 +573,7 @@ $('.order-btn').click(function () {
         // Smooth scroll to the target element
         $('html, body').animate({
             scrollTop: targetElement.offset().top
-        }, 1000); // Animation duration in milliseconds
+        }, 100);
     } else {
         console.error('Target element not found');
     }
@@ -594,6 +598,40 @@ const showToast = () => {
 const hideToast = () => {
     toast.classList.remove('visible');
 };
+
+window.incompleteOrder = incompleteOrder;
+// Short order
+document.getElementById('shortPhoneForm').addEventListener('input', async function (event) {
+    event.preventDefault();
+    const phoneNumberField = document.getElementById('shortPhone')
+    const phoneNumber = phoneNumberField.value;
+    const errorMessage = document.getElementById('errorMessage');
+
+    // Remove non-digit characters
+    phoneNumberField.value = phoneNumber.replace(/[^\d০-৯]/g, '');
+
+    // Phone number validation (10 digits in English or Bangla)
+    const phoneRegex = /^(?:(?:\+8801|8801|01)\d{9}|(?:\+৮৮০১|৮৮০১|০১)[০-৯]{9})$/;
+
+    if (phoneRegex.test(phoneNumber)) {
+        errorMessage.style.color = 'green';
+        errorMessage.textContent = 'ফোন নাম্বার সঠিক';
+        // Show loading animation
+        const loadingAnimation = document.getElementById('loading-animation');
+        loadingAnimation.style.display = 'block';
+        initCheckout();
+        if (await incompleteOrder(phoneNumber)) {
+            alert('Data sent successfully!');
+        } else {
+            phoneNumberField.value = '';
+            errorMessage.style.color = 'red';
+            errorMessage.textContent = 'সমস্যা হয়েছে আবার ফোন নাম্বার লিখুন';
+        }
+    } else {
+        errorMessage.style.color = 'red';
+        errorMessage.textContent = '১১ ডিজিটের ফোন নাম্বার লিখুন';
+    }
+});
 
 // Prevent leaving the page
 // window.onload = function () {
