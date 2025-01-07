@@ -12,8 +12,8 @@
 {% endblock %}
 
 {% block js %}
-    <script type="module" src="{% static 'cookie_handler.js' %}"></script>
-    <script type="module" src="{% static 'scripts.js' %}" async></script>
+    <script type="module" src="{% static 'cookie_handler.js' %}" defer></script>
+    <script type="module" src="{% static 'scripts.js' %}" defer></script>
     {% compress js %}
         <script src="{% static 'scroll-to-end.js' %}" defer></script>
         <script src="{% static 'calculator.js' %}" defer></script>
