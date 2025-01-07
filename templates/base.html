@@ -84,7 +84,10 @@
     <!-- Google Font for Calligraphic Style -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
-    {% block css %} {% endblock %}
+    <!-- Custom CSS -->
+    {% compress css %}
+        {% block css %} {% endblock %}
+    {% endcompress %}
 
     <!-- You can also add meta tags or other external resources here -->
     {% facebook_pixel_head %}
@@ -208,15 +211,16 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-{% block js %}
-
-{% endblock %}
+<!-- Custom JS -->
+{% compress js %}
+{% block js %}{% endblock %}
+{% endcompress %}
 
 <!-- Link to Static Files (JS) -->
 {% compress js %}
-<script src="{% static 'footer-js.js' %}" defer></script>
-<script src="{% static 'navbar-js.js' %}"></script>
-<script src="{% static 'general.js' %}" defer></script>
+    <script src="{% static 'footer-js.js' %}" defer></script>
+    <script src="{% static 'navbar-js.js' %}"></script>
+    <script src="{% static 'general.js' %}" defer></script>
 {% endcompress %}
 {% facebook_pixel_body %}
 {% matomo %}
