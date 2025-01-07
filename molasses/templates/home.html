@@ -1,17 +1,23 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load compress %}
+
 {% block css %}
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <link rel="stylesheet" href="{% static 'scroll-to-end.css' %}">
-    <link rel="stylesheet" href="{% static 'calculator.css' %}" media="print" onload="this.media='all'">
+    {% compress css %}
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <link rel="stylesheet" href="{% static 'scroll-to-end.css' %}">
+        <link rel="stylesheet" href="{% static 'calculator.css' %}">
+    {% endcompress %}
 {% endblock %}
 
 {% block js %}
     <script type="module" src="{% static 'cookie_handler.js' %}"></script>
     <script type="module" src="{% static 'scripts.js' %}" async></script>
-    <script src="{% static 'scroll-to-end.js' %}" defer></script>
-    <script src="{% static 'calculator.js' %}" defer></script>
+    {% compress js %}
+        <script src="{% static 'scroll-to-end.js' %}" defer></script>
+        <script src="{% static 'calculator.js' %}" defer></script>
+    {% endcompress %}
 {% endblock %}
 
 

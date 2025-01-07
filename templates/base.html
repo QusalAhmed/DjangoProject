@@ -84,10 +84,7 @@
     <!-- Google Font for Calligraphic Style -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    {% compress css %}
-        {% block css %} {% endblock %}
-    {% endcompress %}
+    {% block css %} {% endblock %}
 
     <!-- You can also add meta tags or other external resources here -->
     {% facebook_pixel_head %}
@@ -211,10 +208,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-<!-- Custom JS -->
-{% compress js %}
-{% block js %}{% endblock %}
-{% endcompress %}
+{% block js %}
+
+{% endblock %}
 
 <!-- Link to Static Files (JS) -->
 {% compress js %}
