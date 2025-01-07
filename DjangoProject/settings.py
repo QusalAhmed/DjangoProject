@@ -148,7 +148,7 @@ STATICFILES_FINDERS = [
 
 # Compressor Settings
 COMPRESS_ENABLED = True  # Enables compression
-COMPRESS_OFFLINE = True  # Required for pre-compressing during deployment
+COMPRESS_OFFLINE = False  # Required for pre-compressing during deployment
 
 
 # Default primary key field type
