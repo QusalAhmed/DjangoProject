@@ -1023,7 +1023,8 @@ input:-webkit-autofill:focus {
 }
 
 .order-btn {
-    font-family: "Mayukh", serif;
+    /*font-family: "Mayukh", serif;*/
+    margin: 0 auto;
     font-size: 1.5rem;
     padding: 10px 30px;
     display: block;
