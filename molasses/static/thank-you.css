@@ -309,9 +309,9 @@ body {
 }
 
 #order-instruction {
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: bold;
-    color: #a122cf;
+    color: #082c82;
     padding: 10px 0;
 }
 
@@ -345,7 +345,7 @@ body {
 }
 
 .message {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: bold;
     color: #333;
     margin-bottom: 10px;
