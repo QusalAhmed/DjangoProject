@@ -24,7 +24,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^zu&6414qgsh3f!x8*u62(f5)$rs%if!0)c)l20h7^!dr%tk4v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+import os
+DEBUG = not os.environ.get('DJANGO_PRODUCTION')
+
+if not DEBUG:
+    COMPRESS_PRECOMPILERS = (
+        ('module', 'browserify {infile} -t babelify --outfile {outfile}'),
+    )
 
 ALLOWED_HOSTS = [
     'jazakallah.store',
@@ -149,7 +155,6 @@ STATICFILES_FINDERS = [
 # Compressor Settings
 COMPRESS_ENABLED = True  # Enables compression
 COMPRESS_OFFLINE = False  # Required for pre-compressing during deployment
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
