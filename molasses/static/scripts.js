@@ -628,6 +628,7 @@ document.getElementById('shortPhoneForm').addEventListener('input', async functi
             phoneNumberField.value = '';
             errorMessage.style.color = 'red';
             errorMessage.textContent = 'সমস্যা হয়েছে আবার ফোন নাম্বার লিখুন';
+            loadingAnimation.style.display = 'none';
         }
     } else {
         errorMessage.style.color = 'red';
