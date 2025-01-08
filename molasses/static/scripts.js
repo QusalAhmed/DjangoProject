@@ -321,7 +321,14 @@ form.addEventListener('submit', function (event) {
 
     // JavaScript to add dynamic data to the input (order details)
     const orderDetailsInput = document.getElementById('id_order_details');
-    orderDetailsInput.value = JSON.stringify(productWeights);
+    const idealProductWeights = {};
+    Object.keys(productWeights).forEach(productId => {
+        const {weight, name, price} = productWeights[productId];
+        if (weight > 0) {
+            idealProductWeights[productId] = {weight, name, price};
+        }
+    });
+    orderDetailsInput.value = JSON.stringify(idealProductWeights);
 
     // JavaScript to add dynamic data to the input (delivery charge)
     const deliveryChargeInput = document.getElementById('id_delivery_charge');
