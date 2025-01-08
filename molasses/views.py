@@ -232,7 +232,7 @@ def send_async_email(subject, message):
         send_mail(
             subject=subject,
             message=message,
-            from_email='admin@Jazakallah.store',
+            from_email='admin@jazakallah.store',
             recipient_list=['qusalcse@gmail.com'],
             fail_silently=False,
         )
