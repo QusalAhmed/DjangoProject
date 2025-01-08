@@ -623,7 +623,9 @@ document.getElementById('shortPhoneForm').addEventListener('input', async functi
         if (await incompleteOrder(phoneNumber)) {
             alert(`আপনার ফোন নাম্বার ${phoneNumber} পেয়েছি। শীধ্রই আপনার সাথে যোগাযোগ করব`);
             loadingAnimation.style.display = 'none';
-            window.location.href += '#product-list';
+            if (!window.location.href.includes('#product-list')) {
+                window.location.href += '#product-list';
+            }
         } else {
             phoneNumberField.value = '';
             errorMessage.style.color = 'red';

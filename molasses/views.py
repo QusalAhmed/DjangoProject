@@ -232,7 +232,7 @@ def send_async_email(subject, message):
         send_mail(
             subject=subject,
             message=message,
-            from_email='MS_gbZlA5@trial-pr9084z88om4w63d.mlsender.net',
+            from_email='qusal@Jazakallah.store',
             recipient_list=['qusalcse@gmail.com'],
             fail_silently=False,
         )
@@ -242,4 +242,15 @@ def send_async_email(subject, message):
 
 
 def test(request):
-    return render(request, 'test.html')
+    try:
+        send_mail(
+            subject='Hello',
+            message='Hello World',
+            from_email='admin@jazakallah.store',
+            recipient_list=['test-15r560mk0@srv1.mail-tester.com'],
+            fail_silently=False,
+        )
+        return HttpResponse("Email sent successfully")
+    except Exception as e:
+        return HttpResponse(f"Email sending failed: {e}")
+
