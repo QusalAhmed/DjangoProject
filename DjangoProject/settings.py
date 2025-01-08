@@ -29,6 +29,7 @@ DEBUG = False
 ALLOWED_HOSTS = [
     'jazakallah.store',
     'www.jazakallah.store',
+    '198.23.217.35',
     '127.0.0.1',  # Optional for local development
     'localhost',  # Optional for local development
 ]
