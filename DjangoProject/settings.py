@@ -36,12 +36,18 @@ ALLOWED_HOSTS = [
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-relay.brevo.com'  # Your Postfix mail server hostname
+EMAIL_HOST = 'smtp-relay.brevo.com'
 EMAIL_PORT = 587                    # Port for TLS
 EMAIL_USE_TLS = True                # Enable TLS
 EMAIL_USE_SSL = False               # Ensure SSL is disabled if TLS is used
 EMAIL_HOST_USER = config('BREVO_USER')
 EMAIL_HOST_PASSWORD = config('BREVO_PASS')
+
+ADMINS = [
+    ("Admin Name", "qusalcse@gmail.com"),
+]
+
+SERVER_EMAIL = 'admin@jazakallah.store'
 
 
 # Application definition

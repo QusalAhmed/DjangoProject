@@ -2,10 +2,10 @@ import hashlib
 import threading
 
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.core.mail import send_mail
+from django.core.mail import send_mail, mail_admins
 from django.http import HttpResponseRedirect, Http404, HttpResponse
-from django.template.loader import render_to_string
 from django.shortcuts import render
+from django.template.loader import render_to_string
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -108,6 +108,14 @@ def home(request):
         # STATICFILES_DIRS
         review_files.append(file_path)
 
+    # Send visitor alert to admin
+    threading.Thread(target=mail_admins, args=(
+        'New Visitor Alert',
+        f'New visitor from {get_client_ip_info(request)}',
+        False,
+        None
+    )).start()
+
     return render(request, 'index.html', {
         'products': products,
         'form': OrderForm(),
@@ -137,8 +145,14 @@ def order_confirmation(request):
             order_id = new_order.id
 
             # Send mail to admin
-            threading.Thread(target=send_async_email,
-                             args=("Order Confirmation", f"Order ID: {order_id}\n{form.cleaned_data['order_details']}")).start()
+            threading.Thread(target=mail_admins, args=(
+                'Order Confirmation',
+                f'Order ID: {order_id}\n{form.cleaned_data}',
+                False,
+                None,
+                render_to_string('email/order.html', {'context': form.cleaned_data}),
+            )).start()
+
             return HttpResponseRedirect('/thank-you/' + str(order_id))
         else:
             return render(request, 'home.html', {
@@ -160,8 +174,15 @@ class IncompleteOrder(APIView):
         user_id = request.session.get('user_id')
         if phone_number:
             # Send mail to admin
-            threading.Thread(target=send_async_email,
-                             args=("Incomplete Order", f"Phone number: {phone_number}")).start()
+            threading.Thread(target=mail_admins, args=(
+                'Incomplete Order',
+                f'Phone Number: {phone_number}\n{data}',
+                False,
+                None,
+                render_to_string('email/incomplete_order.html', {
+                    'phone_number': phone_number,
+                }),
+            )).start()
 
             IncompleteOrderModel.objects.create(phone=phone_number, ip_address=client_ip, user_id=user_id)
             return Response({
@@ -233,7 +254,8 @@ def send_async_email(subject, message):
     try:
         send_mail(
             subject=subject,
-            message=render_to_string('email/order.html', {'context': message}),
+            message=message,
+            html_message=render_to_string('email/order.html', {'context': message}),
             from_email='admin@jazakallah.store',
             recipient_list=['qusalcse@gmail.com'],
             fail_silently=False,
@@ -249,7 +271,7 @@ def test(request):
             subject='Hello',
             message='Hello World',
             from_email='admin@jazakallah.store',
-            recipient_list=['qusalcse@gmail.com'],
+            recipient_list=['test-15r560mk0@srv1.mail-tester.com'],
             fail_silently=False,
         )
         return HttpResponse("Email sent successfully")
