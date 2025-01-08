@@ -4,6 +4,7 @@ import threading
 from django.contrib.staticfiles.storage import staticfiles_storage
 from django.core.mail import send_mail
 from django.http import HttpResponseRedirect, Http404, HttpResponse
+from django.template.loader import render_to_string
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
@@ -232,7 +233,7 @@ def send_async_email(subject, message):
     try:
         send_mail(
             subject=subject,
-            message=message,
+            message=render_to_string('email/order.html', {'context': message}),
             from_email='admin@jazakallah.store',
             recipient_list=['qusalcse@gmail.com'],
             fail_silently=False,
@@ -248,7 +249,7 @@ def test(request):
             subject='Hello',
             message='Hello World',
             from_email='admin@jazakallah.store',
-            recipient_list=['test-15r560mk0@srv1.mail-tester.com'],
+            recipient_list=['qusalcse@gmail.com'],
             fail_silently=False,
         )
         return HttpResponse("Email sent successfully")
