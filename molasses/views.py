@@ -33,7 +33,7 @@ def get_client_ip_info(request):
     except AttributeError:
         pass
     try:
-        ip_info['st'] = getattr(request.ipinfo, 'region')
+        ip_info['st'] = getattr(request.ipinfo, 'region').replace(' Division', '')
     except AttributeError:
         pass
 
