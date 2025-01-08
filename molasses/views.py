@@ -136,7 +136,8 @@ def order_confirmation(request):
             order_id = new_order.id
 
             # Send mail to admin
-            threading.Thread(target=send_async_email, args=("Order Confirmation", f"Order ID: {order_id}")).start()
+            threading.Thread(target=send_async_email,
+                             args=("Order Confirmation", f"Order ID: {order_id}\n{form.cleaned_data['order_details']}")).start()
             return HttpResponseRedirect('/thank-you/' + str(order_id))
         else:
             return render(request, 'home.html', {
@@ -253,4 +254,3 @@ def test(request):
         return HttpResponse("Email sent successfully")
     except Exception as e:
         return HttpResponse(f"Email sending failed: {e}")
-
