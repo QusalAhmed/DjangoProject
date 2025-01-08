@@ -1,7 +1,9 @@
 import hashlib
+import threading
 
 from django.contrib.staticfiles.storage import staticfiles_storage
-from django.http import HttpResponseRedirect, Http404
+from django.core.mail import send_mail
+from django.http import HttpResponseRedirect, Http404, HttpResponse
 from django.shortcuts import render
 from rest_framework import status
 from rest_framework.response import Response
@@ -132,6 +134,9 @@ def order_confirmation(request):
             )
             new_order.save()
             order_id = new_order.id
+
+            # Send mail to admin
+            threading.Thread(target=send_async_email, args=("Order Confirmation", f"Order ID: {order_id}")).start()
             return HttpResponseRedirect('/thank-you/' + str(order_id))
         else:
             return render(request, 'home.html', {
@@ -152,12 +157,17 @@ class IncompleteOrder(APIView):
         phone_number = data.get('phone_number')
         user_id = request.session.get('user_id')
         if phone_number:
+            # Send mail to admin
+            threading.Thread(target=send_async_email,
+                             args=("Incomplete Order", f"Phone number: {phone_number}")).start()
+
             IncompleteOrderModel.objects.create(phone=phone_number, ip_address=client_ip, user_id=user_id)
             return Response({
                 "message": "Incomplete order processed successfully",
                 "data": data,
                 "client_ip_address": client_ip,
             })
+
         return Response(
             {"errors": "Phone number is required"},
             status=status.HTTP_400_BAD_REQUEST
@@ -215,6 +225,21 @@ def product_viewer(request, product_slug):
         })
     else:
         raise Http404('Product not found')
+
+
+def send_async_email(subject, message):
+    try:
+        send_mail(
+            subject=subject,
+            message=message,
+            from_email='MS_gbZlA5@trial-pr9084z88om4w63d.mlsender.net',
+            recipient_list=['qusalcse@gmail.com'],
+            fail_silently=False,
+        )
+        print(f"Email sent successfully: {subject}")
+    except Exception as e:
+        print(f"Email sending failed: {e}")
+
 
 def test(request):
     return render(request, 'test.html')

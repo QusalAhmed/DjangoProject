@@ -34,6 +34,16 @@ ALLOWED_HOSTS = [
 ]
 # ALLOWED_HOSTS = ['*']
 
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.mailersend.net'  # Your Postfix mail server hostname
+EMAIL_PORT = 587                    # Port for TLS
+EMAIL_USE_TLS = True                # Enable TLS
+EMAIL_USE_SSL = False               # Ensure SSL is disabled if TLS is used
+EMAIL_HOST_USER = 'MS_gbZlA5@trial-pr9084z88om4w63d.mlsender.net'
+EMAIL_HOST_PASSWORD = 'eydlrGInFTuEFvFd'
+
+
 # Application definition
 
 INSTALLED_APPS = [
