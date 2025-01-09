@@ -38,9 +38,9 @@ ALLOWED_HOSTS = [
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp-relay.brevo.com'
-EMAIL_PORT = 587                    # Port for TLS
-EMAIL_USE_TLS = True                # Enable TLS
-EMAIL_USE_SSL = False               # Ensure SSL is disabled if TLS is used
+EMAIL_PORT = 587  # Port for TLS
+EMAIL_USE_TLS = True  # Enable TLS
+EMAIL_USE_SSL = False  # Ensure SSL is disabled if TLS is used
 EMAIL_HOST_USER = config('BREVO_USER')
 EMAIL_HOST_PASSWORD = config('BREVO_PASS')
 
@@ -50,10 +50,10 @@ ADMINS = [
 
 SERVER_EMAIL = 'admin@jazakallah.store'
 
-
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -167,7 +167,6 @@ STATICFILES_FINDERS = [
 COMPRESS_ENABLED = True  # Enables compression
 COMPRESS_OFFLINE = False  # Required for pre-compressing during deployment
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
@@ -190,4 +189,15 @@ IPINFO_SETTINGS = {
     'ACCESS_TOKEN': config('IPINFO_TOKEN'),
     'CACHE': 'django.core.cache.backends.locmem.LocMemCache',
     'CACHE_TTL': 60 * 60,  # Cache TTL in seconds
+}
+
+# JAZZMIN
+JAZZMIN_SETTINGS = {
+    "site_title": "Jazakallah Store Admin",
+    "site_header": "Jazakallah Store",
+    "site_brand": "Jazakallah Store",
+    "site_logo": "/logo.png",
+    "copyright": "Jazakallah Store",
+    "show_ui_builder": True,
+    "theme": "cosmo",
 }
