@@ -114,7 +114,7 @@ def home(request):
     if any(keyword in user_agent for keyword in bot_keywords):
         threading.Thread(target=mail_admins, args=(
             'New Visitor Alert',
-            f'New visitor from {get_client_ip_info(request)}',
+            f'New visitor from {get_client_ip_info(request)} with user agent: {user_agent}',
             False,
             None
         )).start()
