@@ -109,12 +109,15 @@ def home(request):
         review_files.append(file_path)
 
     # Send visitor alert to admin
-    threading.Thread(target=mail_admins, args=(
-        'New Visitor Alert',
-        f'New visitor from {get_client_ip_info(request)}',
-        False,
-        None
-    )).start()
+    user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
+    bot_keywords = ['bot', 'crawler', 'spider', 'google', 'bing', 'yahoo', 'slurp', 'duckduckgo']
+    if any(keyword in user_agent for keyword in bot_keywords):
+        threading.Thread(target=mail_admins, args=(
+            'New Visitor Alert',
+            f'New visitor from {get_client_ip_info(request)}',
+            False,
+            None
+        )).start()
 
     return render(request, 'index.html', {
         'products': products,
@@ -214,14 +217,6 @@ def thank_you(request, order_id):
 
 
 def profile(request):
-    # from django.core.mail import send_mail
-    # send_mail(
-    #     subject='Hello',
-    #     message='Hello World',
-    #     from_email='o6K3o@example.com',
-    #     recipient_list=['qusalcse@gmail.com'],
-    #     fail_silently=False,
-    # )
     return render(request, 'profile.html')
 
 
