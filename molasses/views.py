@@ -111,7 +111,7 @@ def home(request):
     # Send visitor alert to admin
     user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
     bot_keywords = ['bot', 'crawler', 'spider', 'google', 'bing', 'yahoo', 'slurp', 'duckduckgo']
-    if any(keyword in user_agent for keyword in bot_keywords):
+    if not any(keyword in user_agent for keyword in bot_keywords):
         threading.Thread(target=mail_admins, args=(
             'New Visitor Alert',
             f'New visitor from {get_client_ip_info(request)} with user agent: {user_agent}',
