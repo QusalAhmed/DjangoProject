@@ -474,7 +474,7 @@ function initCheckout() {
         "event_time": Math.floor(Date.now() / 1000),
         "action_source": "website",
         "event_id": null,
-        "event_source_url": "https://jazakallah.store/",
+        "event_source_url": window.location.origin + window.location.pathname,
         "user_data": {
             "client_ip_address": null,
             "client_user_agent": navigator.userAgent,
