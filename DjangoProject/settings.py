@@ -24,12 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^zu&6414qgsh3f!x8*u62(f5)$rs%if!0)c)l20h7^!dr%tk4v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     'jazakallah.store',
     'www.jazakallah.store',
     '198.23.217.35',
+    '127.0.0.1',  # Optional for local development
+    'localhost',  # Optional for local development
 ]
 # ALLOWED_HOSTS = ['*']
 
@@ -189,42 +191,42 @@ IPINFO_SETTINGS = {
 }
 
 # JAZZMIN
-JAZZMIN_SETTINGS = {
-    "site_title": "Jazakallah Store Admin",
-    "site_header": "Jazakallah Store",
-    "site_brand": "Jazakallah Store",
-    "site_logo": "/logo.png",
-    "copyright": "Jazakallah Store",
-    "show_ui_builder": True,
-}
-JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": False,
-    "footer_small_text": False,
-    "body_small_text": False,
-    "brand_small_text": False,
-    "brand_colour": False,
-    "accent": "accent-primary",
-    "navbar": "navbar-white navbar-light",
-    "no_navbar_border": False,
-    "navbar_fixed": False,
-    "layout_boxed": False,
-    "footer_fixed": False,
-    "sidebar_fixed": False,
-    "sidebar": "sidebar-light-lightblue",
-    "sidebar_nav_small_text": False,
-    "sidebar_disable_expand": False,
-    "sidebar_nav_child_indent": False,
-    "sidebar_nav_compact_style": False,
-    "sidebar_nav_legacy_style": False,
-    "sidebar_nav_flat_style": False,
-    "theme": "flatly",
-    "dark_mode_theme": None,
-    "button_classes": {
-        "primary": "btn-outline-primary",
-        "secondary": "btn-outline-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
-    }
-}
+# JAZZMIN_SETTINGS = {
+#     "site_title": "Jazakallah Store Admin",
+#     "site_header": "Jazakallah Store",
+#     "site_brand": "Jazakallah Store",
+#     "site_logo": "/logo.png",
+#     "copyright": "Jazakallah Store",
+#     "show_ui_builder": True,
+# }
+# JAZZMIN_UI_TWEAKS = {
+#     "navbar_small_text": False,
+#     "footer_small_text": False,
+#     "body_small_text": False,
+#     "brand_small_text": False,
+#     "brand_colour": False,
+#     "accent": "accent-primary",
+#     "navbar": "navbar-white navbar-light",
+#     "no_navbar_border": False,
+#     "navbar_fixed": False,
+#     "layout_boxed": False,
+#     "footer_fixed": False,
+#     "sidebar_fixed": False,
+#     "sidebar": "sidebar-light-lightblue",
+#     "sidebar_nav_small_text": False,
+#     "sidebar_disable_expand": False,
+#     "sidebar_nav_child_indent": False,
+#     "sidebar_nav_compact_style": False,
+#     "sidebar_nav_legacy_style": False,
+#     "sidebar_nav_flat_style": False,
+#     "theme": "flatly",
+#     "dark_mode_theme": None,
+#     "button_classes": {
+#         "primary": "btn-outline-primary",
+#         "secondary": "btn-outline-secondary",
+#         "info": "btn-info",
+#         "warning": "btn-warning",
+#         "danger": "btn-danger",
+#         "success": "btn-success"
+#     }
+# }
