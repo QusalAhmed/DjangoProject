@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path
-from .views import home, profile, order_confirmation, thank_you, product_viewer, EventView, IncompleteOrder, test
+from .views import home, profile, order_confirmation, thank_you, product_viewer, EventView, IncompleteOrder, \
+    UserTrackingView, test
 
 urlpatterns = [
     path('admin', admin.site.urls),
@@ -11,5 +12,6 @@ urlpatterns = [
     path('incomplete_order/', view=IncompleteOrder.as_view()),
     path('profile', profile),
     path('products/<slug:product_slug>', product_viewer, name='product_url'),
+    path('track/', UserTrackingView.as_view()),
     path('test', test)
 ]

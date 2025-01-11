@@ -39,3 +39,18 @@ function getCSRFToken() {
     const csrfCookie = cookies.find(cookie => cookie.startsWith('csrftoken='));
     return csrfCookie ? csrfCookie.split('=')[1] : null;
 }
+
+// Send tracking data to the server
+export function send_tracking_data(activityLog) {
+    const data = {
+        "activity_log": activityLog
+    };
+
+    axios.post("/track/", data)
+        .then((response) => {
+            console.log("Data successfully sent:", response.data);
+        })
+        .catch((error) => {
+            console.error("Error sending data:", error);
+        });
+}

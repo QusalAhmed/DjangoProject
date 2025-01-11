@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background: linear-gradient(135deg, #a8edea, #fed6e3);
+    background: linear-gradient(135deg, #a8edea, #e1b8eb80, #8c6ff454, #bbe1b58a);
     justify-content: center;
     align-items: flex-start;
     min-height: 100vh;
@@ -226,7 +226,7 @@ main {
 
 /* Button Styles */
 .message, .call, .page-visit {
-    background-color: #99c8bf;
+    background-color: #9addd0;
     font-size: 1rem;
     padding: 0.5rem 0.8rem;
     border-radius: 8px;
@@ -254,7 +254,7 @@ main {
     color: #333; /* Change link color on hover */
 }
 
-.fa-facebook-messenger, .fa-phone, .fa-location-arrow {
+[class^="fa-"] {
     margin-right: 0.5rem;
 }
 
@@ -1202,7 +1202,7 @@ input:-webkit-autofill:focus {
 #short-order-instruction {
     background: rgba(255, 255, 255, 0.8);
     padding: 20px;
-    box-shadow: -5px 7px 5px rgba(193, 147, 231, 0.7);
+    box-shadow: -5px 7px 5px rgb(145 72 206 / 70%);
     border-radius: 10px;
     max-width: 90%;
 }
@@ -1270,7 +1270,7 @@ input:-webkit-autofill:focus {
             0% 50%,
             15% 15%
     ); /* Octagonal shape */
-    border: 8px solid rgba(255, 255, 255, 0.97);
+    border: 8px solid rgb(250 240 240);
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     display: flex;
     justify-content: center;

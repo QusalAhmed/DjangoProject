@@ -12,7 +12,7 @@ from rest_framework.views import APIView
 
 from molasses.capi import send_event
 from molasses.form import OrderForm
-from molasses.models import Product, Order, Event, IncompleteOrderModel
+from molasses.models import Product, Order, Event, IncompleteOrderModel, UserTracking
 from molasses.serializers import EventSerializer
 
 
@@ -86,6 +86,30 @@ class EventView(APIView):
         events = Event.objects.all()
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data)
+
+
+class UserTrackingView(APIView):
+    @staticmethod
+    def post(request):
+        client_info = get_client_ip_info(request)
+        client_ip = client_info['client_ip_address']
+        user_id = request.session.get('user_id')
+        activity_log = request.data.get('activity_log')
+        user_agent = request.META.get('HTTP_USER_AGENT', '')
+
+        # Save to database
+        UserTracking.objects.create(
+            user_id=user_id,
+            ip_address=client_ip,
+            activity_log=activity_log,
+            user_agent=user_agent,
+        )
+
+        return Response({
+            "message": "User activity logged successfully",
+        },
+            status=status.HTTP_200_OK
+        )
 
 
 # Create your views here.

@@ -109,3 +109,19 @@ class Event(models.Model):
     def save(self, *args, **kwargs):
         super(Event, self).save(*args, **kwargs)
         return self.id
+
+
+class UserTracking(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, primary_key=True)
+    user_id = models.CharField(max_length=100, editable=False)
+    ip_address = models.GenericIPAddressField()
+    activity_log = models.TextField()
+    user_agent = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.ip_address)
+
+    def save(self, *args, **kwargs):
+        super(UserTracking, self).save(*args, **kwargs)
+        return self.id
