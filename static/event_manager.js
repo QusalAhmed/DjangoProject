@@ -43,7 +43,9 @@ function getCSRFToken() {
 // Send tracking data to the server
 export function send_tracking_data(activityLog) {
     const data = {
-        "activity_log": activityLog
+        "activity_log": activityLog,
+        "url": window.location.href,
+        'time': new Date().toISOString()
     };
 
     axios.post("/track/", data)
