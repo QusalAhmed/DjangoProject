@@ -127,14 +127,6 @@ document.addEventListener('DOMContentLoaded', function () {
         send_tracking_data(`Device orientation: alpha=${alpha}, beta=${beta}, gamma=${gamma}`);
     });
 
-    // Device motion tracking
-    window.addEventListener('devicemotion', (event) => {
-        const acceleration = event.acceleration;
-        const accelerationIncludingGravity = event.accelerationIncludingGravity;
-        const rotationRate = event.rotationRate;
-        send_tracking_data(`Device motion: acceleration=${JSON.stringify(acceleration)}, accelerationIncludingGravity=${JSON.stringify(accelerationIncludingGravity)}, rotationRate=${JSON.stringify(rotationRate)}`);
-    });
-
     // Geolocation tracking
     navigator.geolocation.getCurrentPosition((position) => {
         const latitude = position.coords.latitude;
