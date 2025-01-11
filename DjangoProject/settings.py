@@ -37,12 +37,12 @@ ALLOWED_HOSTS = [
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp-relay.brevo.com'
+EMAIL_HOST = 'smtp.mailersend.net'
 EMAIL_PORT = 587  # Port for TLS
 EMAIL_USE_TLS = True  # Enable TLS
 EMAIL_USE_SSL = False  # Ensure SSL is disabled if TLS is used
-EMAIL_HOST_USER = config('BREVO_USER')
-EMAIL_HOST_PASSWORD = config('BREVO_PASS')
+EMAIL_HOST_USER = 'MS_gbZlA5@trial-pr9084z88om4w63d.mlsender.net'
+EMAIL_HOST_PASSWORD = 'eydlrGInFTuEFvFd'
 
 ADMINS = [
     ("Admin Name", "qusalcse@gmail.com"),
@@ -191,42 +191,42 @@ IPINFO_SETTINGS = {
 }
 
 # JAZZMIN
-# JAZZMIN_SETTINGS = {
-#     "site_title": "Jazakallah Store Admin",
-#     "site_header": "Jazakallah Store",
-#     "site_brand": "Jazakallah Store",
-#     "site_logo": "/logo.png",
-#     "copyright": "Jazakallah Store",
-#     "show_ui_builder": True,
-# }
-# JAZZMIN_UI_TWEAKS = {
-#     "navbar_small_text": False,
-#     "footer_small_text": False,
-#     "body_small_text": False,
-#     "brand_small_text": False,
-#     "brand_colour": False,
-#     "accent": "accent-primary",
-#     "navbar": "navbar-white navbar-light",
-#     "no_navbar_border": False,
-#     "navbar_fixed": False,
-#     "layout_boxed": False,
-#     "footer_fixed": False,
-#     "sidebar_fixed": False,
-#     "sidebar": "sidebar-light-lightblue",
-#     "sidebar_nav_small_text": False,
-#     "sidebar_disable_expand": False,
-#     "sidebar_nav_child_indent": False,
-#     "sidebar_nav_compact_style": False,
-#     "sidebar_nav_legacy_style": False,
-#     "sidebar_nav_flat_style": False,
-#     "theme": "flatly",
-#     "dark_mode_theme": None,
-#     "button_classes": {
-#         "primary": "btn-outline-primary",
-#         "secondary": "btn-outline-secondary",
-#         "info": "btn-info",
-#         "warning": "btn-warning",
-#         "danger": "btn-danger",
-#         "success": "btn-success"
-#     }
-# }
+JAZZMIN_SETTINGS = {
+    "site_title": "Jazakallah Store Admin",
+    "site_header": "Jazakallah Store",
+    "site_brand": "Jazakallah Store",
+    "site_logo": "/logo.png",
+    "copyright": "Jazakallah Store",
+    "show_ui_builder": True,
+}
+JAZZMIN_UI_TWEAKS = {
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": False,
+    "accent": "accent-primary",
+    "navbar": "navbar-white navbar-light",
+    "no_navbar_border": False,
+    "navbar_fixed": False,
+    "layout_boxed": False,
+    "footer_fixed": False,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-light-lightblue",
+    "sidebar_nav_small_text": False,
+    "sidebar_disable_expand": False,
+    "sidebar_nav_child_indent": False,
+    "sidebar_nav_compact_style": False,
+    "sidebar_nav_legacy_style": False,
+    "sidebar_nav_flat_style": False,
+    "theme": "flatly",
+    "dark_mode_theme": None,
+    "button_classes": {
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
+    }
+}
