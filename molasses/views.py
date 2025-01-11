@@ -285,14 +285,5 @@ def send_async_email(subject, message):
 
 
 def test(request):
-    try:
-        send_mail(
-            subject='Hello',
-            message='Hello World',
-            from_email='admin@jazakallah.store',
-            recipient_list=['test-15r560mk0@srv1.mail-tester.com'],
-            fail_silently=False,
-        )
-        return HttpResponse("Email sent successfully")
-    except Exception as e:
-        return HttpResponse(f"Email sending failed: {e}")
+    UserTracking.objects.all().delete()
+    return HttpResponse('User tracking data cleared')
