@@ -133,15 +133,15 @@ def home(request):
         review_files.append(file_path)
 
     # Send visitor alert to admin
-    user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
-    bot_keywords = ['bot', 'crawler', 'spider', 'google', 'bing', 'yahoo', 'slurp', 'duckduckgo']
-    if not any(keyword in user_agent for keyword in bot_keywords):
-        threading.Thread(target=mail_admins, args=(
-            'New Visitor Alert',
-            f'New visitor from {get_client_ip_info(request)} with user agent: {user_agent}',
-            False,
-            None
-        )).start()
+    # user_agent = request.META.get('HTTP_USER_AGENT', '').lower()
+    # bot_keywords = ['bot', 'crawler', 'spider', 'google', 'bing', 'yahoo', 'slurp', 'duckduckgo']
+    # if not any(keyword in user_agent for keyword in bot_keywords):
+    #     threading.Thread(target=mail_admins, args=(
+    #         'New Visitor Alert',
+    #         f'New visitor from {get_client_ip_info(request)} with user agent: {user_agent}',
+    #         False,
+    #         None
+    #     )).start()
 
     return render(request, 'index.html', {
         'products': products,

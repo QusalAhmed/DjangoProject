@@ -1,5 +1,5 @@
 import {send_tracking_data} from './event_manager.js';
-
+let currentScrollPosition = 0;
 document.addEventListener('DOMContentLoaded', function () {
     // Scroll tracking
     let isScrolling;
@@ -9,11 +9,14 @@ document.addEventListener('DOMContentLoaded', function () {
         // Set a timeout to detect when scrolling stops
         isScrolling = setTimeout(() => {
             const scrollPosition = window.scrollY; // Current scroll position
-            console.log(`Scroll ended at position: ${scrollPosition.toFixed(0)}px`);
-            const sections = document.querySelectorAll('[id]');
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            if (Math.abs(scrollPosition - currentScrollPosition) > 200) {
+                console.log(`Scroll ended at position: ${scrollPosition.toFixed(0)}px`);
+                const sections = document.querySelectorAll('[id]');
+                sections.forEach(section => {
+                    observer.observe(section);
+                });
+                currentScrollPosition = scrollPosition;
+            }
         }, 200); // 200ms timeout after scroll stops
     });
 
@@ -38,18 +41,35 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Button click tracking
     const buttons = document.querySelectorAll('button');
-    buttons.forEach(button => {
-        button.addEventListener('click', () => {
-            const buttonText = button.innerText.trim();
-            send_tracking_data(`Button clicked: ${buttonText}`);
-        });
-    });
-    buttons.forEach(button => {
-        button.addEventListener('touchstart', () => {
-            const buttonText = button.innerText.trim();
-            send_tracking_data(`Button touched: ${buttonText}`);
-        });
-    });
+    // buttons.forEach(button => {
+    //     button.addEventListener('click', () => {
+    //         const buttonText = button.innerText.trim();
+    //         send_tracking_data(`Button clicked: ${buttonText}`);
+    //     });
+    // });
+    // buttons.forEach(button => {
+    //     button.addEventListener('touchstart', () => {
+    //         const buttonText = button.innerText.trim();
+    //         send_tracking_data(`Button touched: ${buttonText}`);
+    //     });
+    // });
+
+    // Function to log the event
+    function logEvent(event) {
+        // Get element tag name
+        const element = event.target.tagName;
+        // Get element text content
+        const text = event.target.innerText.trim();
+        console.log(`Element: ${element}, Text: ${text}`);
+        console.log(`Event: ${event.type}, Coordinates: (${event.pageX}, ${event.pageY})`);
+        send_tracking_data(`Event: ${event.type}, Coordinates: (${event.pageX}, ${event.pageY})`);
+    }
+
+    // Listen for click events
+    document.addEventListener('click', logEvent);
+
+    // Listen for touch events
+    document.addEventListener('touchstart', logEvent);
 
 
     // Play audion on button click
@@ -119,18 +139,10 @@ document.addEventListener('DOMContentLoaded', function () {
         send_tracking_data('Network is online');
     });
 
-    // Device orientation tracking
-    window.addEventListener('deviceorientation', (event) => {
-        const alpha = event.alpha;
-        const beta = event.beta;
-        const gamma = event.gamma;
-        send_tracking_data(`Device orientation: alpha=${alpha}, beta=${beta}, gamma=${gamma}`);
-    });
-
     // Geolocation tracking
-    navigator.geolocation.getCurrentPosition((position) => {
-        const latitude = position.coords.latitude;
-        const longitude = position.coords.longitude;
-        send_tracking_data(`Current position: latitude=${latitude}, longitude=${longitude}`);
-    });
+    // navigator.geolocation.getCurrentPosition((position) => {
+    //     const latitude = position.coords.latitude;
+    //     const longitude = position.coords.longitude;
+    //     send_tracking_data(`Current position: latitude=${latitude}, longitude=${longitude}`);
+    // });
 });

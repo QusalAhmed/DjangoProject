@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-^zu&6414qgsh3f!x8*u62(f5)$rs%if!0)c)l20h7^!dr%tk4v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'jazakallah.store',
@@ -48,7 +48,7 @@ ADMINS = [
     ("Admin Name", "qusalcse@gmail.com"),
 ]
 
-SERVER_EMAIL = 'admin@jazakallah.store'
+SERVER_EMAIL = 'MS_gbZlA5@trial-pr9084z88om4w63d.mlsender.net'
 
 # Application definition
 

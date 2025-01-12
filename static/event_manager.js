@@ -42,6 +42,7 @@ function getCSRFToken() {
 
 // Send tracking data to the server
 export function send_tracking_data(activityLog) {
+    console.log("Activity Log:", activityLog);
     const data = {
         "activity_log": activityLog,
         "url": window.location.href,
