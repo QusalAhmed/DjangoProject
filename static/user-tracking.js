@@ -34,9 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
                     const content = entry.target.innerText.trim();
                     console.log(`Visible element: ${entry.target.id} with content: ${content}`);
                     send_tracking_data(`Visible element: ${entry.target.id} with content: ${content}`);
-
-                    // Return if any entry found
-                    return
                 }
             }
         });
