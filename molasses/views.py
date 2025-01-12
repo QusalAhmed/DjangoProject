@@ -107,6 +107,7 @@ class UserTrackingView(APIView):
 
         return Response({
             "message": "User activity logged successfully",
+            "activity_log": activity_log,
         },
             status=status.HTTP_200_OK
         )

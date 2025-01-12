@@ -1,6 +1,9 @@
 import {send_tracking_data} from './event_manager.js';
 let currentScrollPosition = 0;
 document.addEventListener('DOMContentLoaded', function () {
+    // Send tracking data when the page is loaded
+    send_tracking_data(`Url: ${window.location.href} loaded`);
+
     // Scroll tracking
     let isScrolling;
     window.addEventListener("scroll", () => {
@@ -31,6 +34,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     const content = entry.target.innerText.trim();
                     console.log(`Visible element: ${entry.target.id} with content: ${content}`);
                     send_tracking_data(`Visible element: ${entry.target.id} with content: ${content}`);
+
+                    // Return if any entry found
+                    return
                 }
             }
         });
@@ -56,13 +62,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Function to log the event
     function logEvent(event) {
-        // Get element tag name
         const element = event.target.tagName;
-        // Get element text content
-        const text = event.target.innerText.trim();
+        let text = event.target.innerText.trim();
+        if (text === '') {
+            // Get text from the parent element
+            text = event.target.parentElement.innerText.trim();
+        }
         console.log(`Element: ${element}, Text: ${text}`);
-        console.log(`Event: ${event.type}, Coordinates: (${event.pageX}, ${event.pageY})`);
-        send_tracking_data(`Event: ${event.type}, Coordinates: (${event.pageX}, ${event.pageY})`);
+        send_tracking_data(`Event: ${event.type}, Element: ${element}, Text: ${text}`);
     }
 
     // Listen for click events
@@ -90,12 +97,12 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // Image load tracking
-    const images = document.querySelectorAll('img');
-    images.forEach(image => {
-        image.addEventListener('load', () => {
-            send_tracking_data(`Image loaded: ${image.src}`);
-        });
-    });
+    // const images = document.querySelectorAll('img');
+    // images.forEach(image => {
+    //     image.addEventListener('load', () => {
+    //         send_tracking_data(`Image loaded: ${image.src}`);
+    //     });
+    // });
 
     // Form submission tracking
     const forms = document.querySelectorAll('form');
