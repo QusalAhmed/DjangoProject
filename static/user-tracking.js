@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const scrollPosition = window.scrollY; // Current scroll position
             if (Math.abs(scrollPosition - currentScrollPosition) > 200) {
                 console.log(`Scroll ended at position: ${scrollPosition.toFixed(0)}px`);
-                const sections = document.querySelectorAll('[id]');
+                const sections = document.querySelectorAll('[id]:not([id^="quantity-"])');
                 sections.forEach(section => {
                     observer.observe(section);
                 });

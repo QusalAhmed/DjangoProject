@@ -30,8 +30,6 @@ ALLOWED_HOSTS = [
     'jazakallah.store',
     'www.jazakallah.store',
     '198.23.217.35',
-    '127.0.0.1',  # Optional for local development
-    'localhost',  # Optional for local development
 ]
 # ALLOWED_HOSTS = ['*']
 
@@ -53,6 +51,7 @@ SERVER_EMAIL = 'MS_gbZlA5@trial-pr9084z88om4w63d.mlsender.net'
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
