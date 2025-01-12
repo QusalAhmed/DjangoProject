@@ -1,4 +1,5 @@
 import {send_tracking_data} from './event_manager.js';
+
 let currentScrollPosition = 0;
 document.addEventListener('DOMContentLoaded', function () {
     // Send tracking data when the page is loaded
@@ -66,7 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
             text = event.target.parentElement.innerText.trim();
         }
         console.log(`Element: ${element}, Text: ${text}`);
-        send_tracking_data(`Event: ${event.type}, Element: ${element}, Text: ${text}`);
+        send_tracking_data(`Event: ${event.type}, Coordinates: (${event.pageX}, ${event.pageY}),
+         Element: ${element}, Text: ${text}`);
     }
 
     // Listen for click events
