@@ -127,3 +127,6 @@ class UserTracking(models.Model):
     def save(self, *args, **kwargs):
         super(UserTracking, self).save(*args, **kwargs)
         return self.id
+
+    class Meta:
+        ordering = ['-created_at']
