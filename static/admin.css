@@ -1,0 +1,17 @@
+/* admin_custom.css */
+table#result_list tbody tr {
+    max-height: 100px; /* Restrict the height of the row */
+    overflow: hidden; /* Hide content overflow */
+}
+
+table#result_list tbody tr td {
+    vertical-align: top; /* Ensure text aligns properly */
+}
+
+table#result_list tbody tr td.field-activity_log {
+    max-height: 200px; /* Limit the height of the content */
+    overflow-y: auto; /* Enable scrolling for overflowing content */
+    padding-right: 5px; /* Optional: Add some padding for better visuals */
+    display: inline-block; /* Keep content inline */
+    white-space: normal; /* Allow text to wrap */
+}

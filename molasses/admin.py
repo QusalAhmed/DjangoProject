@@ -27,15 +27,18 @@ class IncompleteOrderModelAdmin(admin.ModelAdmin):
     search_fields = ['phone', 'ip_address']
     list_filter = ['created_at']
 
-
+@admin.register(UserTracking)
 class UserTrackingAdmin(admin.ModelAdmin):
     list_display = ['user_id', 'ip_address', 'activity_log', 'user_agent', 'created_at']
     search_fields = ['user_id', 'ip_address']
     list_filter = ['user_id', 'ip_address']
-
+    class Media:
+        css = {
+            'all': ('admin.css',),  # Include your custom CSS file
+        }
 
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Event, EventAdmin)
 admin.site.register(IncompleteOrderModel, IncompleteOrderModelAdmin)
-admin.site.register(UserTracking, UserTrackingAdmin)
+# admin.site.register(UserTracking, UserTrackingAdmin)
