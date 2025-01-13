@@ -461,7 +461,6 @@ floatButton.addEventListener('click', () => {
 let initialCheckout = false;
 
 function initCheckout() {
-    return
     if (initialCheckout) return; // If the event is already sent, exit the function
     const contents = []
     Object.keys(productWeights).forEach(productId => {
