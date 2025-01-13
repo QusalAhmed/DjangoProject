@@ -47,7 +47,7 @@ ADMINS = [
     ("Admin Name", "qusalcse@gmail.com"),
 ]
 
-SERVER_EMAIL = 'MS_gbZlA5@trial-pr9084z88om4w63d.mlsender.net'
+SERVER_EMAIL = 'admin@Jazakallah.store'
 
 # Application definition
 
