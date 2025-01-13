@@ -199,6 +199,8 @@ class IncompleteOrder(APIView):
         client_ip = client_info['client_ip_address']
         data = request.data
         phone_number = data.get('phone_number')
+        event_location = data.get('event_location')
+        order_details = data.get('order_details')
         user_id = request.session.get('user_id')
         if phone_number:
             # Send mail to admin
@@ -209,10 +211,18 @@ class IncompleteOrder(APIView):
                 None,
                 render_to_string('email/incomplete_order.html', {
                     'phone_number': phone_number,
+                    'event_location': event_location,
+                    'order_details': order_details,
                 }),
             )).start()
 
-            IncompleteOrderModel.objects.create(phone=phone_number, ip_address=client_ip, user_id=user_id)
+            IncompleteOrderModel.objects.create(
+                phone=phone_number,
+                event_location=event_location,
+                order_details=order_details,
+                ip_address=client_ip,
+                user_id=user_id
+            )
             return Response({
                 "message": "Incomplete order processed successfully",
                 "data": data,

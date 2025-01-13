@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const scrollPosition = window.scrollY; // Current scroll position
             if (Math.abs(scrollPosition - currentScrollPosition) > 200) {
                 console.log(`Scroll ended at position: ${scrollPosition.toFixed(0)}px`);
-                const sections = document.querySelectorAll('[id]:not([id^="quantity-"])');
+                const sections = document.querySelectorAll('[id]');
                 sections.forEach(section => {
                     observer.observe(section);
                 });
@@ -71,12 +71,8 @@ document.addEventListener('DOMContentLoaded', function () {
          Element: ${element}, Text: ${text}`);
     }
 
-    // Listen for click events
+    // Listen for click events1
     document.addEventListener('click', logEvent);
-
-    // Listen for touch events
-    document.addEventListener('touchstart', logEvent);
-
 
     // Play audion on button click
     const audio = new Audio('static/audio/purchase button click.wav');

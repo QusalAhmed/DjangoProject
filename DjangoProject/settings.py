@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     'jazakallah.store',
     'www.jazakallah.store',
     '198.23.217.35',
+
 ]
 # ALLOWED_HOSTS = ['*']
 

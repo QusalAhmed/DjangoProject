@@ -18,11 +18,7 @@ export function fbEvent(eventParams) {
         });
 }
 
-export async function incompleteOrder(phone_number) {
-    const data = {
-        "phone_number": phone_number
-    };
-
+export async function incompleteOrder(data) {
     try {
         const response = await axios.post("/incomplete_order/", data);
         console.log("Data successfully sent:", response.data);

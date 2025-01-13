@@ -249,7 +249,12 @@ formFields.forEach(field => {
                     field.classList.add('valid');
 
                     // Send phone number to the server as a POST request
-                    if (await incompleteOrder(phone_number)) {
+                    const payload = {
+                        'phone_number': phone_number,
+                        'event_location': 'Mail Form',
+                        'order_details': idealProductWeights(),
+                    }
+                    if (await incompleteOrder(payload)) {
                         generalToast('Phone number saved as incomplete order')
                     } else {
                         generalToast('Failed to save phone number')
@@ -321,14 +326,7 @@ form.addEventListener('submit', function (event) {
 
     // JavaScript to add dynamic data to the input (order details)
     const orderDetailsInput = document.getElementById('id_order_details');
-    const idealProductWeights = {};
-    Object.keys(productWeights).forEach(productId => {
-        const {weight, name, price} = productWeights[productId];
-        if (weight > 0) {
-            idealProductWeights[productId] = {weight, name, price};
-        }
-    });
-    orderDetailsInput.value = JSON.stringify(idealProductWeights);
+    orderDetailsInput.value = JSON.stringify(idealProductWeights());
 
     // JavaScript to add dynamic data to the input (delivery charge)
     const deliveryChargeInput = document.getElementById('id_delivery_charge');
@@ -347,6 +345,17 @@ form.addEventListener('submit', function (event) {
         form.style.opacity = '1';
     });
 });
+
+function idealProductWeights() {
+    const idealProductWeights = {};
+    Object.keys(productWeights).forEach(productId => {
+        const {weight, name, price} = productWeights[productId];
+        if (weight > 0) {
+            idealProductWeights[productId] = {weight, name, price};
+        }
+    });
+    return idealProductWeights;
+}
 
 // Close the modal when clicking the close button
 closeModalButton.addEventListener('click', () => {
@@ -452,6 +461,7 @@ floatButton.addEventListener('click', () => {
 let initialCheckout = false;
 
 function initCheckout() {
+    return
     if (initialCheckout) return; // If the event is already sent, exit the function
     const contents = []
     Object.keys(productWeights).forEach(productId => {
@@ -606,7 +616,6 @@ const hideToast = () => {
     toast.classList.remove('visible');
 };
 
-window.incompleteOrder = incompleteOrder;
 // Short order
 document.getElementById('shortPhoneForm').addEventListener('input', async function (event) {
     event.preventDefault();
@@ -627,7 +636,12 @@ document.getElementById('shortPhoneForm').addEventListener('input', async functi
         const loadingAnimation = document.getElementById('loading-animation');
         loadingAnimation.style.display = 'block';
         initCheckout();
-        if (await incompleteOrder(phoneNumber)) {
+        const payload = {
+            'phone_number': phoneNumber,
+            'event_location': 'Short Form',
+            'order_details': idealProductWeights(),
+        }
+        if (await incompleteOrder(payload)) {
             alert(`আপনার ফোন নাম্বার ${phoneNumber} পেয়েছি। শীধ্রই আপনার সাথে যোগাযোগ করব`);
             loadingAnimation.style.display = 'none';
             if (!window.location.href.includes('#product-list')) {
